@@ -1,3 +1,3 @@
-#razsbg
+# This is the home of my upcoming blog. Stay tuned! 🎧
 
-## This is the home of my upcoming blog. Stay tuned! 🎧
+### razsbg
