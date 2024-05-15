@@ -3,14 +3,52 @@
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>razsbg.top</title>
+
+    <style>
+      @import url("../styles.css");
+
+      body {
+        background-image: url("../assets/stay-tuned-bg.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body class="h-screen flex justify-center items-center flex-col">
+    <main class="text-zinc-50 mt-auto">
+      <h1 class="text-6xl">Stay tuned 🛸</h1>
+      <a
+        target="_blank"
+        href="https://www.youtube.com/watch?v=8pReEUxHxJM"
+        class="text-teal-400 underline">topdown</a
+      >
+    </main>
+    <footer class="mt-auto w-full text-center text-zinc-50 p-5">
+      <p>
+        Photo by <a
+          href="https://unsplash.com/@photo_adamant0902?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          target="_blank"
+          class="text-teal-400 underline">Almaz Nourzhanov</a
+        >
+        on
+        <a
+          href="https://unsplash.com/photos/a-woman-sitting-in-a-chair-with-her-shadow-on-the-wall-u5kUeWINb_8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          target="_blank"
+          class="text-teal-400 underline">Unsplash</a
+        >
+      </p>
+      <p class="text-zinc-400 mt-3">
+        © {new Date().getFullYear().toString()}
+        <span class="font-bold">razsbg</span>
+      </p>
+    </footer>
+  </body>
 </html>
