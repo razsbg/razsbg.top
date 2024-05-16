@@ -1,0 +1,96 @@
+---
+const songs: { url: string; title: string }[] = [
+  {
+    url: "https://open.spotify.com/track/2Oycxb8QbPkpHTo8ZrmG0B?si=23a49b273840449b",
+    title: "prisoner",
+  },
+  {
+    url: "https://open.spotify.com/track/6usohdchdzW9oML7VC4Uhk?si=e1911f7c19d74ab5",
+    title: "lose control",
+  },
+  {
+    url: "https://open.spotify.com/track/43oK4OAWUsRZUDVeHtKI4U?si=976c3313e268444f",
+    title: "new rules",
+  },
+  {
+    url: "https://open.spotify.com/track/6I9VzXrHxO9rA9A5euc8Ak?si=6e0fa21de96545aa",
+    title: "toxic",
+  },
+  {
+    url: "https://open.spotify.com/track/2YnvR7uhlWpPdYUn1eR25y?si=8f98c7a21e384505",
+    title: "broken promises",
+  },
+  {
+    url: "https://open.spotify.com/track/6W70k3mjEc2tIH1h3lmKZT?si=4be2ef4e3f8a4a3b",
+    title: "mind playin' tricks",
+  },
+  {
+    url: "https://open.spotify.com/track/3E7ZwUMJFqpsDOJzEkBrQ7?si=9315745582fa4064",
+    title: "can't get you out of my head",
+  },
+  {
+    url: "https://open.spotify.com/track/3zidJjXGWgKqgQnfb6hKak?si=73bd87924fbd48ce",
+    title: "losing my way",
+  },
+  {
+    url: "https://open.spotify.com/track/4twUOeCkhmAAe9SPteYlD0?si=086c6dbf61af4ce7",
+    title: "my body is a cage",
+  },
+  {
+    url: "https://open.spotify.com/track/1B5fbRxnB26duk77yCBWvS?si=5cf26d702804481b",
+    title: "go back home",
+  },
+]
+---
+
+<style>
+  ol {
+    counter-reset: top-ten;
+  }
+
+  ol > li::after {
+    content: counter(top-ten, decimal-leading-zero);
+    counter-increment: top-ten;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2ch;
+    color: rgb(254 243 199 / 0.85);
+    font-size: 1.35rem;
+    font-weight: 500;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    ol li::after {
+      content: "#";
+    }
+
+    ol:hover > li::after {
+      content: counter(top-ten, decimal-leading-zero);
+      counter-increment: top-ten;
+    }
+
+    ol > li:hover::after {
+      color: rgb(20 184 166);
+    }
+  }
+</style>
+
+<ol class="flex flex-col gap-2 text-lg lg:text-xl">
+  {
+    songs.map(song => {
+      return (
+        <li class="flex justify-between gap-3">
+          <a
+            target="_blank"
+            rel="noopener noreferer"
+            href={song.url}
+            class="flex-1 underline lg:hover:text-teal-500"
+          >
+            {song.title}
+          </a>
+        </li>
+      )
+    })
+  }
+</ol>
