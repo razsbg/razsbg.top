@@ -1,0 +1,101 @@
+---
+import typography from "../styles/typography"
+
+const songs = [
+  {
+    url: "https://open.spotify.com/track/2Oycxb8QbPkpHTo8ZrmG0B?si=23a49b273840449b",
+    title: "prisoner",
+  },
+  {
+    url: "https://open.spotify.com/track/6usohdchdzW9oML7VC4Uhk?si=e1911f7c19d74ab5",
+    title: "lose control",
+  },
+  {
+    url: "https://open.spotify.com/track/43oK4OAWUsRZUDVeHtKI4U?si=976c3313e268444f",
+    title: "new rules",
+  },
+  {
+    url: "https://open.spotify.com/track/6I9VzXrHxO9rA9A5euc8Ak?si=6e0fa21de96545aa",
+    title: "toxic",
+  },
+  {
+    url: "https://open.spotify.com/track/0k4d5YPDr1r7FX77VdqWez?si=11788cc87cf54bcb",
+    title: "you right",
+  },
+  {
+    url: "https://open.spotify.com/track/6y0Etr2KJr0sdcEp7ajoUK?si=e2eb826359a24ab4",
+    title: "cosmic girl",
+  },
+  {
+    url: "https://open.spotify.com/track/3E7ZwUMJFqpsDOJzEkBrQ7?si=9315745582fa4064",
+    title: "can't get you out of my head",
+  },
+  {
+    url: "https://open.spotify.com/track/4bSXYm8H83RaJyTdiXWlbb?si=179a8884a2ef4f5f",
+    title: "waiting",
+  },
+  {
+    url: "https://open.spotify.com/track/3zidJjXGWgKqgQnfb6hKak?si=73bd87924fbd48ce",
+    title: "losing my way",
+  },
+  {
+    url: "https://open.spotify.com/track/1B5fbRxnB26duk77yCBWvS?si=5cf26d702804481b",
+    title: "go back home",
+  },
+] as const
+---
+
+<style>
+  ol {
+    counter-reset: top-ten;
+  }
+
+  ol > li > a::after {
+    content: counter(top-ten, decimal-leading-zero);
+    counter-increment: top-ten;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2ch;
+    color: hsla(48, 96%, 89%, 0.85);
+    font-size: 1.15em;
+    font-weight: 500;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    ol li > a::after {
+      content: "#";
+    }
+
+    ol:hover > li > a::after {
+      content: counter(top-ten, decimal-leading-zero);
+      counter-increment: top-ten;
+    }
+
+    ol > li:hover > a::after {
+      color: hsl(173, 80%, 40%);
+    }
+  }
+</style>
+
+<h3 class={`px-1 sm:px-0.5 ${typography["subtitle"]} text-right`}>
+  Top 10 picks <span class="inline-block ml-2 text-[1.15em]">🤏</span>
+</h3>
+<ol class={`flex flex-col gap-2 ${typography["top-ten-list"]}`}>
+  {
+    songs.map(song => {
+      return (
+        <li>
+          <a
+            target="_blank"
+            rel="noopener noreferer"
+            href={song.url}
+            class="flex justify-between gap-3 lg:gap-5 lg:hover:text-teal-500"
+          >
+            <span class="underline">{song.title}</span>
+          </a>
+        </li>
+      )
+    })
+  }
+</ol>

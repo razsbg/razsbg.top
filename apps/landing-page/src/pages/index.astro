@@ -1,53 +1,135 @@
 ---
+import TopTenList from "../components/top-ten-list.astro"
 
+import typography from "../styles/typography"
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
 
-    <title>razsbg.top</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Explore music together with razsbg</title>
 
     <style>
       @import url("../styles.css");
 
       body {
-        background-image: url("../assets/stay-tuned-bg.jpg");
+        grid-template-rows: auto 1fr auto;
+        position: relative;
+        background-image: url("/june-xs.jpg");
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
       }
+
+      @media screen and (min-width: 480px) {
+        body {
+          background-image: url("/june-sm.jpg");
+          background-position: top;
+        }
+      }
+
+      @media screen and (min-width: 768px) {
+        body {
+          background-image: url("/june-md.jpg");
+          background-position: 0% 15%;
+        }
+      }
+
+      @media screen and (min-width: 1024px) {
+        body {
+          background-image: url("/june-lg.jpg");
+          background-position: 0% 15%;
+        }
+      }
+
+      @media screen and (min-width: 1280px) {
+        body {
+          background-image: url("/june-xl.jpg");
+          background-position: 0% 10%;
+        }
+      }
+
+      @media screen and (min-width: 1536px) {
+        body {
+          background-image: url("/june-2xl.jpg");
+        }
+      }
+
+      @media screen and (min-width: 1920px) {
+        body {
+          background-image: url("/june-full-size.jpg");
+          background-position: 0% 15%;
+        }
+      }
+
+      body::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+      }
     </style>
   </head>
-  <body class="h-screen flex justify-center items-center flex-col">
-    <main class="text-zinc-50 mt-auto">
-      <h1 class="text-6xl">Stay tuned 🛸</h1>
-      <a
-        target="_blank"
-        href="https://www.youtube.com/watch?v=8pReEUxHxJM"
-        class="text-teal-400 underline">topdown</a
-      >
+  <body class="min-h-screen grid text-zinc-50">
+    <header class="p-5 text-center">
+      <h1 class={typography["heading-1"]}>Stay tuned 🛸</h1>
+    </header>
+    <main class="px-5 sm:px-0 self-center justify-self-center">
+      <header>
+        <h2
+          class={`border-b-2 border-current ${typography["heading-2"]} lg:hover:text-inherit`}
+        >
+          <a
+            class="block"
+            target="_blank"
+            rel="noopener noreferer"
+            href="https://open.spotify.com/playlist/4tMMBLlu6cxLRyDe1Gm9c6?si=e5e108e63dbf4a4d"
+            >lust
+          </a>
+        </h2>
+      </header>
+
+      <TopTenList />
     </main>
-    <footer class="mt-auto w-full text-center text-zinc-50 p-5">
-      <p>
+    <footer class="mt-auto w-full text-center p-5">
+      <p class={typography["footer"]}>
         Photo by <a
           href="https://unsplash.com/@photo_adamant0902?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
           target="_blank"
-          class="text-teal-400 underline">Almaz Nourzhanov</a
+          rel="noopener noreferer"
+          class="text-teal-500 lg:text-inherit lg:hover:text-teal-500 underline"
+          >Almaz Nourzhanov</a
         >
         on
         <a
           href="https://unsplash.com/photos/a-woman-sitting-in-a-chair-with-her-shadow-on-the-wall-u5kUeWINb_8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
           target="_blank"
-          class="text-teal-400 underline">Unsplash</a
+          rel="noopener noreferer"
+          class="text-teal-500 lg:text-inherit lg:hover:text-teal-500 underline"
+          >Unsplash</a
         >
       </p>
-      <p class="text-zinc-400 mt-3">
-        © {new Date().getFullYear().toString()}
-        <span class="font-bold">razsbg</span>
+
+      <p class={`mt-3 ${typography["copyright"]}`}>
+        <!-- copyright html code -->
+        &#169;{" "}
+        {new Date().getFullYear().toString()}
+        <span class="text-sm sm:text-base tracking-wide font-bold">razsbg</span>
       </p>
     </footer>
   </body>
