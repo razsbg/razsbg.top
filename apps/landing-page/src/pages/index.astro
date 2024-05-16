@@ -19,33 +19,143 @@
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
+        position: relative;
+      }
+
+      body::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.35);
+        z-index: -1;
+      }
+
+      ol {
+        counter-reset: top-ten;
+      }
+
+      ol li::before {
+        content: "#";
+        display: inline-block;
+        margin-right: 0.5em;
+        width: 2ex;
+        color: rgb(254 243 199 / 0.85);
+        font-size: 1.35rem;
+        font-weight: 500;
+      }
+
+      ol:hover > li::before {
+        content: counter(top-ten, decimal-leading-zero);
+        counter-increment: top-ten;
+      }
+      ol > li:hover::before {
+        color: rgb(20 184 166);
       }
     </style>
   </head>
   <body class="h-screen flex justify-center items-center flex-col">
     <main class="text-zinc-50 mt-auto">
-      <h1 class="text-6xl">Stay tuned 🛸</h1>
-      <a
-        target="_blank"
-        href="https://www.youtube.com/watch?v=8pReEUxHxJM"
-        class="text-teal-400 underline">topdown</a
-      >
+      <h1 class="mb-3 sm:mb-5 text-4xl sm:text-5xl lg:text-6xl">
+        Stay tuned 🛸
+      </h1>
+      <h2></h2>
+      <h3 class="mb-2 sm:mb-2 text-2xl sm:text-3xl lg:text-4xl">
+        <span class="font-medium text-teal-500">May</span> top 10
+      </h3>
+      <section class="flex flex-col gap-2 sm:gap-1 sm:text-lg lg:text-xl">
+        <ol>
+          <li>
+            <a
+              target="_blank"
+              href="https://open.spotify.com/track/6KflfPD0qIbbB1PQyAHla5?si=d41679ec44c445d2"
+              class="hover:text-teal-500 underline">topdown</a
+            >
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://open.spotify.com/track/2Oycxb8QbPkpHTo8ZrmG0B?si=23a49b273840449b"
+              class="hover:text-teal-500 underline">prisoner</a
+            >
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://open.spotify.com/track/4twUOeCkhmAAe9SPteYlD0?si=086c6dbf61af4ce7"
+              class="hover:text-teal-500 underline">my body is a cage</a
+            >
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://open.spotify.com/track/43oK4OAWUsRZUDVeHtKI4U?si=976c3313e268444f"
+              class="hover:text-teal-500 underline">new rules</a
+            >
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://open.spotify.com/track/6I9VzXrHxO9rA9A5euc8Ak?si=6e0fa21de96545aa"
+              class="hover:text-teal-500 underline">toxic</a
+            >
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://open.spotify.com/track/6usohdchdzW9oML7VC4Uhk?si=e1911f7c19d74ab5"
+              class="hover:text-teal-500 underline">lose control</a
+            >
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://open.spotify.com/track/3E7ZwUMJFqpsDOJzEkBrQ7?si=9315745582fa4064"
+              class="hover:text-teal-500 underline"
+              >can't get you out of my head</a
+            >
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://open.spotify.com/track/1L29wzQoveJ3ceUxMmF5sn?si=310a55f6a6674fa8"
+              class="hover:text-teal-500 underline">ecclesia</a
+            >
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://open.spotify.com/track/1GeszH3DWCOKwK0d8D5gEZ?si=dbefb26103b64bb4"
+              class="hover:text-teal-500 underline">et si tu n'existais pas</a
+            >
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://open.spotify.com/track/1B5fbRxnB26duk77yCBWvS?si=5cf26d702804481b"
+              class="hover:text-teal-500 underline">go back home</a
+            >
+          </li>
+        </ol>
+      </section>
     </main>
     <footer class="mt-auto w-full text-center text-zinc-50 p-5">
-      <p>
+      <p class="text-sm sm:text-base">
         Photo by <a
           href="https://unsplash.com/@photo_adamant0902?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
           target="_blank"
-          class="text-teal-400 underline">Almaz Nourzhanov</a
+          class="hover:text-teal-500 underline">Almaz Nourzhanov</a
         >
         on
         <a
           href="https://unsplash.com/photos/a-woman-sitting-in-a-chair-with-her-shadow-on-the-wall-u5kUeWINb_8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
           target="_blank"
-          class="text-teal-400 underline">Unsplash</a
+          class="hover:text-teal-500 underline">Unsplash</a
         >
       </p>
-      <p class="text-zinc-400 mt-3">
+      <p class="text-xs sm:text-sm text-zinc-400 mt-3">
         © {new Date().getFullYear().toString()}
         <span class="font-bold">razsbg</span>
       </p>
