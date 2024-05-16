@@ -1,5 +1,5 @@
 ---
-
+import TopTenList from "../components/top-ten-list.astro"
 ---
 
 <html lang="en">
@@ -37,155 +37,46 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.35);
+        background: rgba(0, 0, 0, 0.3);
         z-index: -1;
-      }
-
-      ol {
-        counter-reset: top-ten;
-      }
-
-      ol li::before {
-        content: counter(top-ten, decimal-leading-zero);
-        counter-increment: top-ten;
-        display: inline-block;
-        margin-right: 0.5em;
-        width: 2ex;
-        color: rgb(254 243 199 / 0.85);
-        font-size: 1.35rem;
-        font-weight: 500;
-      }
-
-      @media only screen and (min-width: 1024px) {
-        ol li::before {
-          content: "#";
-        }
-
-        ol:hover > li::before {
-          content: counter(top-ten, decimal-leading-zero);
-          counter-increment: top-ten;
-        }
-
-        ol > li:hover::before {
-          color: rgb(20 184 166);
-        }
       }
     </style>
   </head>
   <body class="h-screen grid text-zinc-50">
     <header class="p-5 text-center">
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl">Stay tuned 🛸</h1>
+      <h1 class="text-4xl lg:text-5xl font-semibold">Stay tuned 🛸</h1>
     </header>
-    <main class="px-5 self-center justify-self-center">
+    <main class="px-5 sm:px-0 self-center justify-self-center">
       <header class="mb-6">
-        <h2 class="sm:mb-1 text-2xl sm:text-3xl lg:text-4xl">
-          Top 10 picks 🤏
-        </h2>
         <h3
-          class="border-b-2 border-current w-1/2 text-xl sm:text-2xl lg:text-3xl text-teal-500 lg:text-inherit lg:hover:text-teal-500"
+          class="border-b-2 border-current uppercase text-2xl sm:text-3xl lg:text-4xl font-medium text-teal-500 lg:hover:text-inherit"
         >
           <a
             target="_blank"
             rel="noopener noreferer"
             href="https://open.spotify.com/playlist/4tMMBLlu6cxLRyDe1Gm9c6?si=e5e108e63dbf4a4d"
-            >playlist</a
+            >lust 🔗</a
           >
         </h3>
+        <h2
+          class="px-1 sm:px-0.5 text-right text-xl sm:text-2xl lg:text-3xl font-semibold"
+        >
+          Top 10 picks <span class="inline-block ml-2 text-[1.15em]">🤏</span>
+        </h2>
       </header>
-      <ol class="flex flex-col gap-2 text-lg lg:text-xl">
-        <!-- testing cloning repo with ssh. please -->
+      <!-- testing cloning repo with ssh. please -->
 
-        <!-- create easter egg for the topdown song -->
-        <!-- <li>
-            <a
-              target="_blank"
-							rel="noopener noreferer""
-              href="https://open.spotify.com/track/6KflfPD0qIbbB1PQyAHla5?si=d41679ec44c445d2"
-              class="lg:hover:text-teal-500 underline">topdown</a
-            >
-          </li> -->
-        <li>
+      <!-- create easter egg for the topdown song -->
+      <!-- <li>
           <a
             target="_blank"
-            rel="noopener noreferer"
-            href="https://open.spotify.com/track/3zidJjXGWgKqgQnfb6hKak?si=73bd87924fbd48ce"
-            class="lg:hover:text-teal-500 underline">losing my way</a
+            rel="noopener noreferer""
+            href="https://open.spotify.com/track/6KflfPD0qIbbB1PQyAHla5?si=d41679ec44c445d2"
+            class="flex-1 lg:hover:text-teal-500 underline">topdown</a
           >
-        </li>
-        <li>
-          <a
-            target="_blank"
-            rel="noopener noreferer"
-            href="https://open.spotify.com/track/2Oycxb8QbPkpHTo8ZrmG0B?si=23a49b273840449b"
-            class="lg:hover:text-teal-500 underline">prisoner</a
-          >
-        </li>
-        <li>
-          <a
-            target="_blank"
-            rel="noopener noreferer"
-            href="https://open.spotify.com/track/4twUOeCkhmAAe9SPteYlD0?si=086c6dbf61af4ce7"
-            class="lg:hover:text-teal-500 underline">my body is a cage</a
-          >
-        </li>
-        <li>
-          <a
-            target="_blank"
-            rel="noopener noreferer"
-            href="https://open.spotify.com/track/43oK4OAWUsRZUDVeHtKI4U?si=976c3313e268444f"
-            class="lg:hover:text-teal-500 underline">new rules</a
-          >
-        </li>
-        <li>
-          <a
-            target="_blank"
-            rel="noopener noreferer"
-            href="https://open.spotify.com/track/6I9VzXrHxO9rA9A5euc8Ak?si=6e0fa21de96545aa"
-            class="lg:hover:text-teal-500 underline">toxic</a
-          >
-        </li>
-        <li>
-          <a
-            target="_blank"
-            rel="noopener noreferer"
-            href="https://open.spotify.com/track/6usohdchdzW9oML7VC4Uhk?si=e1911f7c19d74ab5"
-            class="lg:hover:text-teal-500 underline">lose control</a
-          >
-        </li>
-        <li>
-          <a
-            target="_blank"
-            rel="noopener noreferer"
-            href="https://open.spotify.com/track/3E7ZwUMJFqpsDOJzEkBrQ7?si=9315745582fa4064"
-            class="lg:hover:text-teal-500 underline"
-            >can't get you out of my head</a
-          >
-        </li>
-        <li>
-          <a
-            target="_blank"
-            rel="noopener noreferer"
-            href="https://open.spotify.com/track/2YnvR7uhlWpPdYUn1eR25y?si=8f98c7a21e384505"
-            class="lg:hover:text-teal-500 underline">broken promises</a
-          >
-        </li>
-        <li>
-          <a
-            target="_blank"
-            rel="noopener noreferer"
-            href="https://open.spotify.com/track/6W70k3mjEc2tIH1h3lmKZT?si=4be2ef4e3f8a4a3b"
-            class="lg:hover:text-teal-500 underline">mind playin' tricks</a
-          >
-        </li>
-        <li>
-          <a
-            target="_blank"
-            rel="noopener noreferer"
-            href="https://open.spotify.com/track/1B5fbRxnB26duk77yCBWvS?si=5cf26d702804481b"
-            class="lg:hover:text-teal-500 underline">go back home</a
-          >
-        </li>
-      </ol>
+        </li> -->
+
+      <TopTenList />
     </main>
     <footer class="mt-auto w-full text-center text-zinc-50 p-5">
       <p class="text-sm sm:text-base">
@@ -193,19 +84,23 @@
           href="https://unsplash.com/@photo_adamant0902?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
           target="_blank"
           rel="noopener noreferer"
-          class="lg:hover:text-teal-500 underline">Almaz Nourzhanov</a
+          class="text-teal-500 lg:text-inherit lg:hover:text-teal-500 underline"
+          >Almaz Nourzhanov</a
         >
         on
         <a
           href="https://unsplash.com/photos/a-woman-sitting-in-a-chair-with-her-shadow-on-the-wall-u5kUeWINb_8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
           target="_blank"
           rel="noopener noreferer"
-          class="lg:hover:text-teal-500 underline">Unsplash</a
+          class="text-teal-500 lg:text-inherit lg:hover:text-teal-500 underline"
+          >Unsplash</a
         >
       </p>
-      <p class="text-xs sm:text-sm text-zinc-400 mt-3">
-        © {new Date().getFullYear().toString()}
-        <span class="font-bold">razsbg</span>
+      <p class="text-xs sm:text-sm font-medium text-zinc-400 mt-3">
+        <!-- copyright html code -->
+        &#169;{" "}
+        {new Date().getFullYear().toString()}
+        <span class="text-sm sm:text-base tracking-wide font-bold">razsbg</span>
       </p>
     </footer>
   </body>
