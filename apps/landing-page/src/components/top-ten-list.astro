@@ -48,7 +48,7 @@ const songs: { url: string; title: string }[] = [
     counter-reset: top-ten;
   }
 
-  ol > li::after {
+  ol > li > a::after {
     content: counter(top-ten, decimal-leading-zero);
     counter-increment: top-ten;
     display: inline-flex;
@@ -56,38 +56,43 @@ const songs: { url: string; title: string }[] = [
     justify-content: center;
     min-width: 2ch;
     color: rgb(254 243 199 / 0.85);
-    font-size: 1.35rem;
+    font-size: 1.15em;
     font-weight: 500;
   }
 
   @media only screen and (min-width: 1024px) {
-    ol li::after {
+    ol li > a::after {
       content: "#";
     }
 
-    ol:hover > li::after {
+    ol:hover > li > a::after {
       content: counter(top-ten, decimal-leading-zero);
       counter-increment: top-ten;
     }
 
-    ol > li:hover::after {
+    ol > li:hover > a::after {
       color: rgb(20 184 166);
     }
   }
 </style>
 
-<ol class="flex flex-col gap-2 text-lg lg:text-xl">
+<h3
+  class="px-1 sm:px-0.5 text-right text-xl sm:text-2xl xl:text-3xl font-semibold"
+>
+  Top 10 picks <span class="inline-block ml-2 text-[1.15em]">🤏</span>
+</h3>
+<ol class="flex flex-col gap-2 text-lg sm:text-xl lg:text-2xl xl:text-3xl">
   {
     songs.map(song => {
       return (
-        <li class="flex justify-between gap-3">
+        <li>
           <a
             target="_blank"
             rel="noopener noreferer"
             href={song.url}
-            class="flex-1 underline lg:hover:text-teal-500"
+            class="flex justify-between gap-3 lg:gap-5 lg:hover:text-teal-500"
           >
-            {song.title}
+            <span class="underline">{song.title}</span>
           </a>
         </li>
       )
