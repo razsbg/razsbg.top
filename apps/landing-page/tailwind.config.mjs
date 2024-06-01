@@ -8,6 +8,12 @@ export default {
       fontFamily: {
         sans: ["Quicksand", ...defaultTheme.fontFamily.sans],
       },
+      fontSize: {
+        'rz-2xl': ['var(--rz-2xl)', 1.5],
+        'rz-xl': ['var(--rz-xl)', 1.5],
+        'rz-lg': ['var(--rz-lg)', 1.5],
+        'rz-md': ['var(--rz-md)', 1.5],
+      }
     },
   },
   plugins: [],

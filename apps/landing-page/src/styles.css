@@ -1,2 +1,22 @@
 @tailwind base;
 @tailwind utilities;
+
+.container {
+  container: inline-size;
+}
+
+.root {
+  --width: 320;
+  --2xl: 24;
+  --xl: 21;
+  --lg: 18;
+  --md: 16;
+
+  --rz-2xl: calc(max(var(--2xl) * 1px, var(--2xl) * 100 / var(--width) * 1vw));
+  --rz-xl: calc(max(var(--xl) * 1px, var(--xl) * 100 / var(--width) * 1vw));
+  --rz-lg: calc(max(var(--lg) * 1px, var(--lg) * 100 / var(--width) * 1vw));
+  --rz-md: calc(max(var(--md) * 1px, var(--md) * 100 / var(--width) * 1vw));
+
+  @media only screen and (min-width: 1024px) {
+  }
+}
