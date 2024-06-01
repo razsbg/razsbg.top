@@ -24,10 +24,30 @@ import TopTenList from "../components/top-ten-list.astro"
       body {
         grid-template-rows: auto 1fr auto;
         position: relative;
-        background-image: url("../public/stay-tuned-bg.jpg");
+        /* background-image: url("../public/may-full-size.jpg"); */
+        background-image: url("../public/may-xs.jpg");
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
+      }
+
+      @media screen and (min-width: 480px) {
+        body {
+          background-image: url("../public/may-sm.jpg");
+          background-position: top;
+        }
+      }
+
+      @media screen and (min-width: 768px) {
+        body {
+          background-image: url("../public/may-md.jpg");
+        }
+      }
+
+      @media screen and (min-width: 1024px) {
+        body {
+          background-image: url("../public/may-full-size.jpg");
+        }
       }
 
       body::after {
@@ -42,7 +62,7 @@ import TopTenList from "../components/top-ten-list.astro"
       }
     </style>
   </head>
-  <body class="h-screen grid text-zinc-50">
+  <body class="min-h-screen grid text-zinc-50">
     <header class="p-5 text-center">
       <h1 class="text-4xl xl:text-[44px] font-semibold">Stay tuned 🛸</h1>
     </header>
