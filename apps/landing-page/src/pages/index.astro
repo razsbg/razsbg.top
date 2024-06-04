@@ -1,5 +1,7 @@
 ---
 import TopTenList from "../components/top-ten-list.astro"
+
+import typography from "../styles/typography"
 ---
 
 <html lang="en">
@@ -64,12 +66,12 @@ import TopTenList from "../components/top-ten-list.astro"
   </head>
   <body class="min-h-screen grid text-zinc-50">
     <header class="p-5 text-center">
-      <h1 class="text-4xl xl:text-[44px] font-semibold">Stay tuned 🛸</h1>
+      <h1 class={typography["heading-1"]}>Stay tuned 🛸</h1>
     </header>
     <main class="px-5 sm:px-0 self-center justify-self-center">
       <header>
         <h2
-          class="border-b-2 border-current uppercase text-2xl sm:text-3xl xl:text-4xl font-semibold text-teal-500 lg:hover:text-inherit"
+          class={`border-b-2 border-current ${typography["heading-2"]} lg:hover:text-inherit`}
         >
           <a
             class="block"
@@ -95,8 +97,8 @@ import TopTenList from "../components/top-ten-list.astro"
 
       <TopTenList />
     </main>
-    <footer class="mt-auto w-full text-center text-zinc-50 p-5">
-      <p class="text-sm sm:text-base xl:text-xl">
+    <footer class="mt-auto w-full text-center p-5">
+      <p class={typography["footer"]}>
         Photo by <a
           href="https://unsplash.com/@photo_adamant0902?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
           target="_blank"
@@ -113,7 +115,8 @@ import TopTenList from "../components/top-ten-list.astro"
           >Unsplash</a
         >
       </p>
-      <p class="text-xs sm:text-sm xl:text-lg font-medium text-zinc-400 mt-3">
+
+      <p class={`mt-3 ${typography["copyright"]}`}>
         <!-- copyright html code -->
         &#169;{" "}
         {new Date().getFullYear().toString()}

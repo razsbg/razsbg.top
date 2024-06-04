@@ -1,4 +1,6 @@
 ---
+import typography from "../styles/typography"
+
 const songs: { url: string; title: string }[] = [
   {
     url: "https://open.spotify.com/track/2Oycxb8QbPkpHTo8ZrmG0B?si=23a49b273840449b",
@@ -76,12 +78,10 @@ const songs: { url: string; title: string }[] = [
   }
 </style>
 
-<h3
-  class="px-1 sm:px-0.5 text-right text-xl sm:text-2xl xl:text-3xl font-semibold"
->
+<h3 class={`px-1 sm:px-0.5 ${typography.subtitle} text-right`}>
   Top 10 picks <span class="inline-block ml-2 text-[1.15em]">🤏</span>
 </h3>
-<ol class="flex flex-col gap-2 text-lg sm:text-xl lg:text-2xl xl:text-3xl">
+<ol class={`flex flex-col gap-2 ${typography["top-ten-list"]}`}>
   {
     songs.map(song => {
       return (
