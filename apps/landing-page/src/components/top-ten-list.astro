@@ -1,7 +1,7 @@
 ---
 import typography from "../styles/typography"
 
-const songs: { url: string; title: string }[] = [
+const songs = [
   {
     url: "https://open.spotify.com/track/2Oycxb8QbPkpHTo8ZrmG0B?si=23a49b273840449b",
     title: "prisoner",
@@ -42,7 +42,7 @@ const songs: { url: string; title: string }[] = [
     url: "https://open.spotify.com/track/1B5fbRxnB26duk77yCBWvS?si=5cf26d702804481b",
     title: "go back home",
   },
-]
+] as const
 ---
 
 <style>
@@ -57,7 +57,7 @@ const songs: { url: string; title: string }[] = [
     align-items: center;
     justify-content: center;
     min-width: 2ch;
-    color: rgb(254 243 199 / 0.85);
+    color: hsla(48, 96%, 89%, 0.85);
     font-size: 1.15em;
     font-weight: 500;
   }
@@ -73,7 +73,7 @@ const songs: { url: string; title: string }[] = [
     }
 
     ol > li:hover > a::after {
-      color: rgb(20 184 166);
+      color: hsl(173, 80%, 40%);
     }
   }
 </style>
