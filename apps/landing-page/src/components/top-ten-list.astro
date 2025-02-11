@@ -1,4 +1,6 @@
 ---
+import Anchor from "../components/anchor.astro"
+
 import typography from "../styles/typography"
 
 const songs = [
@@ -57,7 +59,7 @@ const songs = [
     align-items: center;
     justify-content: center;
     min-width: 2ch;
-    color: hsla(48, 96%, 89%, 0.85);
+    color: hsl(168.39deg 83.78% 78.24%);
     font-size: 1.15em;
     font-weight: 500;
   }
@@ -79,9 +81,10 @@ const songs = [
 </style>
 
 <h3
-  class={`mt-[1rem] mb-[.5rem] sm:px-0.5 ${typography["subtitle"]} text-right`}
+  class={`mt-[1rem] mb-[1.25rem] sm:px-0.5 ${typography["subtitle"]} flex gap-1.5 items-center justify-center`}
 >
-  Top 10 picks
+  <span>Top 10 picks</span>
+  <Anchor className="inline-block size-[.85em] text-slate-200" />
 </h3>
 <ol class={`flex flex-col gap-2 ${typography["top-ten-list"]}`}>
   {
