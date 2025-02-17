@@ -1,5 +1,5 @@
 ---
-import Anchor from "../components/anchor.astro"
+import AnchorIcon from "../components/anchor-icon.astro"
 
 import typography from "../styles/typography"
 
@@ -52,7 +52,7 @@ const { songs } = Astro.props
   class={`mt-[1rem] mb-[1.25rem] sm:px-0.5 ${typography["subtitle"]} flex gap-1.5 items-center justify-center`}
 >
   <span>Top 10 picks</span>
-  <Anchor className="inline-block size-[.85em] text-slate-200" />
+  <AnchorIcon className="inline-block size-[.85em] text-slate-200" />
 </h3>
 <ol class={`flex flex-col gap-2 ${typography["top-ten-list"]}`}>
   {
