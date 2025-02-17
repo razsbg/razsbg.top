@@ -1,0 +1,151 @@
+---
+import TopTenList from "../../components/top-ten-list.astro"
+
+import typography from "../../styles/typography"
+
+import { lust } from "../../data/playlists.json"
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>razsbg.top - lust</title>
+
+    <style>
+      @import url("../../styles.css");
+
+      body {
+        grid-template-rows: auto 1fr auto;
+        position: relative;
+        background-image: url("/lust-xs.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+      }
+
+      @media screen and (min-width: 480px) {
+        body {
+          background-image: url("/lust-sm.jpg");
+          background-position: top;
+        }
+      }
+
+      @media screen and (min-width: 768px) {
+        body {
+          background-image: url("/lust-md.jpg");
+          background-position: 0% 15%;
+        }
+      }
+
+      @media screen and (min-width: 1024px) {
+        body {
+          background-image: url("/lust-lg.jpg");
+          background-position: 0% 15%;
+        }
+      }
+
+      @media screen and (min-width: 1280px) {
+        body {
+          background-image: url("/lust-xl.jpg");
+          background-position: 0% 10%;
+        }
+      }
+
+      @media screen and (min-width: 1536px) {
+        body {
+          background-image: url("/lust-2xl.jpg");
+        }
+      }
+
+      @media screen and (min-width: 1920px) {
+        body {
+          background-image: url("/lust-full-size.jpg");
+          background-position: 0% 15%;
+        }
+      }
+
+      body::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.65);
+        z-index: -1;
+      }
+    </style>
+  </head>
+  <body class="p-5 min-h-screen grid text-zinc-50">
+    <main class="px-5 sm:px-0 self-center justify-self-center">
+      <header>
+        <h2
+          class={`border-b-2 border-current ${typography["heading-2"]} lg:hover:text-inherit text-teal-500`}
+        >
+          <a
+            class="block"
+            target="_blank"
+            rel="noopener noreferer"
+            href="https://open.spotify.com/playlist/4tMMBLlu6cxLRyDe1Gm9c6?si=e5e108e63dbf4a4d"
+          >
+            lust
+          </a>
+        </h2>
+      </header>
+
+      <TopTenList songs={lust} />
+    </main>
+    <footer
+      class="mt-auto w-full p-5 pb-0 flex flex-col items-center gap-3 text-zinc-50"
+    >
+      <p class={typography["footer"]}>
+        Photo by <a
+          href="https://unsplash.com/@photo_adamant0902?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          target="_blank"
+          rel="noopener noreferer"
+          class="text-teal-500 lg:text-inherit lg:hover:text-teal-500 underline"
+          >Almaz Nourzhanov</a
+        >
+        on
+        <a
+          href="https://unsplash.com/photos/a-woman-sitting-in-a-chair-with-her-shadow-on-the-wall-u5kUeWINb_8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          target="_blank"
+          rel="noopener noreferer"
+          class="text-teal-500 lg:text-inherit lg:hover:text-teal-500 underline"
+          >Unsplash</a
+        >
+      </p>
+
+      <a
+        href="https://ko-fi.com/A0A81ACJWS"
+        target="_blank"
+        class="inline-block"
+      >
+        <img
+          height="36"
+          style="border:0px;height:36px;"
+          src="https://storage.ko-fi.com/cdn/kofi1.png?v=6"
+          alt="Buy Me a Coffee at ko-fi.com"
+        />
+      </a>
+
+      <p class={`${typography["copyright"]} text-zinc-400`}>
+        <!-- copyright html code -->
+        &#169;{" "}
+        {new Date().getFullYear().toString()}
+        <span class="text-sm sm:text-base tracking-wide font-bold">razsbg</span>
+      </p>
+    </footer>
+  </body>
+</html>
