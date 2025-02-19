@@ -1,0 +1,164 @@
+---
+import TopTenList from "../../components/top-ten-list.astro"
+
+import typography from "../../styles/typography"
+import { midnightClarity } from "../../data/playlists.json"
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>razsbg.top - midnight clarity</title>
+
+    <style>
+      @import url("../../styles.css");
+
+      body {
+        grid-template-rows: auto 1fr auto;
+        position: relative;
+        background-image: url("/midnight-clarity-mirrored.jpeg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+        background-position: 100% 30%;
+      }
+
+      /* @media screen and (min-width: 480px) {
+        body {
+          background-image: url("/lust-sm.jpg");
+          background-position: top;
+        }
+      }
+
+      @media screen and (min-width: 768px) {
+        body {
+          background-image: url("/lust-md.jpg");
+          background-position: 0% 15%;
+        }
+      }
+
+      @media screen and (min-width: 1024px) {
+        body {
+          background-image: url("/lust-lg.jpg");
+          background-position: 0% 15%;
+        }
+      } */
+
+      /* @media screen and (min-width: 1280px) {
+        body {
+          background-image: url("/midnight-clarity-full-size.jpg");
+          background-position: 0% 30%;
+        }
+      } */
+
+      /* @media screen and (min-width: 1536px) {
+        body {
+          background-image: url("/midnight-clarity-full-size.jpg");
+        }
+      } */
+
+      /* @media screen and (min-width: 1920px) {
+        body {
+          background-image: url("/midnight-clarity-full-size.jpg");
+          background-position: 0% 15%;
+        }
+      } */
+
+      main {
+        position: absolute;
+        top: 20.5%;
+        left: 20%;
+        transform: skew(0, 11deg);
+      }
+
+      .footer-container {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 10rem;
+        writing-mode: sideways-lr;
+      }
+
+      .kofi-button {
+        transform: rotate(-90deg);
+      }
+    </style>
+  </head>
+  <body class="p-5 min-h-screen grid">
+    <main class="px-5 sm:px-0 text-white">
+      <header>
+        <h2
+          class={`border-b-2 border-current ${typography["heading-2"]} lg:hover:text-inherit`}
+        >
+          <a
+            class="block"
+            target="_blank"
+            rel="noopener noreferer"
+            href="https://open.spotify.com/playlist/0XhPSNuCUpdUKJk7qD2tAo?si=07684de3f2d54fca"
+          >
+            midnight clarity
+          </a>
+        </h2>
+      </header>
+
+      <TopTenList songs={midnightClarity} />
+    </main>
+
+    <section class="footer-container">
+      <footer
+        class="p-5 flex items-center justify-between text-yellow-900 font-medium"
+      >
+        <p class={typography["footer"]}>
+          Photo by <a
+            href="https://unsplash.com/@darylbydesign?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+            target="_blank"
+            rel="noopener noreferer"
+            class="lg:text-inherit underline">Daryl Han</a
+          >
+          on
+          <a
+            href="https://unsplash.com/photos/a-room-with-a-wood-floor-and-white-curtains-SOshgRLFvCw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+            target="_blank"
+            rel="noopener noreferer"
+            class="lg:text-inherit underline"
+          >
+            Unsplash
+          </a>
+        </p>
+
+        <a
+          href="https://ko-fi.com/A0A81ACJWS"
+          target="_blank"
+          class="kofi-button inline-flex justify-center items-center"
+        >
+          <img
+            height="36"
+            style="border:0px;height:36px;"
+            src="https://storage.ko-fi.com/cdn/kofi1.png?v=6"
+            alt="Buy Me a Coffee at ko-fi.com"
+          />
+        </a>
+
+        <p class={`${typography["copyright"]} flex items-center gap-3`}>
+          <!-- copyright html code -->
+          &#169;{" "}
+          {new Date().getFullYear().toString()}
+          <span class="text-sm sm:text-base tracking-wide font-bol">razsbg</span
+          >
+        </p>
+      </footer>
+    </section>
+  </body>
+</html>
