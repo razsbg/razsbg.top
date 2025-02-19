@@ -27,7 +27,7 @@ import { midnightClarity } from "../../data/playlists.json"
       body {
         grid-template-rows: auto 1fr auto;
         position: relative;
-        background-image: url("/midnight-clarity-full-size.jpg");
+        background-image: url("/midnight-clarity-mirrored.jpeg");
         background-repeat: no-repeat;
         background-size: cover;
         position: relative;
@@ -75,46 +75,29 @@ import { midnightClarity } from "../../data/playlists.json"
         }
       } */
 
-      body::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.65);
-        z-index: -1;
-      }
-
       main {
         position: absolute;
-        top: 29.5%;
-        right: 50%;
-        transform: skew(0, 347deg) translateX(150%);
+        top: 20.5%;
+        left: 20%;
+        transform: skew(0, 11deg);
       }
 
       .footer-container {
         position: fixed;
         top: 0;
         bottom: 0;
-        left: 0;
-        width: 25%;
-        border: 2px dashed red;
+        right: 0;
+        width: 10rem;
+        writing-mode: sideways-lr;
       }
 
-      footer {
-        /* transform: rotate(90deg); */
-        gap: 1rem;
-        width: 100vh;
-      }
-
-      footer > * {
-        flex-grow: 1;
+      .kofi-button {
+        transform: rotate(-90deg);
       }
     </style>
   </head>
-  <body class="p-5 min-h-screen grid text-zinc-50">
-    <main class="px-5 sm:px-0">
+  <body class="p-5 min-h-screen grid">
+    <main class="px-5 sm:px-0 text-white">
       <header>
         <h2
           class={`border-b-2 border-current ${typography["heading-2"]} lg:hover:text-inherit`}
@@ -133,28 +116,49 @@ import { midnightClarity } from "../../data/playlists.json"
       <TopTenList songs={midnightClarity} />
     </main>
 
-    <footer
-      class="mt-auto w-full p-5 pb-0 flex flex-col items-center gap-3 text-zinc-50"
-    >
-      <a
-        href="https://ko-fi.com/A0A81ACJWS"
-        target="_blank"
-        class="inline-block"
+    <section class="footer-container">
+      <footer
+        class="p-5 flex items-center justify-between text-yellow-900 font-medium"
       >
-        <img
-          height="36"
-          style="border:0px;height:36px;"
-          src="https://storage.ko-fi.com/cdn/kofi1.png?v=6"
-          alt="Buy Me a Coffee at ko-fi.com"
-        />
-      </a>
+        <p class={typography["footer"]}>
+          Photo by <a
+            href="https://unsplash.com/@darylbydesign?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+            target="_blank"
+            rel="noopener noreferer"
+            class="lg:text-inherit underline">Daryl Han</a
+          >
+          on
+          <a
+            href="https://unsplash.com/photos/a-room-with-a-wood-floor-and-white-curtains-SOshgRLFvCw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+            target="_blank"
+            rel="noopener noreferer"
+            class="lg:text-inherit underline"
+          >
+            Unsplash
+          </a>
+        </p>
 
-      <p class={`${typography["copyright"]} text-zinc-400`}>
-        <!-- copyright html code -->
-        &#169;{" "}
-        {new Date().getFullYear().toString()}
-        <span class="text-sm sm:text-base tracking-wide font-bold">razsbg</span>
-      </p>
-    </footer>
+        <a
+          href="https://ko-fi.com/A0A81ACJWS"
+          target="_blank"
+          class="kofi-button inline-flex justify-center items-center"
+        >
+          <img
+            height="36"
+            style="border:0px;height:36px;"
+            src="https://storage.ko-fi.com/cdn/kofi1.png?v=6"
+            alt="Buy Me a Coffee at ko-fi.com"
+          />
+        </a>
+
+        <p class={`${typography["copyright"]} flex items-center gap-3`}>
+          <!-- copyright html code -->
+          &#169;{" "}
+          {new Date().getFullYear().toString()}
+          <span class="text-sm sm:text-base tracking-wide font-bol">razsbg</span
+          >
+        </p>
+      </footer>
+    </section>
   </body>
 </html>
