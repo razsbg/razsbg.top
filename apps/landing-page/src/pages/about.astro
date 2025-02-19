@@ -1,0 +1,57 @@
+---
+import EmojiIcon from "../components/emoji-icon.astro"
+
+import typography from "../styles/typography"
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>razsbg.top - about</title>
+
+    <style>
+      @import url("../styles.css");
+
+      body {
+        grid-template-rows: 1fr auto;
+      }
+    </style>
+  </head>
+  <body
+    class="p-5 min-h-screen grid text-indigo-950 bg-gradient-to-b from-indigo-500 via-blue-300 to-cyan-200"
+  >
+    <main class="justify-self-center self-center text-center max-w-4xl">
+      <h1 class={`${typography["heading-1"]}`}>
+        Hey <EmojiIcon label="live long and prosper" value="🖖" />
+      </h1>
+      <p class={`${typography["heading-2"]} mt-8`}>
+        I'm Răzvan, a fun, passionate, and laid-back guy. I code, play guitar,
+        and am currently exploring how to integrate AI into my workflows. I'm
+        also deeply passionate about mentoring.
+      </p>
+      <p class={`mt-20 mb-2 ${typography["footer"]} font-medium hidden`}>
+        If you like what you see on this website, please feel free to
+        <!-- insert custom kofi button here -->
+      </p>
+    </main>
+    <footer class="p-5 pb-0 text-center">
+      <p class={`${typography["copyright"]}`}>
+        <!-- copyright html code -->
+        &#169;{" "}
+        {new Date().getFullYear().toString()}
+        <span class="text-sm sm:text-base tracking-wide font-bold">razsbg</span>
+      </p>
+    </footer>
+  </body>
+</html>
