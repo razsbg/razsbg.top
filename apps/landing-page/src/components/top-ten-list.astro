@@ -10,12 +10,19 @@ type Song = {
 
 interface Props {
   songs: Song[]
+  colors: {
+    accent: string
+    hover: string
+  }
 }
 
-const { songs } = Astro.props
+const { songs, colors = { accent: "red", hover: "yellow" } } = Astro.props
 ---
 
 <style>
+  --accent-color: ${colors.accent};
+  --hover-color: ${colors.hover};
+
   ol {
     counter-reset: top-ten;
   }
@@ -27,7 +34,9 @@ const { songs } = Astro.props
     align-items: center;
     justify-content: center;
     min-width: 2ch;
-    color: hsl(168.39deg 83.78% 78.24%);
+    /* text-teal-200 */
+    /* color: #99f6e4; */
+    color: var(--accent-color, red);
     font-size: 1.15em;
     font-weight: 500;
   }
