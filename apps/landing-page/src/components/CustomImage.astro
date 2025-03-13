@@ -1,0 +1,22 @@
+---
+import type { ImageMetadata } from "astro"
+import { getImage } from "astro:assets"
+
+const breakpoints = ["sm", "md", "lg", "xl"] as const
+
+type Props = {
+  imageURLs: { [breakpoint: string]: string | ImageMetadata }
+  alt: string
+}
+
+const { imageURLs, alt } = Astro.props
+
+const images = breakpoints.map()
+
+const mobileImg = await getImage({
+  src: mobileImgUrl,
+  format: "webp",
+  width: 200,
+  height: 200,
+})
+---
