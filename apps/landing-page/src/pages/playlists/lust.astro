@@ -1,4 +1,5 @@
 ---
+import Copyright from "../../components/copyright.astro"
 import TopTenList from "../../components/top-ten-list.astro"
 
 import typography from "../../styles/typography"
@@ -140,12 +141,7 @@ import { lust } from "../../data/playlists.json"
         />
       </a>
 
-      <p class={`${typography["copyright"]} text-zinc-400`}>
-        <!-- copyright html code -->
-        &#169;{" "}
-        {new Date().getFullYear().toString()}
-        <span class="text-sm sm:text-base tracking-wide font-bold">razsbg</span>
-      </p>
+      <Copyright />
     </footer>
   </body>
 </html>
