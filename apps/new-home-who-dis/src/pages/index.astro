@@ -1,5 +1,6 @@
 ---
 import CountdownTimer from "../components/CountdownTimer.astro"
+import Logo from "../components/Logo.astro"
 import { EmojiIcon } from "@repo/ui"
 import translations from "../data/translations.json"
 
@@ -16,12 +17,14 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
   <body class="bg-bg-dark">
     <main class="max-w-4xl mx-auto px-6 pt-12 md:pt-16">
       <header class="header">
-        <h1 class="font-display font-bold tracking-tight text-4xl md:text-5xl lg:text-6xl text-center mb-0">
-          <span class="brand-logo inline-flex items-baseline justify-center">
-            <span class="fade-in-up text-brand-primary" style="animation-delay: 0ms">new-</span><span class="fade-in-up text-text-primary" style="animation-delay: 100ms">home-</span><span class="fade-in-up text-text-secondary" style="animation-delay: 200ms">who-</span><span class="fade-in-up bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent animate-gradient-shift" style="animation-delay: 300ms">dis</span><span class="fade-in-up text-brand-accent animate-wiggle" style="animation-delay: 400ms">™</span>
-          </span>
+        <h1 class="text-center mb-0">
+          <Logo size="lg" animated />
         </h1>
-        <p class="font-display italic text-lg md:text-xl text-text-secondary mt-2 mb-12 text-center">{translations.header.subtitle}</p>
+        <p
+          class="font-display italic text-lg md:text-xl text-text-secondary mt-2 mb-12 text-center"
+        >
+          {translations.header.subtitle}
+        </p>
       </header>
 
       <section class="hero">
@@ -33,154 +36,253 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
         </div>
 
         <div class="teaser-content">
-          <div class="coming-soon mt-16 md:mt-20 bg-gradient-to-b from-transparent to-bg-card/50 py-16 md:py-20 opacity-0 animate-fade-in-up">
+          <div
+            class="coming-soon my-16 md:my-20 bg-gradient-to-b from-transparent to-bg-card/50 py-16 md:py-20 opacity-0 animate-fade-in-up"
+          >
             <div class="max-w-3xl mx-auto px-6 text-center">
-              <h3 class="font-display text-3xl md:text-4xl font-bold text-brand-primary tracking-wide mb-6 animate-pulse-slow">
-                <EmojiIcon value="🚨" label="warning" className="w-6 h-6 inline animate-wiggle" />
+              <h3
+                class="font-display text-3xl md:text-4xl font-bold text-brand-primary tracking-wide mb-6 animate-pulse-slow"
+              >
+                <EmojiIcon
+                  value="🚨"
+                  label="warning"
+                  className="w-6 h-6 inline animate-wiggle"
+                />
                 {" "}{translations.sections.comingSoon.title}{" "}
-                <EmojiIcon value="🚨" label="warning" className="w-6 h-6 inline animate-wiggle" />
+                <EmojiIcon
+                  value="🚨"
+                  label="warning"
+                  className="w-6 h-6 inline animate-wiggle"
+                />
               </h3>
-              <p class="text-text-primary font-sans text-lg md:text-xl leading-relaxed">
-                The most aggressive, satirical, and utterly ridiculous gift registry experience is coming to ruin your <em class="text-brand-accent">peaceful shopping experience</em>.
+              <p
+                class="text-text-primary font-sans text-lg md:text-xl leading-relaxed"
+              >
+                The most aggressive, satirical, and utterly ridiculous gift
+                registry experience is coming to ruin your <em
+                  class="text-brand-accent">peaceful shopping experience</em
+                >.
               </p>
               <p class="text-sm text-text-secondary/80 italic mt-4">
-                No actual data will be harvested. Promises not legally binding. 🤞
+                No actual data will be harvested. Promises not legally binding.
+                🤞
               </p>
             </div>
           </div>
 
-          <div class="party-details-section">
-            <h3 class="font-display text-3xl font-bold text-text-primary text-center mb-8 md:mb-12">
-              <EmojiIcon value="🎉" label="celebration" className="w-6 h-6 inline" />
+          <div class="party-details-section my-16 md:my-20">
+            <h3
+              class="font-display text-3xl font-bold text-text-primary text-center mb-8 md:mb-12"
+            >
+              <EmojiIcon
+                value="🎉"
+                label="celebration"
+                className="w-6 h-6 inline"
+              />
               {" "}{translations.sections.partyDetails.title}{" "}
-              <EmojiIcon value="🎉" label="celebration" className="w-6 h-6 inline" />
+              <EmojiIcon
+                value="🎉"
+                label="celebration"
+                className="w-6 h-6 inline"
+              />
             </h3>
-            <div class="party-details-container bg-bg-card border border-brand-secondary/20 rounded-2xl p-8 md:p-10 max-w-2xl mx-auto shadow-xl card-hover">
-              <div class="space-y-6">
+            <div
+              class="party-details-container bg-bg-card border border-brand-secondary/20 rounded-2xl p-8 md:p-10 max-w-2xl mx-auto shadow-xl card-hover"
+            >
+              <div class="space-y-8">
                 {
-                  translations.sections.partyDetails.items.map((item, index) => {
-                    const delays = ['0ms', '100ms', '200ms', '300ms', '400ms', '500ms'];
-                    
-                    // Parse special formatting for specific items
-                    let valueContent;
-                    if (item.label === "Time:") {
-                      // Special formatting for "sharp"
-                      const parts = item.value.split("(sharp)");
-                      valueContent = (
-                        <>
-                          {parts[0]}
-                          <span class="text-brand-accent font-semibold">(sharp)</span>
-                          {parts[1] || ''}
-                        </>
-                      );
-                    } else if (item.label === "Gifts:") {
-                      // Wishlist pills
-                      valueContent = (
-                        <>
-                          Three wishlists{" "}
-                          <span class="bg-bg-dark px-3 py-1 rounded-full text-sm inline-block mr-2 hover:bg-brand-primary/20 transition-colors">Traditional</span>
-                          <span class="bg-bg-dark px-3 py-1 rounded-full text-sm inline-block mr-2 hover:bg-brand-primary/20 transition-colors">Receipt</span>
-                          <span class="bg-bg-dark px-3 py-1 rounded-full text-sm inline-block hover:bg-brand-primary/20 transition-colors">Bandcamp</span>
-                        </>
-                      );
-                    } else {
-                      valueContent = item.value;
-                    }
-                    
-                    return (
-                      <div 
-                        class="party-detail-item flex items-start gap-4 opacity-0 animate-slide-in-left"
-                        style={`animation-delay: ${delays[index]}`}
-                      >
-                        <EmojiIcon value={item.emoji} label={item.label} className="w-6 h-6 flex-shrink-0 mt-1 party-detail-icon" />
-                        <div class="flex-1">
-                          <div class="font-display text-lg font-semibold text-text-primary mb-1">
-                            {item.label}
-                          </div>
-                          <div class="font-sans text-base text-text-secondary leading-relaxed">
-                            {valueContent}
+                  translations.sections.partyDetails.items.map(
+                    (item, index) => {
+                      const delays = [
+                        "0ms",
+                        "100ms",
+                        "200ms",
+                        "300ms",
+                        "400ms",
+                        "500ms",
+                      ]
+
+                      // Parse special formatting for specific items
+                      let valueContent
+                      if (item.label === "Time:") {
+                        // Special formatting for "sharp"
+                        const parts = item.value.split("(sharp)")
+                        valueContent = (
+                          <>
+                            {parts[0]}
+                            <span class="text-brand-accent font-semibold">
+                              (sharp)
+                            </span>
+                            {parts[1] || ""}
+                          </>
+                        )
+                      } else if (item.label === "Gifts:") {
+                        // Wishlist pills
+                        valueContent = (
+                          <>
+                            Three wishlists{" "}
+                            <span class="bg-bg-dark px-3 py-1 rounded-full text-sm inline-block mr-2 hover:bg-brand-primary/20 transition-colors">
+                              Traditional
+                            </span>
+                            <span class="bg-bg-dark px-3 py-1 rounded-full text-sm inline-block mr-2 hover:bg-brand-primary/20 transition-colors">
+                              Receipt
+                            </span>
+                            <span class="bg-bg-dark px-3 py-1 rounded-full text-sm inline-block hover:bg-brand-primary/20 transition-colors">
+                              Bandcamp
+                            </span>
+                          </>
+                        )
+                      } else {
+                        valueContent = item.value
+                      }
+
+                      return (
+                        <div
+                          class="party-detail-item flex items-start gap-4 opacity-0 animate-slide-in-left"
+                          style={`animation-delay: ${delays[index]}`}
+                        >
+                          <EmojiIcon
+                            value={item.emoji}
+                            label={item.label}
+                            className="w-6 h-6 flex-shrink-0 mt-1 party-detail-icon"
+                          />
+                          <div class="flex-1">
+                            <div class="font-display text-lg font-semibold text-text-primary mb-1">
+                              {item.label}
+                            </div>
+                            <div class="font-sans text-base text-text-secondary leading-relaxed">
+                              {valueContent}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })
+                      )
+                    },
+                  )
                 }
               </div>
             </div>
           </div>
 
-          <div class="dark-pattern-preview">
-            <h3 class="font-display text-3xl font-bold text-text-primary text-center mb-8 md:mb-12">
-              <EmojiIcon value="✨" label="sparkles" className="w-6 h-6 inline" />
+          <div class="dark-pattern-preview my-16 md:my-20">
+            <h3
+              class="font-display text-3xl font-bold text-text-primary text-center mb-8 md:mb-12"
+            >
+              <EmojiIcon
+                value="✨"
+                label="sparkles"
+                className="w-6 h-6 inline"
+              />
               {" "}{translations.sections.whatToExpect.title}{" "}
-              <EmojiIcon value="✨" label="sparkles" className="w-6 h-6 inline" />
+              <EmojiIcon
+                value="✨"
+                label="sparkles"
+                className="w-6 h-6 inline"
+              />
             </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto px-6">
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-4xl mx-auto px-6"
+            >
               {
-                translations.sections.whatToExpect.features.map((feature, index) => {
-                  // Map tier colors to each feature
-                  const tierColors = ['text-brand-primary', 'text-gold-tier', 'text-brand-secondary', 'text-ultra-tier'];
-                  const delays = ['0ms', '50ms', '100ms', '150ms'];
-                  
-                  return (
-                    <div 
-                      class="feature-card bg-bg-card border border-white/5 rounded-xl p-6 shadow-lg card-hover hover:scale-[1.02] opacity-0 animate-fade-in-up"
-                      style={`animation-delay: ${delays[index]}`}
-                    >
-                      <div class="feature-icon-wrapper">
-                        <EmojiIcon value={feature.emoji} label={feature.title} className="w-6 h-6 mb-3" />
+                translations.sections.whatToExpect.features.map(
+                  (feature, index) => {
+                    // Map tier colors to each feature
+                    const tierColors = [
+                      "text-brand-primary",
+                      "text-gold-tier",
+                      "text-brand-secondary",
+                      "text-ultra-tier",
+                    ]
+                    const delays = ["0ms", "50ms", "100ms", "150ms"]
+
+                    return (
+                      <div
+                        class="feature-card bg-black border border-white/10 rounded-xl p-6 shadow-lg card-hover hover:scale-[1.02] opacity-0 animate-fade-in-up"
+                        style={`animation-delay: ${delays[index]}`}
+                      >
+                        <div class="feature-icon-wrapper">
+                          <EmojiIcon
+                            value={feature.emoji}
+                            label={feature.title}
+                            className="w-6 h-6 mb-3"
+                          />
+                        </div>
+                        <h4
+                          class={`font-display text-xl font-semibold mb-2 ${tierColors[index]}`}
+                        >
+                          {feature.title}
+                        </h4>
+                        <p class="font-sans text-sm md:text-base text-text-secondary leading-relaxed">
+                          {feature.description}
+                        </p>
                       </div>
-                      <h4 class={`font-display text-xl font-semibold mb-2 ${tierColors[index]}`}>
-                        {feature.title}
-                      </h4>
-                      <p class="font-sans text-sm md:text-base text-text-secondary leading-relaxed">
-                        {feature.description}
-                      </p>
-                    </div>
-                  );
-                })
+                    )
+                  },
+                )
               }
             </div>
           </div>
 
-          <div class="warning-banner bg-bg-card border-2 border-brand-primary rounded-xl p-6 md:p-8 max-w-3xl mx-auto my-12 opacity-0 animate-fade-in-up card-hover">
+          <div
+            class="warning-banner max-w-3xl mx-auto my-16 md:my-20 opacity-0 animate-fade-in-up"
+          >
             <div class="flex items-center justify-center gap-2 mb-4">
               <EmojiIcon value="⚠️" label="warning" />
-              <h3 class="text-brand-primary font-display text-2xl md:text-3xl font-bold m-0">
+              <h3
+                class="text-brand-primary font-display text-2xl md:text-3xl font-bold m-0"
+              >
                 {translations.sections.warning.title}
               </h3>
               <EmojiIcon value="⚠️" label="warning" />
             </div>
-            <p class="text-text-primary font-sans text-base md:text-lg leading-relaxed text-center">
-              This website contains satirical <span class="keyword">dark patterns</span>, aggressive UX, and functional gift commitment systems. Side effects may include excessive shopping, <span class="keyword">competitive anxiety</span>, and <span class="keyword">uncontrollable laughter</span>. Consult your wallet before use.
+            <p
+              class="text-text-primary font-sans text-base md:text-lg leading-relaxed text-center"
+            >
+              This website contains satirical <span class="keyword"
+                >dark patterns</span
+              >, aggressive UX, and functional gift commitment systems. Side
+              effects may include excessive shopping, <span class="keyword"
+                >competitive anxiety</span
+              >, and <span class="keyword">uncontrollable laughter</span>.
+              Consult your wallet before use.
             </p>
-            <p class="italic text-sm text-text-secondary/80 mt-4 text-center">
+            <p class="italic text-sm text-text-secondary mt-4 text-center">
               Powered by questionable UX decisions and Romanian hospitality ™️
             </p>
           </div>
         </div>
       </section>
 
-      <footer role="contentinfo" class="bg-bg-dark border-t border-white/10 py-8 mt-auto">
+      <footer
+        role="contentinfo"
+        class="bg-bg-dark border-t border-white/10 py-8 mt-auto"
+      >
         <div class="max-w-4xl mx-auto px-6">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-center">
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-center"
+          >
             <!-- Column 1: Branding -->
             <div class="text-center md:text-left">
-              <div class="text-sm font-display font-semibold">
-                <span class="text-brand-primary">new-</span><span class="text-text-primary">home-</span><span class="text-text-secondary">who-</span><span class="bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent">dis</span><span class="text-brand-accent">™️</span>
-              </div>
-              <p class="text-xs text-text-secondary mt-1">Experience-driven housewarming</p>
+              <Logo size="sm" />
+              <p class="text-xs text-text-secondary mt-1">
+                Experience-driven housewarming
+              </p>
             </div>
 
             <!-- Column 2: Essential Info -->
             <div class="text-center">
-              <p class="text-xs text-text-secondary">Iași, Romania • November 8, 2025</p>
+              <p class="text-xs text-text-secondary">
+                Iași, Romania • November 8, 2025
+              </p>
             </div>
 
             <!-- Column 3: Meta -->
             <div class="text-center md:text-right">
-              <p class="text-xs text-text-secondary">© 2025 new-home-who-dis™️</p>
-              <p class="text-xs text-text-secondary/60 mt-1 italic">Built with love and dark patterns 💀</p>
+              <p class="text-xs text-text-secondary">
+                © 2025 new-home-who-dis™️
+              </p>
+              <p class="text-xs text-text-secondary/60 mt-1 italic">
+                Built with love and dark patterns 💀
+              </p>
             </div>
           </div>
         </div>
@@ -256,7 +358,8 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
 
   /* Gradient shift animation for "dis" */
   @keyframes gradient-shift {
-    0%, 100% {
+    0%,
+    100% {
       background-position: 0% 50%;
     }
     50% {
@@ -276,7 +379,6 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
   .teaser-content > div:not(.party-details-section):not(.coming-soon) {
     margin-bottom: 3rem;
     padding: 2rem;
-    background: white;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   }
@@ -307,7 +409,8 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
   }
 
   @keyframes icon-scale {
-    0%, 100% {
+    0%,
+    100% {
       transform: scale(1);
     }
     50% {
@@ -321,7 +424,8 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
   }
 
   @keyframes icon-bounce {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0);
     }
     50% {
@@ -346,14 +450,13 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
 
   /* Keyword highlighting with hover effect */
   .keyword {
-    color: rgba(255, 61, 113, 0.8); /* brand-primary with 80% opacity */
+    color: #ff3d71; /* brand-primary */
     font-weight: 600;
     cursor: default;
     transition: all 0.3s ease;
   }
 
   .keyword:hover {
-    color: #FF3D71; /* brand-primary full opacity */
     text-shadow: 0 0 8px rgba(255, 61, 113, 0.5);
   }
 

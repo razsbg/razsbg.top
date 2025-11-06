@@ -1,0 +1,69 @@
+---
+interface Props {
+  size?: "sm" | "md" | "lg"
+  animated?: boolean
+  className?: string
+}
+
+const { size = "md", animated = false, className = "" } = Astro.props
+
+const sizeClasses = {
+  sm: "text-sm",
+  md: "text-base md:text-lg",
+  lg: "text-4xl md:text-5xl lg:text-6xl",
+}
+---
+
+<span
+  class:list={[
+    "brand-logo inline-flex items-baseline justify-center font-display font-bold tracking-tight",
+    sizeClasses[size],
+    className,
+  ]}
+>
+  <span
+    class:list={[
+      "text-brand-primary",
+      animated && "fade-in-up",
+    ]}
+    style={animated ? "animation-delay: 0ms" : undefined}
+  >
+    new-
+  </span>
+  <span
+    class:list={[
+      "text-text-primary",
+      animated && "fade-in-up",
+    ]}
+    style={animated ? "animation-delay: 100ms" : undefined}
+  >
+    home-
+  </span>
+  <span
+    class:list={[
+      "text-text-secondary",
+      animated && "fade-in-up",
+    ]}
+    style={animated ? "animation-delay: 200ms" : undefined}
+  >
+    who-
+  </span>
+  <span
+    class:list={[
+      "bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent",
+      animated && "fade-in-up animate-gradient-shift",
+    ]}
+    style={animated ? "animation-delay: 300ms" : undefined}
+  >
+    dis
+  </span>
+  <span
+    class:list={[
+      "text-brand-accent",
+      animated && "fade-in-up animate-wiggle",
+    ]}
+    style={animated ? "animation-delay: 400ms" : undefined}
+  >
+    ™
+  </span>
+</span>
