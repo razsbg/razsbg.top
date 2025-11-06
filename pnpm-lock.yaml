@@ -147,6 +147,9 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      solid-js:
+        specifier: ^1.9.10
+        version: 1.9.10
 
 packages:
 

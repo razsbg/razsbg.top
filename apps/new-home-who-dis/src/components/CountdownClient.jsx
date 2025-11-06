@@ -1,6 +1,4 @@
-import { createSignal, onCleanup } from 'solid-js'
-// Note: EmojiIcon would need to be a Solid component to use here
-// For now, keeping as plain emoji since this is a Solid/JSX component
+import { createSignal, onCleanup } from "solid-js"
 
 const CountdownClient = (props) => {
   const [timeRemaining, setTimeRemaining] = createSignal({
@@ -68,7 +66,13 @@ const CountdownClient = (props) => {
       
       {timeRemaining().isComplete && (
         <div class="countdown-message">
-          🎉 The party has started! 🎉
+          <span role="img" aria-label="celebration">
+            🎉
+          </span>{" "}
+          The party has started!{" "}
+          <span role="img" aria-label="celebration">
+            🎉
+          </span>
         </div>
       )}
     </div>
