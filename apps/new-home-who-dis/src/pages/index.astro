@@ -36,9 +36,9 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
         <div class="teaser-content">
           <div class="coming-soon">
             <h3>
-              <EmojiIcon value="🚨" label="warning" /> {
-                translations.sections.comingSoon.title
-              } <EmojiIcon value="🚨" label="warning" />
+              <EmojiIcon value="🚨" label="warning" />
+              {translations.sections.comingSoon.title}
+              <EmojiIcon value="🚨" label="warning" />
             </h3>
             <p>
               {translations.sections.comingSoon.description}
@@ -47,13 +47,13 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
 
           <div class="party-details">
             <h3>
-              <EmojiIcon value="🎉" label="celebration" /> {
-                translations.sections.partyDetails.title
-              } <EmojiIcon value="🎉" label="celebration" />
+              <EmojiIcon value="🎉" label="celebration" />
+              {translations.sections.partyDetails.title}
+              <EmojiIcon value="🎉" label="celebration" />
             </h3>
             <ul class="details-list">
               {
-                translations.sections.partyDetails.items.map((item) => (
+                translations.sections.partyDetails.items.map(item => (
                   <li>
                     <EmojiIcon value={item.emoji} label={item.label} />
                     <strong>{item.label}</strong> {item.value}
@@ -65,13 +65,13 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
 
           <div class="dark-pattern-preview">
             <h3>
-              <EmojiIcon value="✨" label="sparkles" /> {
-                translations.sections.whatToExpect.title
-              } <EmojiIcon value="✨" label="sparkles" />
+              <EmojiIcon value="✨" label="sparkles" />
+              {translations.sections.whatToExpect.title}
+              <EmojiIcon value="✨" label="sparkles" />
             </h3>
             <div class="features-grid">
               {
-                translations.sections.whatToExpect.features.map((feature) => (
+                translations.sections.whatToExpect.features.map(feature => (
                   <div class="feature-box">
                     <h4>
                       <EmojiIcon value={feature.emoji} label={feature.title} />{" "}
@@ -86,9 +86,9 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
 
           <div class="warning">
             <h3>
-              <EmojiIcon value="⚠️" label="warning" /> {
-                translations.sections.warning.title
-              } <EmojiIcon value="⚠️" label="warning" />
+              <EmojiIcon value="⚠️" label="warning" />
+              {translations.sections.warning.title}
+              <EmojiIcon value="⚠️" label="warning" />
             </h3>
             <p>
               {translations.sections.warning.text}
