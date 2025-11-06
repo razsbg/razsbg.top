@@ -40,6 +40,6 @@
     "eslint-plugin-astro": "^1.2.4"
   },
   "engines": {
-    "node": ">=22"
+    "node": "22.x"
   }
 }
