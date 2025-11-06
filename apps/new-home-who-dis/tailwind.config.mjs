@@ -4,21 +4,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Brand colors
-        "brand-primary": "#FF6B6B", // Satirical red
-        "brand-secondary": "#4ECDC4", // Playful teal
+        // Core duotone
+        "bg-dark": "#1A1A1A", // Base background
+        "bg-card": "#232323", // Card/elevated surfaces
+        "text-primary": "#F5F5F0", // Main text (Option A white)
+        "text-secondary": "#9CA3AF", // Muted text
+
+        // Accent (keep existing)
+        "brand-primary": "#FF3D71", // Hot pink chaos
         "brand-accent": "#FFE66D", // Warning yellow
+        "brand-secondary": "#4ECDC4", // Teal highlight
 
-        // Tier colors
-        "ultra-tier": "#9B59B6", // Purple
-        "gold-tier": "#F1C40F", // Gold
-        "silver-tier": "#95A5A6", // Silver
-        "bronze-tier": "#E67E22", // Bronze
-
-        // Dark pattern colors
-        "annoying-popup": "#FF3838", // Bright red
-        "fake-urgency": "#FF9500", // Orange
-        "chatbot-bg": "#00D4AA", // Bright teal
+        // Tier colors (existing are perfect)
+        "ultra-tier": "#9B59B6",
+        "gold-tier": "#F1C40F",
+        "silver-tier": "#95A5A6",
+        "bronze-tier": "#E67E22",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
