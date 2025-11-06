@@ -1,14 +1,27 @@
 ---
-import CountdownClient from './CountdownClient.jsx'
+import CountdownClient from "./CountdownClient.jsx"
 
 interface Props {
   targetDate: string
+  translations: {
+    labels: {
+      days: string
+      hours: string
+      minutes: string
+      seconds: string
+    }
+    completed: string
+  }
 }
-const { targetDate } = Astro.props
+const { targetDate, translations } = Astro.props
 ---
 
 <div class="countdown-timer">
-    <CountdownClient targetDate={targetDate} client:load />
+  <CountdownClient
+    targetDate={targetDate}
+    translations={translations}
+    client:load
+  />
 </div>
 
 <style>

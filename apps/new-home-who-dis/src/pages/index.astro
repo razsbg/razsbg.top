@@ -1,6 +1,7 @@
 ---
 import CountdownTimer from "../components/CountdownTimer.astro"
 import { EmojiIcon } from "@repo/ui"
+import translations from "../data/translations.json"
 
 const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (GMT+2)
 ---
@@ -9,131 +10,88 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>new-home-who-dis - The Ultimate Housewarming</title>
-    <meta
-      name="description"
-      content="A satirical gift registry for the most epic housewarming party in Iași. Get ready for aggressive UX and legitimate fun!"
-    />
+    <title>{translations.meta.title}</title>
+    <meta name="description" content={translations.meta.description} />
   </head>
   <body>
     <main class="container">
       <header class="header">
         <h1 class="title">
-          <span class="brand flex align-top justify-center"
-            >new-home-who-dis&#8482;
+          <span class="brand flex align-top justify-center">
+            {translations.header.brand}
           </span>
         </h1>
-        <p class="subtitle">The Ultimate Housewarming Experience</p>
+        <p class="subtitle">{translations.header.subtitle}</p>
       </header>
 
       <section class="hero">
         <div class="countdown-section">
-          <h2 class="countdown-title">The Party Starts In:</h2>
-          <CountdownTimer targetDate={partyDate} />
+          <h2 class="countdown-title">{translations.countdown.title}</h2>
+          <CountdownTimer
+            targetDate={partyDate}
+            translations={translations.countdown}
+          />
         </div>
 
         <div class="teaser-content">
           <div class="coming-soon">
             <h3>
-              <EmojiIcon value="🚨" label="warning" /> COMING SOON <EmojiIcon
-                value="🚨"
-                label="warning"
-              />
+              <EmojiIcon value="🚨" label="warning" /> {
+                translations.sections.comingSoon.title
+              } <EmojiIcon value="🚨" label="warning" />
             </h3>
             <p>
-              The most aggressive, satirical, and utterly ridiculous gift
-              registry experience is coming to ruin your peaceful shopping
-              experience.
+              {translations.sections.comingSoon.description}
             </p>
           </div>
 
           <div class="party-details">
             <h3>
-              <EmojiIcon value="🎉" label="celebration" /> Party Details <EmojiIcon
-                value="🎉"
-                label="celebration"
-              />
+              <EmojiIcon value="🎉" label="celebration" /> {
+                translations.sections.partyDetails.title
+              } <EmojiIcon value="🎉" label="celebration" />
             </h3>
             <ul class="details-list">
-              <li>
-                <EmojiIcon value="📅" label="calendar date" />
-                <strong>Date:</strong> November 8, 2025
-              </li>
-              <li>
-                <EmojiIcon value="🕐" label="clock time" />
-                <strong>Time:</strong> 3:00 PM (sharp)
-              </li>
-              <li>
-                <EmojiIcon value="📍" label="pin location" />
-                <strong>Location:</strong> Iași, Romania
-              </li>
-              <li>
-                <EmojiIcon value="🎁" label="gift present" />
-                <strong>Gifts:</strong> Three wishlists (Traditional, Receipt, Bandcamp)
-              </li>
-              <li>
-                <EmojiIcon value="🏆" label="trophy winner" />
-                <strong>Leaderboard:</strong> Anonymous competitive gifting
-              </li>
-              <li>
-                <EmojiIcon value="💨" label="wind smoke" />
-                <strong>Features:</strong> Real-time updates, tier-based perks, balcony
-                smoking management
-              </li>
+              {
+                translations.sections.partyDetails.items.map((item) => (
+                  <li>
+                    <EmojiIcon value={item.emoji} label={item.label} />
+                    <strong>{item.label}</strong> {item.value}
+                  </li>
+                ))
+              }
             </ul>
           </div>
 
           <div class="dark-pattern-preview">
             <h3>
-              <EmojiIcon value="✨" label="sparkles" /> What to Expect <EmojiIcon
-                value="✨"
-                label="sparkles"
-              />
+              <EmojiIcon value="✨" label="sparkles" /> {
+                translations.sections.whatToExpect.title
+              } <EmojiIcon value="✨" label="sparkles" />
             </h3>
             <div class="features-grid">
-              <div class="feature-box">
-                <h4><EmojiIcon value="🎯" label="dart" /> Aggressive UX</h4>
-                <p>
-                  Popups, fake urgency, and dark patterns that are somehow still
-                  functional
-                </p>
-              </div>
-              <div class="feature-box">
-                <h4>
-                  <EmojiIcon value="🏆" label="trophy" /> Competitive Gifting
-                </h4>
-                <p>
-                  Bronze to Ultra tiers with real party perks (including
-                  bathroom priority!)
-                </p>
-              </div>
-              <div class="feature-box">
-                <h4>
-                  <EmojiIcon value="📱" label="mobile phone" /> Mobile-First
-                </h4>
-                <p>Designed for phone sharing during the party</p>
-              </div>
-              <div class="feature-box">
-                <h4>
-                  <EmojiIcon value="📺" label="television" /> TV Display Mode
-                </h4>
-                <p>Samsung TV compatible for ambient party entertainment</p>
-              </div>
+              {
+                translations.sections.whatToExpect.features.map((feature) => (
+                  <div class="feature-box">
+                    <h4>
+                      <EmojiIcon value={feature.emoji} label={feature.title} />{" "}
+                      {feature.title}
+                    </h4>
+                    <p>{feature.description}</p>
+                  </div>
+                ))
+              }
             </div>
           </div>
 
           <div class="warning">
             <h3>
-              <EmojiIcon value="⚠️" label="warning" /> Warning <EmojiIcon
-                value="⚠️"
-                label="warning"
-              />
+              <EmojiIcon value="⚠️" label="warning" /> {
+                translations.sections.warning.title
+              } <EmojiIcon value="⚠️" label="warning" />
             </h3>
             <p>
-              This website contains satirical dark patterns, aggressive UX, and
-              functional gift commitment systems. Side effects may include
-              excessive shopping, competitive anxiety, and uncontrollable
-              laughter. Consult your wallet before use.
+              {translations.sections.warning.text}
             </p>
           </div>
         </div>
@@ -141,11 +99,10 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
 
       <footer class="footer">
         <p>
-          Brought to you by questionable design decisions and genuine
-          hospitality
+          {translations.footer.message}
         </p>
         <p class="fine-print">
-          No actual data will be harvested for evil purposes. Probably.
+          {translations.footer.finePrint}
         </p>
       </footer>
     </main>

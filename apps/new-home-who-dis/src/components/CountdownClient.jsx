@@ -6,7 +6,7 @@ const CountdownClient = (props) => {
     hours: 0,
     minutes: 0,
     seconds: 0,
-    isComplete: false
+    isComplete: false,
   })
 
   const calculateTimeDifference = (target) => {
@@ -45,22 +45,28 @@ const CountdownClient = (props) => {
       <div class="countdown-display">
         <div class="time-block">
           <div class="time-value">{timeRemaining().days}</div>
-          <div class="time-label">Days</div>
+          <div class="time-label">{props.translations.labels.days}</div>
         </div>
         <div class="time-separator">:</div>
         <div class="time-block">
-          <div class="time-value">{String(timeRemaining().hours).padStart(2, '0')}</div>
-          <div class="time-label">Hours</div>
+          <div class="time-value">
+            {String(timeRemaining().hours).padStart(2, "0")}
+          </div>
+          <div class="time-label">{props.translations.labels.hours}</div>
         </div>
         <div class="time-separator">:</div>
         <div class="time-block">
-          <div class="time-value">{String(timeRemaining().minutes).padStart(2, '0')}</div>
-          <div class="time-label">Minutes</div>
+          <div class="time-value">
+            {String(timeRemaining().minutes).padStart(2, "0")}
+          </div>
+          <div class="time-label">{props.translations.labels.minutes}</div>
         </div>
         <div class="time-separator">:</div>
         <div class="time-block">
-          <div class="time-value">{String(timeRemaining().seconds).padStart(2, '0')}</div>
-          <div class="time-label">Seconds</div>
+          <div class="time-value">
+            {String(timeRemaining().seconds).padStart(2, "0")}
+          </div>
+          <div class="time-label">{props.translations.labels.seconds}</div>
         </div>
       </div>
       
@@ -69,7 +75,7 @@ const CountdownClient = (props) => {
           <span role="img" aria-label="celebration">
             🎉
           </span>{" "}
-          The party has started!{" "}
+          {props.translations.completed}{" "}
           <span role="img" aria-label="celebration">
             🎉
           </span>
