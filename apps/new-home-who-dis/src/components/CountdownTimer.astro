@@ -1,0 +1,98 @@
+---
+import CountdownClient from './CountdownClient.jsx'
+
+interface Props {
+  targetDate: string
+}
+const { targetDate } = Astro.props
+---
+
+<div class="countdown-timer">
+    <CountdownClient targetDate={targetDate} client:load />
+</div>
+
+<style>
+  .countdown-timer {
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .countdown-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 auto;
+  }
+  
+  .time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .time-value {
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding: 1rem;
+    border-radius: 12px;
+    min-width: 80px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: pulse 2s infinite;
+  }
+  
+  .time-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .time-separator {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #9ca3af;
+    margin: 0;
+  }
+  
+  .countdown-message {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #10b981;
+    margin-top: 2rem;
+    animation: bounce 1s infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(-5px); }
+    50% { transform: translateY(0); }
+  }
+  
+  @media (max-width: 640px) {
+    .countdown-display {
+      gap: 0.25rem;
+    }
+    
+    .time-value {
+      font-size: 1.5rem;
+      padding: 0.75rem;
+      min-width: 60px;
+    }
+    
+    .time-separator {
+      font-size: 1.5rem;
+    }
+    
+    .time-label {
+      font-size: 0.75rem;
+    }
+  }
+</style>

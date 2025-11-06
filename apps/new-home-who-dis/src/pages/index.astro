@@ -1,0 +1,356 @@
+---
+import CountdownTimer from "../components/CountdownTimer.astro"
+import { EmojiIcon } from "@repo/ui"
+
+const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (GMT+2)
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>new-home-who-dis - The Ultimate Housewarming</title>
+    <meta
+      name="description"
+      content="A satirical gift registry for the most epic housewarming party in Iași. Get ready for aggressive UX and legitimate fun!"
+    />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1 class="title">
+          <span class="brand flex align-top justify-center"
+            >new-home-who-dis&#8482;
+          </span>
+        </h1>
+        <p class="subtitle">The Ultimate Housewarming Experience</p>
+      </header>
+
+      <section class="hero">
+        <div class="countdown-section">
+          <h2 class="countdown-title">The Party Starts In:</h2>
+          <CountdownTimer targetDate={partyDate} />
+        </div>
+
+        <div class="teaser-content">
+          <div class="coming-soon">
+            <h3>
+              <EmojiIcon value="🚨" label="warning" /> COMING SOON <EmojiIcon
+                value="🚨"
+                label="warning"
+              />
+            </h3>
+            <p>
+              The most aggressive, satirical, and utterly ridiculous gift
+              registry experience is coming to ruin your peaceful shopping
+              experience.
+            </p>
+          </div>
+
+          <div class="party-details">
+            <h3>
+              <EmojiIcon value="🎉" label="celebration" /> Party Details <EmojiIcon
+                value="🎉"
+                label="celebration"
+              />
+            </h3>
+            <ul class="details-list">
+              <li>
+                <EmojiIcon value="📅" label="calendar date" />
+                <strong>Date:</strong> November 8, 2025
+              </li>
+              <li>
+                <EmojiIcon value="🕐" label="clock time" />
+                <strong>Time:</strong> 3:00 PM (sharp)
+              </li>
+              <li>
+                <EmojiIcon value="📍" label="pin location" />
+                <strong>Location:</strong> Iași, Romania
+              </li>
+              <li>
+                <EmojiIcon value="🎁" label="gift present" />
+                <strong>Gifts:</strong> Three wishlists (Traditional, Receipt, Bandcamp)
+              </li>
+              <li>
+                <EmojiIcon value="🏆" label="trophy winner" />
+                <strong>Leaderboard:</strong> Anonymous competitive gifting
+              </li>
+              <li>
+                <EmojiIcon value="💨" label="wind smoke" />
+                <strong>Features:</strong> Real-time updates, tier-based perks, balcony
+                smoking management
+              </li>
+            </ul>
+          </div>
+
+          <div class="dark-pattern-preview">
+            <h3>
+              <EmojiIcon value="✨" label="sparkles" /> What to Expect <EmojiIcon
+                value="✨"
+                label="sparkles"
+              />
+            </h3>
+            <div class="features-grid">
+              <div class="feature-box">
+                <h4><EmojiIcon value="🎯" label="dart" /> Aggressive UX</h4>
+                <p>
+                  Popups, fake urgency, and dark patterns that are somehow still
+                  functional
+                </p>
+              </div>
+              <div class="feature-box">
+                <h4>
+                  <EmojiIcon value="🏆" label="trophy" /> Competitive Gifting
+                </h4>
+                <p>
+                  Bronze to Ultra tiers with real party perks (including
+                  bathroom priority!)
+                </p>
+              </div>
+              <div class="feature-box">
+                <h4>
+                  <EmojiIcon value="📱" label="mobile phone" /> Mobile-First
+                </h4>
+                <p>Designed for phone sharing during the party</p>
+              </div>
+              <div class="feature-box">
+                <h4>
+                  <EmojiIcon value="📺" label="television" /> TV Display Mode
+                </h4>
+                <p>Samsung TV compatible for ambient party entertainment</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>
+              <EmojiIcon value="⚠️" label="warning" /> Warning <EmojiIcon
+                value="⚠️"
+                label="warning"
+              />
+            </h3>
+            <p>
+              This website contains satirical dark patterns, aggressive UX, and
+              functional gift commitment systems. Side effects may include
+              excessive shopping, competitive anxiety, and uncontrollable
+              laughter. Consult your wallet before use.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <p>
+          Brought to you by questionable design decisions and genuine
+          hospitality
+        </p>
+        <p class="fine-print">
+          No actual data will be harvested for evil purposes. Probably.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --brand-red: #ff6b6b;
+    --brand-teal: #4ecdc4;
+    --brand-purple: #a855f7;
+    --brand-orange: #fb923c;
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+  }
+</style>
+
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: linear-gradient(
+      135deg,
+      var(--bg-secondary) 0%,
+      var(--bg-primary) 100%
+    );
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .title {
+    font-size: 3rem;
+    font-weight: 900;
+    margin: 0;
+    background: linear-gradient(45deg, var(--brand-red), var(--brand-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: lowercase;
+  }
+
+  .emoji {
+    font-size: 2rem;
+    vertical-align: super;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin: 0.5rem 0 0 0;
+    font-style: italic;
+  }
+
+  .hero {
+    space-y: 3rem;
+  }
+
+  .countdown-section {
+    text-align: center;
+    margin-bottom: 4rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .countdown-title {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+  }
+
+  .teaser-content > div {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .coming-soon h3 {
+    color: var(--brand-red);
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .coming-soon p {
+    text-align: center;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .party-details h3,
+  .dark-pattern-preview h3,
+  .warning h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .details-list {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .details-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .feature-box {
+    padding: 1.5rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .feature-box h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--brand-purple);
+  }
+
+  .feature-box p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .warning {
+    background: #fef2f2;
+    border: 2px solid #fecaca;
+  }
+
+  .warning h3 {
+    color: #dc2626;
+  }
+
+  .warning p {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #991b1b;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .footer p {
+    color: var(--text-secondary);
+    margin: 0.5rem 0;
+  }
+
+  .fine-print {
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+
+  @media (max-width: 640px) {
+    .container {
+      padding: 1rem;
+    }
+
+    .title {
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+    }
+
+    .teaser-content > div {
+      padding: 1.5rem;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
