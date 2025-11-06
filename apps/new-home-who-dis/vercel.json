@@ -1,0 +1,17 @@
+{
+  "buildCommand": "pnpm build",
+  "devCommand": "pnpm dev",
+  "outputDirectory": "dist",
+  "functions": {
+    "src/pages/api/events.ts": {
+      "maxDuration": 300
+    }
+  },
+  "env": {
+    "POSTGRES_URL": "@postgres_url",
+    "REVOLUT_USERNAME": "razsbg",
+    "PARTY_DATE": "2025-11-08"
+  },
+  "regions": ["fra1"],
+  "framework": "astro"
+}
