@@ -17,11 +17,11 @@ export default defineConfig({
     port: 4000,
     host: true,
   },
-  vite: {
-    define: {
-      __REVOLUT_USERNAME__: JSON.stringify("razsbg"),
-    },
-  },
+  // vite: {
+  //   define: {
+  //     __REVOLUT_USERNAME__: JSON.stringify("razsbg"),
+  //   },
+  // },
   site:
     process.env.NODE_ENV === "production"
       ? "https://party.razsbg.top"

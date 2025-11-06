@@ -1,0 +1,17 @@
+{
+  "buildCommand": "pnpm build",
+  "devCommand": "pnpm dev",
+  "outputDirectory": "dist",
+  "env": {
+    "PARTY_DATE": "2025-11-08"
+  },
+  "functions": {
+    "_render": {
+      "runtime": "nodejs22.x",
+
+      "maxDuration": 60
+    }
+  },
+  "regions": ["fra1"],
+  "framework": "astro"
+}
