@@ -1,6 +1,7 @@
 import { createSignal, onCleanup } from "solid-js"
+import styles from "./CountdownClient.module.css"
 
-const CountdownClient = (props) => {
+const CountdownClient = props => {
   const [timeRemaining, setTimeRemaining] = createSignal({
     days: 0,
     hours: 0,
@@ -8,54 +9,38 @@ const CountdownClient = (props) => {
     seconds: 0,
     isComplete: false,
   })
-  
-  const [animatingDigits, setAnimatingDigits] = createSignal({
-    days: false,
-    hours: false,
-    minutes: false,
-    seconds: false,
-  })
 
-  const calculateTimeDifference = (target) => {
+  const [isFirstLoad, setIsFirstLoad] = createSignal(true)
+
+  const calculateTimeDifference = target => {
     const now = new Date()
     const difference = target.getTime() - now.getTime()
-    
+
     if (difference <= 0) {
       return { days: 0, hours: 0, minutes: 0, seconds: 0, isComplete: true }
     }
-    
+
     const days = Math.floor(difference / (1000 * 60 * 60 * 24))
-    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const hours = Math.floor(
+      (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+    )
     const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
     const seconds = Math.floor((difference % (1000 * 60)) / 1000)
-    
+
     return { days, hours, minutes, seconds, isComplete: false }
   }
 
   const updateCountdown = () => {
     const targetDate = new Date(props.targetDate)
     const newTime = calculateTimeDifference(targetDate)
-    const oldTime = timeRemaining()
-    
-    // Trigger animation for changed values
-    const changes = {}
-    if (newTime.days !== oldTime.days) changes.days = true
-    if (newTime.hours !== oldTime.hours) changes.hours = true
-    if (newTime.minutes !== oldTime.minutes) changes.minutes = true
-    if (newTime.seconds !== oldTime.seconds) changes.seconds = true
-    
-    if (Object.keys(changes).length > 0) {
-      setAnimatingDigits(changes)
-      setTimeout(() => {
-        setAnimatingDigits({ days: false, hours: false, minutes: false, seconds: false })
-      }, 400)
-    }
-    
     setTimeRemaining(newTime)
   }
 
   // Update immediately
   updateCountdown()
+
+  // Mark first load as complete after animation
+  setTimeout(() => setIsFirstLoad(false), 1200)
 
   // Then update every second
   const timer = setInterval(updateCountdown, 1000)
@@ -67,35 +52,51 @@ const CountdownClient = (props) => {
   return (
     <div>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
-        <div class="flex flex-col items-center">
-          <div class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${animatingDigits().days ? 'animate-digit-flip' : ''}`}>
+        <div class={`flex flex-col items-center ${isFirstLoad() ? styles.digitContainer : ""}`}>
+          <div
+            class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${
+              isFirstLoad() ? styles.digit : ""
+            }`}
+          >
             {timeRemaining().days}
           </div>
           <div class="font-sans text-xs md:text-sm uppercase tracking-wide text-text-secondary mt-2">
             {props.translations.labels.days}
           </div>
         </div>
-        
-        <div class="flex flex-col items-center">
-          <div class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${animatingDigits().hours ? 'animate-digit-flip' : ''}`}>
+
+        <div class={`flex flex-col items-center ${isFirstLoad() ? styles.digitContainer : ""}`}>
+          <div
+            class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${
+              isFirstLoad() ? styles.digit : ""
+            }`}
+          >
             {String(timeRemaining().hours).padStart(2, "0")}
           </div>
           <div class="font-sans text-xs md:text-sm uppercase tracking-wide text-text-secondary mt-2">
             {props.translations.labels.hours}
           </div>
         </div>
-        
-        <div class="flex flex-col items-center">
-          <div class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${animatingDigits().minutes ? 'animate-digit-flip' : ''}`}>
+
+        <div class={`flex flex-col items-center ${isFirstLoad() ? styles.digitContainer : ""}`}>
+          <div
+            class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${
+              isFirstLoad() ? styles.digit : ""
+            }`}
+          >
             {String(timeRemaining().minutes).padStart(2, "0")}
           </div>
           <div class="font-sans text-xs md:text-sm uppercase tracking-wide text-text-secondary mt-2">
             {props.translations.labels.minutes}
           </div>
         </div>
-        
-        <div class="flex flex-col items-center">
-          <div class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${animatingDigits().seconds ? 'animate-digit-flip' : ''}`}>
+
+        <div class={`flex flex-col items-center ${isFirstLoad() ? styles.digitContainer : ""}`}>
+          <div
+            class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${
+              isFirstLoad() ? styles.digit : ""
+            }`}
+          >
             {String(timeRemaining().seconds).padStart(2, "0")}
           </div>
           <div class="font-sans text-xs md:text-sm uppercase tracking-wide text-text-secondary mt-2">
@@ -103,7 +104,7 @@ const CountdownClient = (props) => {
           </div>
         </div>
       </div>
-      
+
       {timeRemaining().isComplete && (
         <div class="text-2xl font-bold text-brand-secondary mt-8 text-center animate-bounce">
           <span role="img" aria-label="celebration">

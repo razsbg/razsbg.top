@@ -42,6 +42,7 @@ export default {
         "fade-in-up": "fade-in-up 0.5s ease-out",
         "scale-in": "scale-in 0.3s ease-out",
         "digit-flip": "digit-flip 0.4s ease-out",
+        "slide-down-fade": "slide-down-fade 0.6s ease-out forwards",
       },
       keyframes: {
         wiggle: {
