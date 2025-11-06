@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "title": "new-home-who-dis - The Ultimate Housewarming",
+    "description": "A satirical gift registry for the most epic housewarming party in Iași. Get ready for aggressive UX and legitimate fun!"
+  },
+  "header": {
+    "brand": "new-home-who-dis™",
+    "subtitle": "The Ultimate Housewarming Experience"
+  },
+  "countdown": {
+    "title": "The Party Starts In:",
+    "labels": {
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    },
+    "completed": "The party has started!"
+  },
+  "wishlists": {
+    "prefix": "Three wishlists:",
+    "names": {
+      "traditional": "Traditional",
+      "receipt": "Receipt",
+      "bandcamp": "Bandcamp"
+    }
+  },
+  "sections": {
+    "comingSoon": {
+      "title": "COMING SOON",
+      "description": "The most aggressive, satirical, and utterly ridiculous gift registry experience is coming to ruin your",
+      "descriptionEnd": "peaceful shopping experience",
+      "subtext": "No actual data will be harvested. Promises not legally binding."
+    },
+    "partyDetails": {
+      "title": "Party Details",
+      "items": [
+        {
+          "emoji": "📅",
+          "label": "Date:",
+          "value": "November 8, 2025"
+        },
+        {
+          "emoji": "🕐",
+          "label": "Time:",
+          "value": "3:00 PM (sharp)"
+        },
+        {
+          "emoji": "📍",
+          "label": "Location:",
+          "value": "Iași, Romania"
+        },
+        {
+          "emoji": "🎁",
+          "label": "Gifts:",
+          "value": "Three wishlists (Traditional, Receipt, Bandcamp)"
+        },
+        {
+          "emoji": "🏆",
+          "label": "Leaderboard:",
+          "value": "Anonymous competitive gifting"
+        },
+        {
+          "emoji": "💨",
+          "label": "Features:",
+          "value": "Real-time updates, tier-based perks"
+        }
+      ]
+    },
+    "whatToExpect": {
+      "title": "What to Expect",
+      "features": [
+        {
+          "emoji": "🎯",
+          "title": "Aggressive UX",
+          "description": "Popups, fake urgency, and dark patterns that are somehow still functional"
+        },
+        {
+          "emoji": "🏆",
+          "title": "Competitive Gifting",
+          "description": "Bronze to Ultra tiers with real party perks (including bathroom priority!)"
+        },
+        {
+          "emoji": "📱",
+          "title": "Mobile-First",
+          "description": "Designed for phone sharing during the party"
+        },
+        {
+          "emoji": "📺",
+          "title": "TV Display Mode",
+          "description": "Samsung TV compatible for ambient party entertainment"
+        }
+      ]
+    },
+    "warning": {
+      "title": "Warning",
+      "text": "This website contains satirical dark patterns, aggressive UX, and functional gift commitment systems. Side effects may include excessive shopping, competitive anxiety, and uncontrollable laughter. Consult your wallet before use."
+    }
+  },
+  "footer": {
+    "message": "Brought to you by questionable design decisions and genuine hospitality",
+    "finePrint": "No actual data will be harvested for evil purposes. Probably.",
+    "tagline": "Experience-driven housewarming",
+    "location": "Iași, Romania • November 8, 2025",
+    "copyright": "© 2025 razsbg",
+    "builtWith": "Built with ❤️ and dark patterns 💀",
+    "poweredBy": "Powered by questionable UX decisions and Romanian hospitality™"
+  }
+}

@@ -1,9 +1,0 @@
----
-const {
-  className,
-  label = "please make it accesible",
-  value = "🎲",
-} = Astro.props
----
-
-<span role="img" aria-label={label} class={`${className ?? ""}`}>{value}</span>

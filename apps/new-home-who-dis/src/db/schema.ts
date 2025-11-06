@@ -20,10 +20,10 @@ export const users = pgTable(
     lastActive: timestamp("last_active").defaultNow().notNull(),
     ipHash: varchar("ip_hash", { length: 64 }),
   },
-  table => ({
-    pseudonymIdx: index("idx_users_pseudonym").on(table.pseudonym),
-    sessionIdx: index("idx_users_session_id").on(table.sessionId),
-  }),
+  table => [
+    index("idx_users_pseudonym").on(table.pseudonym),
+    index("idx_users_session_id").on(table.sessionId),
+  ],
 )
 
 // Gifts table
@@ -57,12 +57,12 @@ export const gifts = pgTable(
 
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
-  table => ({
-    categoryIdx: index("idx_gifts_category").on(table.category),
-    priorityIdx: index("idx_gifts_priority").on(table.priority),
-    wishlistTypeIdx: index("idx_gifts_wishlist_type").on(table.wishlistType),
-    committedIdx: index("idx_gifts_committed").on(table.isCommitted),
-  }),
+  table => [
+    index("idx_gifts_category").on(table.category),
+    index("idx_gifts_priority").on(table.priority),
+    index("idx_gifts_wishlist_type").on(table.wishlistType),
+    index("idx_gifts_committed").on(table.isCommitted),
+  ],
 )
 
 // Commitments table
@@ -80,13 +80,12 @@ export const commitments = pgTable(
     committedAt: timestamp("committed_at").defaultNow().notNull(),
     status: varchar("status", { length: 20 }).default("active").notNull(), // 'active' | 'cancelled'
   },
-  table => ({
-    userIdx: index("idx_commitments_user_id").on(table.userId),
-    giftIdx: index("idx_commitments_gift_id").on(table.giftId),
-    statusIdx: index("idx_commitments_status").on(table.status),
-    // Unique constraint: one commitment per gift
-    giftUniqueIdx: index("idx_commitments_gift_unique").on(table.giftId),
-  }),
+  table => [
+    index("idx_commitments_user_id").on(table.userId),
+    index("idx_commitments_gift_id").on(table.giftId),
+    index("idx_commitments_status").on(table.status),
+    index("idx_commitments_gift_unique").on(table.giftId),
+  ],
 )
 
 // Balcony tracking table
@@ -102,11 +101,11 @@ export const smokingSessions = pgTable(
     duration: integer("duration"), // in minutes
     status: varchar("status", { length: 20 }).default("active").notNull(), // 'active' | 'completed' | 'kicked'
   },
-  table => ({
-    userIdx: index("idx_smoking_sessions_user_id").on(table.userId),
-    statusIdx: index("idx_smoking_sessions_status").on(table.status),
-    startTimeIdx: index("idx_smoking_sessions_start_time").on(table.startTime),
-  }),
+  table => [
+    index("idx_smoking_sessions_user_id").on(table.userId),
+    index("idx_smoking_sessions_status").on(table.status),
+    index("idx_smoking_sessions_start_time").on(table.startTime),
+  ],
 )
 
 // System configuration table

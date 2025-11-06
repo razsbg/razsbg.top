@@ -1,0 +1,459 @@
+---
+import CountdownTimer from "../components/CountdownTimer.astro"
+import Logo from "../components/Logo.astro"
+import { EmojiIcon } from "@repo/ui"
+import translations from "../data/translations.json"
+
+const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (GMT+2)
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{translations.meta.title}</title>
+    <meta name="description" content={translations.meta.description} />
+  </head>
+  <body class="bg-bg-dark">
+    <main class="max-w-4xl mx-auto px-4 md:px-6 pt-12 md:pt-16">
+      <header class="header">
+        <h1 class="text-center mb-0">
+          <Logo size="lg" animated />
+        </h1>
+        <p
+          class="font-display text-lg md:text-xl text-text-secondary mt-2 mb-12 text-center"
+        >
+          {translations.header.subtitle}
+        </p>
+      </header>
+
+      <section class="hero">
+        <div class="mb-16">
+          <CountdownTimer
+            targetDate={partyDate}
+            translations={translations.countdown}
+          />
+        </div>
+
+        <div class="teaser-content">
+          <div
+            class="coming-soon my-16 md:my-20 py-12 md:py-16 animate-fade-in-up"
+          >
+            <div class="max-w-3xl mx-auto text-center">
+              <h3
+                class="font-display text-3xl md:text-4xl font-bold text-brand-primary tracking-wide mb-6 animate-pulse-slow"
+              >
+                {translations.sections.comingSoon.title}
+              </h3>
+              <p
+                class="text-text-primary font-sans text-lg md:text-xl leading-relaxed"
+              >
+                {translations.sections.comingSoon.description}
+                <span class="text-brand-accent"
+                  >{translations.sections.comingSoon.descriptionEnd}</span
+                >.
+              </p>
+              <p class="text-sm text-text-secondary/80 mt-4">
+                {translations.sections.comingSoon.subtext}
+                <EmojiIcon
+                  value="🤞"
+                  className="w-6 h-6 text-xl"
+                  label="hope for the best"
+                />
+              </p>
+            </div>
+          </div>
+
+          <div class="party-details-section my-16 md:my-20">
+            <h3
+              class="font-display text-3xl text-center font-bold text-text-primary mb-8 md:mb-12"
+            >
+              {translations.sections.partyDetails.title}
+            </h3>
+            <div
+              class="party-details-container bg-black border rounded-2xl p-6 md:p-10 max-w-4xl mx-auto shadow-xl card-hover animate-pulse-glow"
+            >
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {
+                  translations.sections.partyDetails.items.map(
+                    (item, index) => {
+                      const delays = [
+                        "0ms",
+                        "100ms",
+                        "200ms",
+                        "300ms",
+                        "400ms",
+                        "500ms",
+                      ]
+
+                      // Parse special formatting for specific items
+                      let valueContent
+                      if (item.label === "Time:") {
+                        // Special formatting for "sharp"
+                        const parts = item.value.split("(sharp)")
+                        valueContent = (
+                          <>
+                            {parts[0]}
+                            <span class="text-brand-accent font-semibold">
+                              (sharp)
+                            </span>
+                            {parts[1] || ""}
+                          </>
+                        )
+                      } else if (item.label === "Gifts:") {
+                        // Wishlist enumeration
+                        valueContent = (
+                          <>
+                            {translations.wishlists.prefix}{" "}
+                            <span class="bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent font-semibold">
+                              {translations.wishlists.names.traditional}
+                            </span>
+                            ,{" "}
+                            <span class="bg-gradient-to-r from-brand-secondary to-brand-primary bg-clip-text text-transparent font-semibold">
+                              {translations.wishlists.names.receipt}
+                            </span>
+                            , and{" "}
+                            <span class="bg-gradient-to-r from-gold-tier to-ultra-tier bg-clip-text text-transparent font-semibold">
+                              {translations.wishlists.names.bandcamp}
+                            </span>
+                          </>
+                        )
+                      } else {
+                        valueContent = item.value
+                      }
+
+                      return (
+                        <div
+                          class="party-detail-item flex items-start gap-4 opacity-0 animate-slide-in-left"
+                          style={`animation-delay: ${delays[index]}`}
+                        >
+                          <EmojiIcon
+                            value={item.emoji}
+                            label={item.label}
+                            className="text-xl md:w-8 md:h-8 md:text-2xl flex-shrink-0 party-detail-icon"
+                          />
+                          <div class="flex-1">
+                            <div class="font-display text-lg font-semibold text-text-primary mb-1">
+                              {item.label}
+                            </div>
+                            <div class="font-sans text-base text-text-secondary leading-relaxed">
+                              {valueContent}
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    },
+                  )
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="dark-pattern-preview my-12 md:my-20">
+            <h3
+              class="font-display text-2xl md:text-3xl font-bold text-text-primary text-center mb-8 md:mb-12"
+            >
+              <EmojiIcon
+                value="✨"
+                label="sparkles"
+                className="w-6 h-6 inline"
+              />
+              {" "}{translations.sections.whatToExpect.title}{" "}
+              <EmojiIcon
+                value="✨"
+                label="sparkles"
+                className="w-6 h-6 inline"
+              />
+            </h3>
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-4xl mx-auto md:px-6"
+            >
+              {
+                translations.sections.whatToExpect.features.map(
+                  (feature, index) => {
+                    // Map tier colors to each feature
+                    const tierColors = [
+                      "text-brand-primary",
+                      "text-gold-tier",
+                      "text-brand-secondary",
+                      "text-ultra-tier",
+                    ]
+                    const delays = ["0ms", "50ms", "100ms", "150ms"]
+
+                    return (
+                      <div
+                        class="feature-card bg-black border border-white/10 rounded-xl p-6 shadow-lg card-hover hover:scale-[1.02] opacity-0 animate-fade-in-up"
+                        style={`animation-delay: ${delays[index]}`}
+                      >
+                        <div class="feature-icon-wrapper" />
+                        <h4
+                          class={`font-display text-xl font-semibold mb-2 flex items-center gap-3 ${tierColors[index]}`}
+                        >
+                          <EmojiIcon
+                            value={feature.emoji}
+                            label={feature.title}
+                            className="inline-flex items-center w-6 h-6 text-2xl"
+                          />
+                          <span>{feature.title}</span>
+                        </h4>
+                        <p class="font-sans text-sm md:text-base text-text-secondary leading-relaxed">
+                          {feature.description}
+                        </p>
+                      </div>
+                    )
+                  },
+                )
+              }
+            </div>
+          </div>
+
+          <div
+            class="warning-banner max-w-3xl mx-auto my-16 md:my-20 opacity-0 animate-fade-in-up"
+          >
+            <div class="flex items-center justify-center gap-2 mb-4">
+              <EmojiIcon
+                value="⚠️"
+                className="w-8 h-8 text-3xl flex items-center justify-center"
+                label="warning"
+              />
+              <h3
+                class="text-brand-primary font-display text-2xl md:text-3xl font-bold m-0"
+              >
+                {translations.sections.warning.title}
+              </h3>
+              <EmojiIcon
+                value="⚠️"
+                className="w-8 h-8 text-3xl flex items-center justify-center"
+                label="warning"
+              />
+            </div>
+            <p
+              class="text-text-primary font-sans text-base md:text-lg leading-relaxed text-center"
+            >
+              This website contains satirical <span class="keyword"
+                >dark patterns</span
+              >, aggressive UX, and functional gift commitment systems. Side
+              effects may include excessive shopping, <span class="keyword"
+                >competitive anxiety</span
+              >, and <span class="keyword">uncontrollable laughter</span>.
+              Consult your wallet before use.
+            </p>
+            <p class="text-sm text-text-secondary mt-4 text-center">
+              {translations.footer.poweredBy}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer
+        role="contentinfo"
+        class="bg-bg-dark border-t border-white/10 py-8 mt-auto"
+      >
+        <div class="max-w-4xl mx-auto px-6">
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-center"
+          >
+            <!-- Column 1: Branding -->
+            <div class="text-center md:text-left">
+              <Logo size="sm" />
+              <p class="text-xs text-text-secondary mt-1">
+                {translations.footer.tagline}
+              </p>
+            </div>
+
+            <!-- Column 2: Essential Info -->
+            <div class="text-center">
+              <p class="text-xs text-text-secondary">
+                {translations.footer.location}
+              </p>
+            </div>
+
+            <!-- Column 3: Meta -->
+            <div class="text-center md:text-right">
+              <p
+                class="text-xs text-text-secondary inline-flex items-center gap-1"
+              >
+                {translations.footer.copyright}
+              </p>
+              <p class="text-xs text-text-secondary/60 mt-1">
+                {translations.footer.builtWith}
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </body>
+
+  <style is:global>
+    :root {
+      --brand-red: #ff6b6b;
+      --brand-teal: #4ecdc4;
+      --brand-purple: #a855f7;
+      --brand-orange: #fb923c;
+      --text-primary: #111827;
+      --text-secondary: #6b7280;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f9fafb;
+    }
+
+    .text-glow {
+      text-shadow: 0 0 20px rgba(255, 61, 113, 0.6);
+    }
+
+    .card-hover {
+      @apply transition-all duration-300 ease-out;
+    }
+
+    .card-hover:hover {
+      @apply -translate-y-1 shadow-2xl;
+    }
+
+    .spring-bounce {
+      transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+  </style>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .emoji {
+      font-size: 2rem;
+      vertical-align: super;
+    }
+
+    /* Fade-in-up animation for logo segments */
+    .fade-in-up {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .animate-fade-in-up {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Gradient shift animation for "dis" */
+    @keyframes gradient-shift {
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .animate-gradient-shift {
+      background-size: 200% 200%;
+      animation: gradient-shift 3s ease infinite;
+    }
+
+    .hero {
+      space-y: 3rem;
+    }
+
+    .teaser-content > div:not(.party-details-section):not(.coming-soon) {
+      margin-bottom: 3rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .party-details-section {
+      margin-bottom: 3rem;
+    }
+
+    /* Party details section animations */
+    .animate-slide-in-left {
+      animation: slideInLeft 0.6s ease-out forwards;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Icon hover effect */
+    .party-detail-item:hover .party-detail-icon {
+      animation: icon-scale 0.3s ease;
+    }
+
+    @keyframes icon-scale {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    /* Feature card icon bounce on hover */
+    .feature-card:hover .feature-icon-wrapper {
+      animation: icon-bounce 0.5s ease;
+    }
+
+    @keyframes icon-bounce {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-2px);
+      }
+    }
+
+    /* Keyword highlighting with hover effect */
+    .keyword {
+      color: #ff3d71; /* brand-primary */
+      font-weight: 600;
+      cursor: default;
+      transition: all 0.3s ease;
+    }
+
+    .keyword:hover {
+      text-shadow: 0 0 8px rgba(255, 61, 113, 0.5);
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .title {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</html>

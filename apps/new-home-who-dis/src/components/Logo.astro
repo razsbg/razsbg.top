@@ -1,0 +1,38 @@
+---
+interface Props {
+  size?: "sm" | "md" | "lg"
+  animated?: boolean
+  className?: string
+}
+
+const { size = "md", animated = false, className = "" } = Astro.props
+
+const sizeClasses = {
+  sm: "text-sm",
+  md: "text-base md:text-lg",
+  lg: "text-3xl md:text-4xl lg:text-5xl",
+}
+---
+
+<span
+  class:list={[
+    "brand-logo inline-flex items-baseline justify-center font-display font-bold tracking-tight",
+    sizeClasses[size],
+    className,
+  ]}
+>
+  <span
+    class:list={[
+      "bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent",
+    ]}
+    style={animated ? "animation-delay: 0ms" : undefined}
+  >
+    new-home-who-dis
+  </span>
+  <span
+    class:list={["text-brand-accent", animated && "fade-in-up animate-wiggle"]}
+    style={animated ? "animation-delay: 100ms" : undefined}
+  >
+    ™
+  </span>
+</span>
