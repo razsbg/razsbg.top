@@ -13,20 +13,19 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
     <title>{translations.meta.title}</title>
     <meta name="description" content={translations.meta.description} />
   </head>
-  <body>
-    <main class="container">
+  <body class="bg-bg-dark">
+    <main class="max-w-4xl mx-auto px-6 pt-12 md:pt-16">
       <header class="header">
-        <h1 class="title">
-          <span class="brand flex align-top justify-center">
-            {translations.header.brand}
+        <h1 class="font-display font-bold tracking-tight text-4xl md:text-5xl lg:text-6xl text-center mb-0">
+          <span class="brand-logo inline-flex items-baseline justify-center">
+            <span class="fade-in-up text-brand-primary" style="animation-delay: 0ms">new-</span><span class="fade-in-up text-text-primary" style="animation-delay: 100ms">home-</span><span class="fade-in-up text-text-secondary" style="animation-delay: 200ms">who-</span><span class="fade-in-up bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent animate-gradient-shift" style="animation-delay: 300ms">dis</span><span class="fade-in-up text-brand-accent animate-wiggle" style="animation-delay: 400ms">™</span>
           </span>
         </h1>
-        <p class="subtitle">{translations.header.subtitle}</p>
+        <p class="font-display italic text-lg md:text-xl text-text-secondary mt-2 mb-12 text-center">{translations.header.subtitle}</p>
       </header>
 
       <section class="hero">
-        <div class="countdown-section">
-          <h2 class="countdown-title">{translations.countdown.title}</h2>
+        <div class="mb-16">
           <CountdownTimer
             targetDate={partyDate}
             translations={translations.countdown}
@@ -34,76 +33,157 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
         </div>
 
         <div class="teaser-content">
-          <div class="coming-soon">
-            <h3>
-              <EmojiIcon value="🚨" label="warning" />
-              {translations.sections.comingSoon.title}
-              <EmojiIcon value="🚨" label="warning" />
-            </h3>
-            <p>
-              {translations.sections.comingSoon.description}
-            </p>
+          <div class="coming-soon mt-16 md:mt-20 bg-gradient-to-b from-transparent to-bg-card/50 py-16 md:py-20 opacity-0 animate-fade-in-up">
+            <div class="max-w-3xl mx-auto px-6 text-center">
+              <h3 class="font-display text-3xl md:text-4xl font-bold text-brand-primary tracking-wide mb-6 animate-pulse-slow">
+                <EmojiIcon value="🚨" label="warning" className="w-6 h-6 inline animate-wiggle" />
+                {" "}{translations.sections.comingSoon.title}{" "}
+                <EmojiIcon value="🚨" label="warning" className="w-6 h-6 inline animate-wiggle" />
+              </h3>
+              <p class="text-text-primary font-sans text-lg md:text-xl leading-relaxed">
+                The most aggressive, satirical, and utterly ridiculous gift registry experience is coming to ruin your <em class="text-brand-accent">peaceful shopping experience</em>.
+              </p>
+              <p class="text-sm text-text-secondary/80 italic mt-4">
+                No actual data will be harvested. Promises not legally binding. 🤞
+              </p>
+            </div>
           </div>
 
-          <div class="party-details">
-            <h3>
-              <EmojiIcon value="🎉" label="celebration" />
-              {translations.sections.partyDetails.title}
-              <EmojiIcon value="🎉" label="celebration" />
+          <div class="party-details-section">
+            <h3 class="font-display text-3xl font-bold text-text-primary text-center mb-8 md:mb-12">
+              <EmojiIcon value="🎉" label="celebration" className="w-6 h-6 inline" />
+              {" "}{translations.sections.partyDetails.title}{" "}
+              <EmojiIcon value="🎉" label="celebration" className="w-6 h-6 inline" />
             </h3>
-            <ul class="details-list">
-              {
-                translations.sections.partyDetails.items.map(item => (
-                  <li>
-                    <EmojiIcon value={item.emoji} label={item.label} />
-                    <strong>{item.label}</strong> {item.value}
-                  </li>
-                ))
-              }
-            </ul>
+            <div class="party-details-container bg-bg-card border border-brand-secondary/20 rounded-2xl p-8 md:p-10 max-w-2xl mx-auto shadow-xl card-hover">
+              <div class="space-y-6">
+                {
+                  translations.sections.partyDetails.items.map((item, index) => {
+                    const delays = ['0ms', '100ms', '200ms', '300ms', '400ms', '500ms'];
+                    
+                    // Parse special formatting for specific items
+                    let valueContent;
+                    if (item.label === "Time:") {
+                      // Special formatting for "sharp"
+                      const parts = item.value.split("(sharp)");
+                      valueContent = (
+                        <>
+                          {parts[0]}
+                          <span class="text-brand-accent font-semibold">(sharp)</span>
+                          {parts[1] || ''}
+                        </>
+                      );
+                    } else if (item.label === "Gifts:") {
+                      // Wishlist pills
+                      valueContent = (
+                        <>
+                          Three wishlists{" "}
+                          <span class="bg-bg-dark px-3 py-1 rounded-full text-sm inline-block mr-2 hover:bg-brand-primary/20 transition-colors">Traditional</span>
+                          <span class="bg-bg-dark px-3 py-1 rounded-full text-sm inline-block mr-2 hover:bg-brand-primary/20 transition-colors">Receipt</span>
+                          <span class="bg-bg-dark px-3 py-1 rounded-full text-sm inline-block hover:bg-brand-primary/20 transition-colors">Bandcamp</span>
+                        </>
+                      );
+                    } else {
+                      valueContent = item.value;
+                    }
+                    
+                    return (
+                      <div 
+                        class="party-detail-item flex items-start gap-4 opacity-0 animate-slide-in-left"
+                        style={`animation-delay: ${delays[index]}`}
+                      >
+                        <EmojiIcon value={item.emoji} label={item.label} className="w-6 h-6 flex-shrink-0 mt-1 party-detail-icon" />
+                        <div class="flex-1">
+                          <div class="font-display text-lg font-semibold text-text-primary mb-1">
+                            {item.label}
+                          </div>
+                          <div class="font-sans text-base text-text-secondary leading-relaxed">
+                            {valueContent}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
+                }
+              </div>
+            </div>
           </div>
 
           <div class="dark-pattern-preview">
-            <h3>
-              <EmojiIcon value="✨" label="sparkles" />
-              {translations.sections.whatToExpect.title}
-              <EmojiIcon value="✨" label="sparkles" />
+            <h3 class="font-display text-3xl font-bold text-text-primary text-center mb-8 md:mb-12">
+              <EmojiIcon value="✨" label="sparkles" className="w-6 h-6 inline" />
+              {" "}{translations.sections.whatToExpect.title}{" "}
+              <EmojiIcon value="✨" label="sparkles" className="w-6 h-6 inline" />
             </h3>
-            <div class="features-grid">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto px-6">
               {
-                translations.sections.whatToExpect.features.map(feature => (
-                  <div class="feature-box">
-                    <h4>
-                      <EmojiIcon value={feature.emoji} label={feature.title} />{" "}
-                      {feature.title}
-                    </h4>
-                    <p>{feature.description}</p>
-                  </div>
-                ))
+                translations.sections.whatToExpect.features.map((feature, index) => {
+                  // Map tier colors to each feature
+                  const tierColors = ['text-brand-primary', 'text-gold-tier', 'text-brand-secondary', 'text-ultra-tier'];
+                  const delays = ['0ms', '50ms', '100ms', '150ms'];
+                  
+                  return (
+                    <div 
+                      class="feature-card bg-bg-card border border-white/5 rounded-xl p-6 shadow-lg card-hover hover:scale-[1.02] opacity-0 animate-fade-in-up"
+                      style={`animation-delay: ${delays[index]}`}
+                    >
+                      <div class="feature-icon-wrapper">
+                        <EmojiIcon value={feature.emoji} label={feature.title} className="w-6 h-6 mb-3" />
+                      </div>
+                      <h4 class={`font-display text-xl font-semibold mb-2 ${tierColors[index]}`}>
+                        {feature.title}
+                      </h4>
+                      <p class="font-sans text-sm md:text-base text-text-secondary leading-relaxed">
+                        {feature.description}
+                      </p>
+                    </div>
+                  );
+                })
               }
             </div>
           </div>
 
-          <div class="warning">
-            <h3>
+          <div class="warning-banner bg-bg-card border-2 border-brand-primary rounded-xl p-6 md:p-8 max-w-3xl mx-auto my-12 opacity-0 animate-fade-in-up card-hover">
+            <div class="flex items-center justify-center gap-2 mb-4">
               <EmojiIcon value="⚠️" label="warning" />
-              {translations.sections.warning.title}
+              <h3 class="text-brand-primary font-display text-2xl md:text-3xl font-bold m-0">
+                {translations.sections.warning.title}
+              </h3>
               <EmojiIcon value="⚠️" label="warning" />
-            </h3>
-            <p>
-              {translations.sections.warning.text}
+            </div>
+            <p class="text-text-primary font-sans text-base md:text-lg leading-relaxed text-center">
+              This website contains satirical <span class="keyword">dark patterns</span>, aggressive UX, and functional gift commitment systems. Side effects may include excessive shopping, <span class="keyword">competitive anxiety</span>, and <span class="keyword">uncontrollable laughter</span>. Consult your wallet before use.
+            </p>
+            <p class="italic text-sm text-text-secondary/80 mt-4 text-center">
+              Powered by questionable UX decisions and Romanian hospitality ™️
             </p>
           </div>
         </div>
       </section>
 
-      <footer class="footer">
-        <p>
-          {translations.footer.message}
-        </p>
-        <p class="fine-print">
-          {translations.footer.finePrint}
-        </p>
+      <footer role="contentinfo" class="bg-bg-dark border-t border-white/10 py-8 mt-auto">
+        <div class="max-w-4xl mx-auto px-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-center">
+            <!-- Column 1: Branding -->
+            <div class="text-center md:text-left">
+              <div class="text-sm font-display font-semibold">
+                <span class="text-brand-primary">new-</span><span class="text-text-primary">home-</span><span class="text-text-secondary">who-</span><span class="bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent">dis</span><span class="text-brand-accent">™️</span>
+              </div>
+              <p class="text-xs text-text-secondary mt-1">Experience-driven housewarming</p>
+            </div>
+
+            <!-- Column 2: Essential Info -->
+            <div class="text-center">
+              <p class="text-xs text-text-secondary">Iași, Romania • November 8, 2025</p>
+            </div>
+
+            <!-- Column 3: Meta -->
+            <div class="text-center md:text-right">
+              <p class="text-xs text-text-secondary">© 2025 new-home-who-dis™️</p>
+              <p class="text-xs text-text-secondary/60 mt-1 italic">Built with love and dark patterns 💀</p>
+            </div>
+          </div>
+        </div>
       </footer>
     </main>
   </body>
@@ -120,6 +200,22 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
     --bg-primary: #ffffff;
     --bg-secondary: #f9fafb;
   }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(255, 61, 113, 0.6);
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .card-hover:hover {
+    @apply -translate-y-1 shadow-2xl;
+  }
+
+  .spring-bounce {
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
 </style>
 
 <style>
@@ -127,36 +223,8 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
       sans-serif;
     line-height: 1.6;
-    color: var(--text-primary);
-    background: linear-gradient(
-      135deg,
-      var(--bg-secondary) 0%,
-      var(--bg-primary) 100%
-    );
     margin: 0;
     padding: 0;
-  }
-
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-
-  .header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .title {
-    font-size: 3rem;
-    font-weight: 900;
-    margin: 0;
-    background: linear-gradient(45deg, var(--brand-red), var(--brand-teal));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-transform: lowercase;
   }
 
   .emoji {
@@ -164,33 +232,48 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
     vertical-align: super;
   }
 
-  .subtitle {
-    font-size: 1.25rem;
-    color: var(--text-secondary);
-    margin: 0.5rem 0 0 0;
-    font-style: italic;
+  /* Fade-in-up animation for logo segments */
+  .fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Gradient shift animation for "dis" */
+  @keyframes gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .animate-gradient-shift {
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
   }
 
   .hero {
     space-y: 3rem;
   }
 
-  .countdown-section {
-    text-align: center;
-    margin-bottom: 4rem;
-    padding: 2rem;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  }
-
-  .countdown-title {
-    font-size: 1.5rem;
-    color: var(--text-primary);
-    margin-bottom: 2rem;
-  }
-
-  .teaser-content > div {
+  .teaser-content > div:not(.party-details-section):not(.coming-soon) {
     margin-bottom: 3rem;
     padding: 2rem;
     background: white;
@@ -198,95 +281,80 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   }
 
-  .coming-soon h3 {
-    color: var(--brand-red);
-    font-size: 1.5rem;
-    text-align: center;
-    margin-bottom: 1rem;
+  .party-details-section {
+    margin-bottom: 3rem;
   }
 
-  .coming-soon p {
-    text-align: center;
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto;
+  /* Party details section animations */
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out forwards;
   }
 
-  .party-details h3,
-  .dark-pattern-preview h3,
-  .warning h3 {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    text-align: center;
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
-  .details-list {
-    list-style: none;
-    padding: 0;
-    max-width: 600px;
-    margin: 0 auto;
+  /* Icon hover effect */
+  .party-detail-item:hover .party-detail-icon {
+    animation: icon-scale 0.3s ease;
   }
 
-  .details-list li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #e5e7eb;
+  @keyframes icon-scale {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
   }
 
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+  /* Feature card icon bounce on hover */
+  .feature-card:hover .feature-icon-wrapper {
+    animation: icon-bounce 0.5s ease;
   }
 
-  .feature-box {
-    padding: 1.5rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    text-align: center;
+  @keyframes icon-bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-2px);
+    }
   }
 
-  .feature-box h4 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-    color: var(--brand-purple);
+  /* Warning banner animations */
+  .warning-banner {
+    animation: border-pulse 3s ease-in-out infinite, fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0s, 0s;
   }
 
-  .feature-box p {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
+  @keyframes border-pulse {
+    0%, 100% {
+      border-color: #FF3D71; /* brand-primary */
+    }
+    50% {
+      border-color: #FFE66D; /* brand-accent */
+    }
   }
 
-  .warning {
-    background: #fef2f2;
-    border: 2px solid #fecaca;
+  /* Keyword highlighting with hover effect */
+  .keyword {
+    color: rgba(255, 61, 113, 0.8); /* brand-primary with 80% opacity */
+    font-weight: 600;
+    cursor: default;
+    transition: all 0.3s ease;
   }
 
-  .warning h3 {
-    color: #dc2626;
-  }
-
-  .warning p {
-    text-align: center;
-    font-size: 0.95rem;
-    color: #991b1b;
-  }
-
-  .footer {
-    text-align: center;
-    margin-top: 4rem;
-    padding: 2rem 0;
-    border-top: 1px solid #e5e7eb;
-  }
-
-  .footer p {
-    color: var(--text-secondary);
-    margin: 0.5rem 0;
-  }
-
-  .fine-print {
-    font-size: 0.8rem;
-    font-style: italic;
+  .keyword:hover {
+    color: #FF3D71; /* brand-primary full opacity */
+    text-shadow: 0 0 8px rgba(255, 61, 113, 0.5);
   }
 
   @media (max-width: 640px) {

@@ -8,6 +8,13 @@ const CountdownClient = (props) => {
     seconds: 0,
     isComplete: false,
   })
+  
+  const [animatingDigits, setAnimatingDigits] = createSignal({
+    days: false,
+    hours: false,
+    minutes: false,
+    seconds: false,
+  })
 
   const calculateTimeDifference = (target) => {
     const now = new Date()
@@ -27,7 +34,24 @@ const CountdownClient = (props) => {
 
   const updateCountdown = () => {
     const targetDate = new Date(props.targetDate)
-    setTimeRemaining(calculateTimeDifference(targetDate))
+    const newTime = calculateTimeDifference(targetDate)
+    const oldTime = timeRemaining()
+    
+    // Trigger animation for changed values
+    const changes = {}
+    if (newTime.days !== oldTime.days) changes.days = true
+    if (newTime.hours !== oldTime.hours) changes.hours = true
+    if (newTime.minutes !== oldTime.minutes) changes.minutes = true
+    if (newTime.seconds !== oldTime.seconds) changes.seconds = true
+    
+    if (Object.keys(changes).length > 0) {
+      setAnimatingDigits(changes)
+      setTimeout(() => {
+        setAnimatingDigits({ days: false, hours: false, minutes: false, seconds: false })
+      }, 400)
+    }
+    
+    setTimeRemaining(newTime)
   }
 
   // Update immediately
@@ -42,36 +66,46 @@ const CountdownClient = (props) => {
 
   return (
     <div>
-      <div class="countdown-display">
-        <div class="time-block">
-          <div class="time-value">{timeRemaining().days}</div>
-          <div class="time-label">{props.translations.labels.days}</div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+        <div class="flex flex-col items-center">
+          <div class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${animatingDigits().days ? 'animate-digit-flip' : ''}`}>
+            {timeRemaining().days}
+          </div>
+          <div class="font-sans text-xs md:text-sm uppercase tracking-wide text-text-secondary mt-2">
+            {props.translations.labels.days}
+          </div>
         </div>
-        <div class="time-separator">:</div>
-        <div class="time-block">
-          <div class="time-value">
+        
+        <div class="flex flex-col items-center">
+          <div class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${animatingDigits().hours ? 'animate-digit-flip' : ''}`}>
             {String(timeRemaining().hours).padStart(2, "0")}
           </div>
-          <div class="time-label">{props.translations.labels.hours}</div>
+          <div class="font-sans text-xs md:text-sm uppercase tracking-wide text-text-secondary mt-2">
+            {props.translations.labels.hours}
+          </div>
         </div>
-        <div class="time-separator">:</div>
-        <div class="time-block">
-          <div class="time-value">
+        
+        <div class="flex flex-col items-center">
+          <div class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${animatingDigits().minutes ? 'animate-digit-flip' : ''}`}>
             {String(timeRemaining().minutes).padStart(2, "0")}
           </div>
-          <div class="time-label">{props.translations.labels.minutes}</div>
+          <div class="font-sans text-xs md:text-sm uppercase tracking-wide text-text-secondary mt-2">
+            {props.translations.labels.minutes}
+          </div>
         </div>
-        <div class="time-separator">:</div>
-        <div class="time-block">
-          <div class="time-value">
+        
+        <div class="flex flex-col items-center">
+          <div class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${animatingDigits().seconds ? 'animate-digit-flip' : ''}`}>
             {String(timeRemaining().seconds).padStart(2, "0")}
           </div>
-          <div class="time-label">{props.translations.labels.seconds}</div>
+          <div class="font-sans text-xs md:text-sm uppercase tracking-wide text-text-secondary mt-2">
+            {props.translations.labels.seconds}
+          </div>
         </div>
       </div>
       
       {timeRemaining().isComplete && (
-        <div class="countdown-message">
+        <div class="text-2xl font-bold text-brand-secondary mt-8 text-center animate-bounce">
           <span role="img" aria-label="celebration">
             🎉
           </span>{" "}
