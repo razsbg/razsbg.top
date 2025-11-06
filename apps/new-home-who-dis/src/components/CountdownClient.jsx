@@ -52,9 +52,11 @@ const CountdownClient = props => {
   return (
     <div>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
-        <div class={`flex flex-col items-center ${isFirstLoad() ? styles.digitContainer : ""}`}>
+        <div
+          class={`flex flex-col items-center ${isFirstLoad() ? styles.digitContainer : ""}`}
+        >
           <div
-            class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${
+            class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-primary font-bold tracking-tight ${
               isFirstLoad() ? styles.digit : ""
             }`}
           >
@@ -65,9 +67,11 @@ const CountdownClient = props => {
           </div>
         </div>
 
-        <div class={`flex flex-col items-center ${isFirstLoad() ? styles.digitContainer : ""}`}>
+        <div
+          class={`flex flex-col items-center ${isFirstLoad() ? styles.digitContainer : ""}`}
+        >
           <div
-            class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${
+            class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-primary font-bold tracking-tight ${
               isFirstLoad() ? styles.digit : ""
             }`}
           >
@@ -78,9 +82,11 @@ const CountdownClient = props => {
           </div>
         </div>
 
-        <div class={`flex flex-col items-center ${isFirstLoad() ? styles.digitContainer : ""}`}>
+        <div
+          class={`flex flex-col items-center ${isFirstLoad() ? styles.digitContainer : ""}`}
+        >
           <div
-            class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${
+            class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-primary font-bold tracking-tight ${
               isFirstLoad() ? styles.digit : ""
             }`}
           >
@@ -91,9 +97,11 @@ const CountdownClient = props => {
           </div>
         </div>
 
-        <div class={`flex flex-col items-center ${isFirstLoad() ? styles.digitContainer : ""}`}>
+        <div
+          class={`flex flex-col items-center ${isFirstLoad() ? styles.digitContainer : ""}`}
+        >
           <div
-            class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-secondary font-bold tracking-tight ${
+            class={`font-mono text-5xl md:text-6xl lg:text-7xl text-brand-primary font-bold tracking-tight ${
               isFirstLoad() ? styles.digit : ""
             }`}
           >
@@ -106,7 +114,7 @@ const CountdownClient = props => {
       </div>
 
       {timeRemaining().isComplete && (
-        <div class="text-2xl font-bold text-brand-secondary mt-8 text-center animate-bounce">
+        <div class="text-xl md:text-2xl font-bold text-brand-primary mt-8 text-center animate-bounce">
           <span role="img" aria-label="celebration">
             🎉
           </span>{" "}

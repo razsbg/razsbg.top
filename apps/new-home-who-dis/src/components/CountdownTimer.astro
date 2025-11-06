@@ -17,15 +17,15 @@ interface Props {
 const { targetDate, translations } = Astro.props
 ---
 
-<div class="relative bg-bg-card border border-brand-primary/20 animate-pulse-glow rounded-2xl p-8 md:p-12 shadow-2xl">
-  <div class="absolute top-4 right-4">
-    <EmojiIcon value="⏰" label="countdown" />
-  </div>
-  
-  <h3 class="font-display text-2xl md:text-3xl text-text-primary font-semibold mb-8 text-center">
+<div
+  class="relative bg-bg-card border border-brand-primary/20 animate-pulse-glow rounded-2xl p-8 md:p-12 shadow-2xl"
+>
+  <h3
+    class="font-display text-2xl md:text-3xl text-text-primary font-semibold mb-8 text-center"
+  >
     The Party Starts In:
   </h3>
-  
+
   <CountdownClient
     targetDate={targetDate}
     translations={translations}

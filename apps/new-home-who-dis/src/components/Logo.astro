@@ -10,7 +10,7 @@ const { size = "md", animated = false, className = "" } = Astro.props
 const sizeClasses = {
   sm: "text-sm",
   md: "text-base md:text-lg",
-  lg: "text-4xl md:text-5xl lg:text-6xl",
+  lg: "text-3xl md:text-4xl lg:text-5xl",
 }
 ---
 
@@ -23,46 +23,15 @@ const sizeClasses = {
 >
   <span
     class:list={[
-      "text-brand-primary",
-      animated && "fade-in-up",
+      "bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent",
     ]}
     style={animated ? "animation-delay: 0ms" : undefined}
   >
-    new-
+    new-home-who-dis
   </span>
   <span
-    class:list={[
-      "text-text-primary",
-      animated && "fade-in-up",
-    ]}
+    class:list={["text-brand-accent", animated && "fade-in-up animate-wiggle"]}
     style={animated ? "animation-delay: 100ms" : undefined}
-  >
-    home-
-  </span>
-  <span
-    class:list={[
-      "text-text-secondary",
-      animated && "fade-in-up",
-    ]}
-    style={animated ? "animation-delay: 200ms" : undefined}
-  >
-    who-
-  </span>
-  <span
-    class:list={[
-      "bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent",
-      animated && "fade-in-up animate-gradient-shift",
-    ]}
-    style={animated ? "animation-delay: 300ms" : undefined}
-  >
-    dis
-  </span>
-  <span
-    class:list={[
-      "text-brand-accent",
-      animated && "fade-in-up animate-wiggle",
-    ]}
-    style={animated ? "animation-delay: 400ms" : undefined}
   >
     ™
   </span>

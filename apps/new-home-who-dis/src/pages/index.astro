@@ -15,13 +15,13 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
     <meta name="description" content={translations.meta.description} />
   </head>
   <body class="bg-bg-dark">
-    <main class="max-w-4xl mx-auto px-6 pt-12 md:pt-16">
+    <main class="max-w-4xl mx-auto px-4 md:px-6 pt-12 md:pt-16">
       <header class="header">
         <h1 class="text-center mb-0">
           <Logo size="lg" animated />
         </h1>
         <p
-          class="font-display italic text-lg md:text-xl text-text-secondary mt-2 mb-12 text-center"
+          class="font-display text-lg md:text-xl text-text-secondary mt-2 mb-12 text-center"
         >
           {translations.header.subtitle}
         </p>
@@ -37,23 +37,13 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
 
         <div class="teaser-content">
           <div
-            class="coming-soon my-16 md:my-20 bg-gradient-to-b from-transparent to-bg-card/50 py-16 md:py-20 opacity-0 animate-fade-in-up"
+            class="coming-soon my-16 md:my-20 py-12 md:py-16 animate-fade-in-up"
           >
-            <div class="max-w-3xl mx-auto px-6 text-center">
+            <div class="max-w-3xl mx-auto text-center">
               <h3
                 class="font-display text-3xl md:text-4xl font-bold text-brand-primary tracking-wide mb-6 animate-pulse-slow"
               >
-                <EmojiIcon
-                  value="🚨"
-                  label="warning"
-                  className="w-6 h-6 inline animate-wiggle"
-                />
-                {" "}{translations.sections.comingSoon.title}{" "}
-                <EmojiIcon
-                  value="🚨"
-                  label="warning"
-                  className="w-6 h-6 inline animate-wiggle"
-                />
+                {translations.sections.comingSoon.title}
               </h3>
               <p
                 class="text-text-primary font-sans text-lg md:text-xl leading-relaxed"
@@ -63,7 +53,7 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
                   class="text-brand-accent">peaceful shopping experience</em
                 >.
               </p>
-              <p class="text-sm text-text-secondary/80 italic mt-4">
+              <p class="text-sm text-text-secondary/80 mt-4">
                 No actual data will be harvested. Promises not legally binding.
                 🤞
               </p>
@@ -72,22 +62,12 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
 
           <div class="party-details-section my-16 md:my-20">
             <h3
-              class="font-display text-3xl font-bold text-text-primary text-center mb-8 md:mb-12"
+              class="font-display text-3xl text-center font-bold text-text-primary mb-8 md:mb-12"
             >
-              <EmojiIcon
-                value="🎉"
-                label="celebration"
-                className="w-6 h-6 inline"
-              />
-              {" "}{translations.sections.partyDetails.title}{" "}
-              <EmojiIcon
-                value="🎉"
-                label="celebration"
-                className="w-6 h-6 inline"
-              />
+              {translations.sections.partyDetails.title}
             </h3>
             <div
-              class="party-details-container bg-bg-card border border-brand-secondary/20 rounded-2xl p-8 md:p-10 max-w-4xl mx-auto shadow-xl card-hover"
+              class="party-details-container bg-black border rounded-2xl p-6 md:p-10 max-w-4xl mx-auto shadow-xl card-hover animate-pulse-glow"
             >
               <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {
@@ -146,7 +126,7 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
                           <EmojiIcon
                             value={item.emoji}
                             label={item.label}
-                            className="w-8 h-8 text-3xl flex-shrink-0 mt-1 party-detail-icon"
+                            className="text-xl md:w-8 md:h-8 md:text-2xl flex-shrink-0 party-detail-icon"
                           />
                           <div class="flex-1">
                             <div class="font-display text-lg font-semibold text-text-primary mb-1">
@@ -165,9 +145,9 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
             </div>
           </div>
 
-          <div class="dark-pattern-preview my-16 md:my-20">
+          <div class="dark-pattern-preview my-12 md:my-20">
             <h3
-              class="font-display text-3xl font-bold text-text-primary text-center mb-8 md:mb-12"
+              class="font-display text-2xl md:text-3xl font-bold text-text-primary text-center mb-8 md:mb-12"
             >
               <EmojiIcon
                 value="✨"
@@ -182,7 +162,7 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
               />
             </h3>
             <div
-              class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-4xl mx-auto px-6"
+              class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-4xl mx-auto md:px-6"
             >
               {
                 translations.sections.whatToExpect.features.map(
@@ -201,17 +181,16 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
                         class="feature-card bg-black border border-white/10 rounded-xl p-6 shadow-lg card-hover hover:scale-[1.02] opacity-0 animate-fade-in-up"
                         style={`animation-delay: ${delays[index]}`}
                       >
-                        <div class="feature-icon-wrapper">
+                        <div class="feature-icon-wrapper" />
+                        <h4
+                          class={`font-display text-xl font-semibold mb-2 flex items-center gap-3 ${tierColors[index]}`}
+                        >
                           <EmojiIcon
                             value={feature.emoji}
                             label={feature.title}
-                            className="w-6 h-6 mb-3"
+                            className="inline-flex items-center w-6 h-6 text-2xl"
                           />
-                        </div>
-                        <h4
-                          class={`font-display text-xl font-semibold mb-2 ${tierColors[index]}`}
-                        >
-                          {feature.title}
+                          <span>{feature.title}</span>
                         </h4>
                         <p class="font-sans text-sm md:text-base text-text-secondary leading-relaxed">
                           {feature.description}
@@ -228,13 +207,21 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
             class="warning-banner max-w-3xl mx-auto my-16 md:my-20 opacity-0 animate-fade-in-up"
           >
             <div class="flex items-center justify-center gap-2 mb-4">
-              <EmojiIcon value="⚠️" label="warning" />
+              <EmojiIcon
+                value="⚠️"
+                className="w-8 h-8 text-3xl flex items-center justify-center"
+                label="warning"
+              />
               <h3
                 class="text-brand-primary font-display text-2xl md:text-3xl font-bold m-0"
               >
                 {translations.sections.warning.title}
               </h3>
-              <EmojiIcon value="⚠️" label="warning" />
+              <EmojiIcon
+                value="⚠️"
+                className="w-8 h-8 text-3xl flex items-center justify-center"
+                label="warning"
+              />
             </div>
             <p
               class="text-text-primary font-sans text-base md:text-lg leading-relaxed text-center"
@@ -247,8 +234,10 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
               >, and <span class="keyword">uncontrollable laughter</span>.
               Consult your wallet before use.
             </p>
-            <p class="italic text-sm text-text-secondary mt-4 text-center">
-              Powered by questionable UX decisions and Romanian hospitality ™️
+            <p class="text-sm text-text-secondary mt-4 text-center">
+              Powered by questionable UX decisions and Romanian hospitality<sup
+                class="ml-1">TM</sup
+              >
             </p>
           </div>
         </div>
@@ -279,11 +268,16 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
 
             <!-- Column 3: Meta -->
             <div class="text-center md:text-right">
-              <p class="text-xs text-text-secondary">
-                © 2025 new-home-who-dis™️
+              <p
+                class="text-xs text-text-secondary inline-flex items-center gap-1"
+              >
+                <span>©</span>
+                <span>2025</span>
+                <span>razsbg</span>
               </p>
-              <p class="text-xs text-text-secondary/60 mt-1 italic">
-                Built with love and dark patterns 💀
+              <p class="text-xs text-text-secondary/60 mt-1">
+                Built with <EmojiIcon value="❤️" label="love" /> and dark patterns
+                💀
               </p>
             </div>
           </div>
@@ -291,181 +285,176 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
       </footer>
     </main>
   </body>
-</html>
 
-<style is:global>
-  :root {
-    --brand-red: #ff6b6b;
-    --brand-teal: #4ecdc4;
-    --brand-purple: #a855f7;
-    --brand-orange: #fb923c;
-    --text-primary: #111827;
-    --text-secondary: #6b7280;
-    --bg-primary: #ffffff;
-    --bg-secondary: #f9fafb;
-  }
-
-  .text-glow {
-    text-shadow: 0 0 20px rgba(255, 61, 113, 0.6);
-  }
-
-  .card-hover {
-    @apply transition-all duration-300 ease-out;
-  }
-
-  .card-hover:hover {
-    @apply -translate-y-1 shadow-2xl;
-  }
-
-  .spring-bounce {
-    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  }
-</style>
-
-<style>
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-      sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-  }
-
-  .emoji {
-    font-size: 2rem;
-    vertical-align: super;
-  }
-
-  /* Fade-in-up animation for logo segments */
-  .fade-in-up {
-    opacity: 0;
-    animation: fadeInUp 0.6s ease-out forwards;
-  }
-
-  .animate-fade-in-up {
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Gradient shift animation for "dis" */
-  @keyframes gradient-shift {
-    0%,
-    100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-  }
-
-  .animate-gradient-shift {
-    background-size: 200% 200%;
-    animation: gradient-shift 3s ease infinite;
-  }
-
-  .hero {
-    space-y: 3rem;
-  }
-
-  .teaser-content > div:not(.party-details-section):not(.coming-soon) {
-    margin-bottom: 3rem;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  }
-
-  .party-details-section {
-    margin-bottom: 3rem;
-  }
-
-  /* Party details section animations */
-  .animate-slide-in-left {
-    animation: slideInLeft 0.6s ease-out forwards;
-  }
-
-  @keyframes slideInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  /* Icon hover effect */
-  .party-detail-item:hover .party-detail-icon {
-    animation: icon-scale 0.3s ease;
-  }
-
-  @keyframes icon-scale {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-  }
-
-  /* Feature card icon bounce on hover */
-  .feature-card:hover .feature-icon-wrapper {
-    animation: icon-bounce 0.5s ease;
-  }
-
-  @keyframes icon-bounce {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-2px);
-    }
-  }
-
-  /* Keyword highlighting with hover effect */
-  .keyword {
-    color: #ff3d71; /* brand-primary */
-    font-weight: 600;
-    cursor: default;
-    transition: all 0.3s ease;
-  }
-
-  .keyword:hover {
-    text-shadow: 0 0 8px rgba(255, 61, 113, 0.5);
-  }
-
-  @media (max-width: 640px) {
-    .container {
-      padding: 1rem;
+  <style is:global>
+    :root {
+      --brand-red: #ff6b6b;
+      --brand-teal: #4ecdc4;
+      --brand-purple: #a855f7;
+      --brand-orange: #fb923c;
+      --text-primary: #111827;
+      --text-secondary: #6b7280;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f9fafb;
     }
 
-    .title {
+    .text-glow {
+      text-shadow: 0 0 20px rgba(255, 61, 113, 0.6);
+    }
+
+    .card-hover {
+      @apply transition-all duration-300 ease-out;
+    }
+
+    .card-hover:hover {
+      @apply -translate-y-1 shadow-2xl;
+    }
+
+    .spring-bounce {
+      transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+  </style>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .emoji {
       font-size: 2rem;
+      vertical-align: super;
     }
 
-    .subtitle {
-      font-size: 1rem;
+    /* Fade-in-up animation for logo segments */
+    .fade-in-up {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out forwards;
     }
 
-    .teaser-content > div {
-      padding: 1.5rem;
+    .animate-fade-in-up {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
     }
 
-    .features-grid {
-      grid-template-columns: 1fr;
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-  }
-</style>
+
+    /* Gradient shift animation for "dis" */
+    @keyframes gradient-shift {
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .animate-gradient-shift {
+      background-size: 200% 200%;
+      animation: gradient-shift 3s ease infinite;
+    }
+
+    .hero {
+      space-y: 3rem;
+    }
+
+    .teaser-content > div:not(.party-details-section):not(.coming-soon) {
+      margin-bottom: 3rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .party-details-section {
+      margin-bottom: 3rem;
+    }
+
+    /* Party details section animations */
+    .animate-slide-in-left {
+      animation: slideInLeft 0.6s ease-out forwards;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Icon hover effect */
+    .party-detail-item:hover .party-detail-icon {
+      animation: icon-scale 0.3s ease;
+    }
+
+    @keyframes icon-scale {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    /* Feature card icon bounce on hover */
+    .feature-card:hover .feature-icon-wrapper {
+      animation: icon-bounce 0.5s ease;
+    }
+
+    @keyframes icon-bounce {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-2px);
+      }
+    }
+
+    /* Keyword highlighting with hover effect */
+    .keyword {
+      color: #ff3d71; /* brand-primary */
+      font-weight: 600;
+      cursor: default;
+      transition: all 0.3s ease;
+    }
+
+    .keyword:hover {
+      text-shadow: 0 0 8px rgba(255, 61, 113, 0.5);
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .title {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</html>
