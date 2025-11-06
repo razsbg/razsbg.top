@@ -38,8 +38,5 @@
     "@typescript-eslint/parser": "^8.11.0",
     "eslint": "^9.13.0",
     "eslint-plugin-astro": "^1.2.4"
-  },
-  "engines": {
-    "node": "22.x"
   }
 }
