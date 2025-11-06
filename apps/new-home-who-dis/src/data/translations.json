@@ -17,10 +17,20 @@
     },
     "completed": "The party has started!"
   },
+  "wishlists": {
+    "prefix": "Three wishlists:",
+    "names": {
+      "traditional": "Traditional",
+      "receipt": "Receipt",
+      "bandcamp": "Bandcamp"
+    }
+  },
   "sections": {
     "comingSoon": {
       "title": "COMING SOON",
-      "description": "The most aggressive, satirical, and utterly ridiculous gift registry experience is coming to ruin your peaceful shopping experience."
+      "description": "The most aggressive, satirical, and utterly ridiculous gift registry experience is coming to ruin your",
+      "descriptionEnd": "peaceful shopping experience",
+      "subtext": "No actual data will be harvested. Promises not legally binding."
     },
     "partyDetails": {
       "title": "Party Details",
@@ -89,6 +99,11 @@
   },
   "footer": {
     "message": "Brought to you by questionable design decisions and genuine hospitality",
-    "finePrint": "No actual data will be harvested for evil purposes. Probably."
+    "finePrint": "No actual data will be harvested for evil purposes. Probably.",
+    "tagline": "Experience-driven housewarming",
+    "location": "Iași, Romania • November 8, 2025",
+    "copyright": "© 2025 razsbg",
+    "builtWith": "Built with ❤️ and dark patterns 💀",
+    "poweredBy": "Powered by questionable UX decisions and Romanian hospitality™"
   }
 }

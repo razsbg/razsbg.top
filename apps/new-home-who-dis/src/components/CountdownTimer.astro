@@ -5,6 +5,7 @@ import { EmojiIcon } from "@repo/ui"
 interface Props {
   targetDate: string
   translations: {
+    title: string
     labels: {
       days: string
       hours: string
@@ -23,7 +24,7 @@ const { targetDate, translations } = Astro.props
   <h3
     class="font-display text-2xl md:text-3xl text-text-primary font-semibold mb-8 text-center"
   >
-    The Party Starts In:
+    {translations.title}
   </h3>
 
   <CountdownClient

@@ -48,14 +48,18 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
               <p
                 class="text-text-primary font-sans text-lg md:text-xl leading-relaxed"
               >
-                The most aggressive, satirical, and utterly ridiculous gift
-                registry experience is coming to ruin your <em
-                  class="text-brand-accent">peaceful shopping experience</em
+                {translations.sections.comingSoon.description}
+                <span class="text-brand-accent"
+                  >{translations.sections.comingSoon.descriptionEnd}</span
                 >.
               </p>
               <p class="text-sm text-text-secondary/80 mt-4">
-                No actual data will be harvested. Promises not legally binding.
-                🤞
+                {translations.sections.comingSoon.subtext}
+                <EmojiIcon
+                  value="🤞"
+                  className="w-6 h-6 text-xl"
+                  label="hope for the best"
+                />
               </p>
             </div>
           </div>
@@ -100,17 +104,17 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
                         // Wishlist enumeration
                         valueContent = (
                           <>
-                            Three wishlists:{" "}
+                            {translations.wishlists.prefix}{" "}
                             <span class="bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent font-semibold">
-                              Traditional
+                              {translations.wishlists.names.traditional}
                             </span>
                             ,{" "}
                             <span class="bg-gradient-to-r from-brand-secondary to-brand-primary bg-clip-text text-transparent font-semibold">
-                              Receipt
+                              {translations.wishlists.names.receipt}
                             </span>
                             , and{" "}
                             <span class="bg-gradient-to-r from-gold-tier to-ultra-tier bg-clip-text text-transparent font-semibold">
-                              Bandcamp
+                              {translations.wishlists.names.bandcamp}
                             </span>
                           </>
                         )
@@ -235,9 +239,7 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
               Consult your wallet before use.
             </p>
             <p class="text-sm text-text-secondary mt-4 text-center">
-              Powered by questionable UX decisions and Romanian hospitality<sup
-                class="ml-1">TM</sup
-              >
+              {translations.footer.poweredBy}
             </p>
           </div>
         </div>
@@ -255,14 +257,14 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
             <div class="text-center md:text-left">
               <Logo size="sm" />
               <p class="text-xs text-text-secondary mt-1">
-                Experience-driven housewarming
+                {translations.footer.tagline}
               </p>
             </div>
 
             <!-- Column 2: Essential Info -->
             <div class="text-center">
               <p class="text-xs text-text-secondary">
-                Iași, Romania • November 8, 2025
+                {translations.footer.location}
               </p>
             </div>
 
@@ -271,13 +273,10 @@ const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (G
               <p
                 class="text-xs text-text-secondary inline-flex items-center gap-1"
               >
-                <span>©</span>
-                <span>2025</span>
-                <span>razsbg</span>
+                {translations.footer.copyright}
               </p>
               <p class="text-xs text-text-secondary/60 mt-1">
-                Built with <EmojiIcon value="❤️" label="love" /> and dark patterns
-                💀
+                {translations.footer.builtWith}
               </p>
             </div>
           </div>
