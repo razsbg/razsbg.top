@@ -22,9 +22,14 @@ export default {
         "bronze-tier": "#E67E22",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        satirical: ["Comic Sans MS", "cursive"],
-        mono: ["JetBrains Mono", "Consolas", "monospace"],
+        sans: ["Inter", "system-ui", "sans-serif"], // Body/UI
+        display: ["Space Grotesk", "Inter", "sans-serif"], // Headers/brand
+        mono: ["JetBrains Mono", "Consolas", "monospace"], // Countdown digits
+        satirical: ["Comic Sans MS", "cursive"], // Keep for jokes
+      },
+      fontSize: {
+        countdown: ["6rem", { lineHeight: "1", letterSpacing: "-0.02em" }],
+        hero: ["2rem", { lineHeight: "1.2", letterSpacing: "-0.01em" }],
       },
       animation: {
         "bounce-slow": "bounce 2s infinite",
