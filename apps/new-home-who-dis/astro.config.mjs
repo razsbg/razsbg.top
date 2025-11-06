@@ -10,7 +10,9 @@ export default defineConfig({
   output: "server",
   adapter:
     process.env.NODE_ENV === "production"
-      ? vercel()
+      ? vercel({
+          runtime: "nodejs22.x",
+        })
       : node({
           mode: "standalone",
         }),
