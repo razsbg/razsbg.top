@@ -2,8 +2,12 @@
 
 # Detect script location and set up paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "${SCRIPT_DIR}/../../../.." && pwd)"
-APP_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+
+# The script lives in: apps/new-home-who-dis/prompts/
+# So SCRIPT_DIR is the prompts folder itself
+# We need to go up one level to get to the app root
+APP_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+REPO_ROOT="$(cd "${APP_ROOT}/../.." && pwd)"
 
 # Configuration
 AUTONOMY_LEVEL="${DROID_AUTO_LEVEL:-medium}"
@@ -51,31 +55,22 @@ log() {
 # Usage function
 usage() {
     echo ""
-    echo "Usage: $0 <prompt-folder-name>"
+    echo "Usage: $0 [prompt-folder-name]"
     echo ""
     echo "Arguments:"
     echo "  prompt-folder-name    Name of the prompts folder (under apps/new-home-who-dis/prompts/)"
+    echo "                        If omitted, you'll be prompted to select one"
     echo ""
     echo "Environment Variables:"
     echo "  DROID_AUTO_LEVEL      Autonomy level: low|medium|high (default: medium)"
     echo ""
     echo "Examples:"
     echo "  $0 countdown-timer"
+    echo "  $0                            # Interactive mode"
     echo "  DROID_AUTO_LEVEL=high $0 cloud-service-migration"
     echo ""
     exit 1
 }
-
-# Check arguments
-if [[ $# -eq 0 ]]; then
-    log ERROR "No prompt folder specified"
-    usage
-fi
-
-PROMPT_FOLDER_NAME="$1"
-PROMPT_DIR="${APP_ROOT}/prompts/${PROMPT_FOLDER_NAME}"
-LOG_FILE="${APP_ROOT}/${PROMPT_FOLDER_NAME}-build.log"
-TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 
 # Banner
 echo ""
@@ -84,11 +79,114 @@ echo -e "${MAGENTA}║${NC}  ${GREEN}new-home-who-dis™️${NC} Build Orchestra
 echo -e "${MAGENTA}╚════════════════════════════════════════════════════════╝${NC}"
 echo ""
 
+# Interactive parameter collection if no arguments provided
+if [[ $# -eq 0 ]]; then
+    echo -e "${CYAN}No prompt folder specified. Let's set up your build!${NC}"
+    echo ""
+
+    # Show available folders
+    echo -e "${YELLOW}Available prompt folders:${NC}"
+    folders=($(ls -1d ${SCRIPT_DIR}/*/ 2>/dev/null | xargs -n 1 basename))
+
+    if [[ ${#folders[@]} -eq 0 ]]; then
+        echo -e "${RED}No prompt folders found in ${SCRIPT_DIR}${NC}"
+        echo ""
+        echo "Create a folder structure like:"
+        echo "  prompts/my-feature/1-setup.md"
+        echo "  prompts/my-feature/2-implement.md"
+        exit 1
+    fi
+
+    # Display numbered list
+    for i in "${!folders[@]}"; do
+        num=$((i + 1))
+        echo -e "  ${GREEN}${num}.${NC} ${folders[$i]}"
+    done
+    echo ""
+
+    # Prompt for selection
+    while true; do
+        read -p "$(echo -e ${CYAN}Select a folder [1-${#folders[@]}] or type name:${NC} )" selection
+
+        # Check if it's a number
+        if [[ "$selection" =~ ^[0-9]+$ ]]; then
+            idx=$((selection - 1))
+            if [[ $idx -ge 0 && $idx -lt ${#folders[@]} ]]; then
+                PROMPT_FOLDER_NAME="${folders[$idx]}"
+                break
+            else
+                echo -e "${RED}Invalid selection. Please choose 1-${#folders[@]}${NC}"
+            fi
+        # Check if it's a valid folder name
+        elif [[ -d "${SCRIPT_DIR}/${selection}" ]]; then
+            PROMPT_FOLDER_NAME="$selection"
+            break
+        else
+            echo -e "${RED}Folder '${selection}' not found. Try again.${NC}"
+        fi
+    done
+
+    echo ""
+    echo -e "${GREEN}✓${NC} Selected: ${CYAN}${PROMPT_FOLDER_NAME}${NC}"
+    echo ""
+
+    # Prompt for autonomy level if not set
+    if [[ -z "${DROID_AUTO_LEVEL}" ]]; then
+        echo -e "${YELLOW}Autonomy levels:${NC}"
+        echo -e "  ${GREEN}1.${NC} low    - File edits only"
+        echo -e "  ${GREEN}2.${NC} medium - File edits + package installs ${CYAN}(default)${NC}"
+        echo -e "  ${GREEN}3.${NC} high   - File edits + packages + git operations"
+        echo ""
+
+        read -p "$(echo -e ${CYAN}Select autonomy level [1-3, default: 2]:${NC} )" auto_level
+
+        case "$auto_level" in
+            1)
+                AUTONOMY_LEVEL="low"
+                ;;
+            3)
+                AUTONOMY_LEVEL="high"
+                ;;
+            2|"")
+                AUTONOMY_LEVEL="medium"
+                ;;
+            *)
+                echo -e "${YELLOW}Invalid selection, using default: medium${NC}"
+                AUTONOMY_LEVEL="medium"
+                ;;
+        esac
+
+        echo -e "${GREEN}✓${NC} Autonomy level: ${CYAN}${AUTONOMY_LEVEL}${NC}"
+        echo ""
+    fi
+
+    # Confirmation
+    echo -e "${YELLOW}Ready to build:${NC}"
+    echo -e "  Folder:    ${CYAN}${PROMPT_FOLDER_NAME}${NC}"
+    echo -e "  Autonomy:  ${CYAN}${AUTONOMY_LEVEL}${NC}"
+    echo ""
+
+    read -p "$(echo -e ${YELLOW}Continue? [Y/n]:${NC} )" -n 1 -r
+    echo ""
+
+    if [[ $REPLY =~ ^[Nn]$ ]]; then
+        echo -e "${RED}Build cancelled.${NC}"
+        exit 0
+    fi
+    echo ""
+else
+    PROMPT_FOLDER_NAME="$1"
+fi
+
+PROMPT_DIR="${SCRIPT_DIR}/${PROMPT_FOLDER_NAME}"
+LOG_FILE="${APP_ROOT}/${PROMPT_FOLDER_NAME}-build.log"
+TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+
 # Verify prompt directory exists
 if [[ ! -d "${PROMPT_DIR}" ]]; then
     log ERROR "Prompt folder not found: ${PROMPT_DIR}"
     log INFO "Available folders in prompts/:"
-    ls -1 "${APP_ROOT}/prompts/" 2>/dev/null || echo "  (none)"
+    ls -1 "${SCRIPT_DIR}/" 2>/dev/null | grep -v "build-for-me-pls.sh" | grep -v "^\." || echo "  (none)"
     exit 1
 fi
 
@@ -247,40 +345,30 @@ for i in "${!prompt_files[@]}"; do
     # Execute droid in headless mode with --auto flag
     log INFO "Executing: droid exec --auto ${AUTONOMY_LEVEL} --file ${filename}"
 
-    # Capture output and exit code
-    if droid exec --auto "${AUTONOMY_LEVEL}" --file "${EXEC_FILE}" 2>&1 | tee -a "${LOG_FILE}"; then
-        exit_code=${PIPESTATUS[0]}
+    # Capture output and exit code - redirect stdin from /dev/null to prevent hanging
+    # Use Perl one-liner for line buffering (works on macOS + Linux)
+    droid exec --auto "${AUTONOMY_LEVEL}" --file "${EXEC_FILE}" < /dev/null 2>&1 | perl -pe 'STDOUT->autoflush(1)' | tee -a "${LOG_FILE}"
+    exit_code=${PIPESTATUS[0]}
 
-        if [[ ${exit_code} -eq 0 ]]; then
-            successful_prompts=$((successful_prompts + 1))
-            log SUCCESS "Step ${step_num} completed successfully"
-        else
-            failed_prompts=$((failed_prompts + 1))
-            log ERROR "Step ${step_num} failed with exit code ${exit_code}"
-
-            # Prompt to continue
-            echo ""
-            read -p "$(echo -e ${YELLOW}Continue with remaining prompts? [y/N]:${NC} )" -n 1 -r
-            echo ""
-            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-                log INFO "Build aborted by user at step ${step_num}"
-                log INFO "To resume, fix the issue and re-run:"
-                log INFO "  $0 ${PROMPT_FOLDER_NAME}"
-                exit 1
-            fi
-        fi
+    if [[ ${exit_code} -eq 0 ]]; then
+        successful_prompts=$((successful_prompts + 1))
+        log SUCCESS "Step ${step_num} completed successfully"
     else
         failed_prompts=$((failed_prompts + 1))
-        log ERROR "Step ${step_num} execution failed"
+        log ERROR "Step ${step_num} failed with exit code ${exit_code}"
 
+        # Prompt to continue
         echo ""
-        read -p "$(echo -e ${YELLOW}Continue? [y/N]:${NC} )" -n 1 -r
+        read -p "$(echo -e ${YELLOW}Continue with remaining prompts? [y/N]:${NC} )" -n 1 -r
         echo ""
         if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-            log INFO "Build aborted at step ${step_num}"
+            log INFO "Build aborted by user at step ${step_num}"
+            log INFO "To resume, fix the issue and re-run:"
+            log INFO "  $0 ${PROMPT_FOLDER_NAME}"
             exit 1
         fi
     fi
+
 
     # Cleanup temp file if it exists
     [[ -n "${TEMP_PROMPT}" ]] && rm -f "${TEMP_PROMPT}"
