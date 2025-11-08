@@ -4,7 +4,7 @@ import Logo from "../components/Logo.astro"
 import { EmojiIcon } from "@repo/ui"
 import translations from "../data/translations.json"
 
-const fallbackDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (GMT+2)
+const fallbackDate = "2025-11-08T16:00:00+02:00" // November 8, 4 PM, Iași time (GMT+2)
 const partyDate = import.meta.env.PUBLIC_PARTY_DATE ?? fallbackDate
 
 // Warning: Environment variable not set
@@ -37,12 +37,191 @@ if (!import.meta.env.PUBLIC_PARTY_DATE && import.meta.env.DEV) {
       </header>
 
       <section class="hero">
+        <!-- Time Change Announcement -->
+        <div
+          class="time-change-announcement bg-brand-primary/10 border-2 border-brand-primary rounded-2xl p-4 md:p-8 mb-12 animate-pulse-slow"
+        >
+          <div class="flex items-start justify-center gap-3 mb-2">
+            <EmojiIcon
+              value="⚠️"
+              className="w-6 h-6 md:w-9 md:h-9 text-2xl md:text-4xl"
+              label="warning"
+            />
+            <h2
+              class="font-display text-lg md:text-4xl font-bold text-brand-primary m-0"
+            >
+              {translations.timeChangeAnnouncement.text}
+            </h2>
+          </div>
+        </div>
+
         <div class="mb-16">
           <CountdownTimer
             targetDate={partyDate}
             translations={translations.countdown}
           />
         </div>
+
+        <!-- NEW SECTIONS START -->
+        <div class="new-sections space-y-12 mb-16">
+          <!-- Wishlists Section Title -->
+          <h2
+            class="font-display text-3xl md:text-4xl font-bold text-text-primary text-center mb-8"
+          >
+            <EmojiIcon
+              value="🎁"
+              className="w-8 h-8 inline mr-2"
+              label="gift"
+            />
+            {translations.wishlists.title}
+          </h2>
+
+          <!-- Traditional Wishlist -->
+          <div
+            class="wishlist-section bg-black border border-white/10 rounded-2xl p-6 md:p-8 shadow-lg"
+          >
+            <h3 class="mb-4">
+              <a
+                href={translations.wishlists.traditional.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-display text-xl md:text-2xl font-bold text-brand-secondary hover:text-brand-secondary/80 transition-colors duration-300 inline-flex items-center gap-1"
+              >
+                <span class="underline">{translations.wishlists.names.traditional}</span>
+                <sup class="text-white text-xs">{translations.wishlists.externalLinkLabel}</sup>
+              </a>
+            </h3>
+            <p class="text-text-secondary text-sm md:text-base leading-relaxed">
+              {translations.wishlists.traditional.description}
+            </p>
+          </div>
+
+          <!-- Bandcamp Wishlist -->
+          <div
+            class="wishlist-section bg-black border border-white/10 rounded-2xl p-6 md:p-8 shadow-lg"
+          >
+            <h3 class="mb-4">
+              <a
+                href={translations.wishlists.bandcamp.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-display text-xl md:text-2xl font-bold text-gold-tier hover:text-gold-tier/80 transition-colors duration-300 inline-flex items-center gap-1"
+              >
+                <span class="underline">{translations.wishlists.names.bandcamp}</span>
+                <sup class="text-white text-xs">{translations.wishlists.externalLinkLabel}</sup>
+              </a>
+            </h3>
+            <p class="text-text-secondary text-sm md:text-base leading-relaxed">
+              {translations.wishlists.bandcamp.description}
+            </p>
+          </div>
+
+          <!-- Slippers Notice -->
+          <div
+            class="slippers-notice bg-brand-primary/10 border-2 border-brand-primary rounded-2xl px-4 py-6 md:p-8 shadow-lg"
+          >
+            <div
+              class="flex items-center md:items-start justify-center md:text-center gap-3 md:gap-5"
+            >
+              <EmojiIcon
+                value="⚠️"
+                className="w-8 h-8 text-3xl"
+                label="warning"
+              />
+              <p
+                class="font-display text-xl md:text-2xl font-bold text-brand-primary m-0"
+                set:html={translations.slippersNotice.text}
+              >
+              </p>
+              <EmojiIcon
+                value="👟"
+                className="hidden md:inline-block w-8 h-8 text-3xl"
+                label="slippers"
+              />
+            </div>
+          </div>
+
+          <!-- Menu Section -->
+          <div class="menu-section">
+            <h2
+              class="font-display text-3xl md:text-4xl font-bold text-text-primary text-center mb-8"
+            >
+              <EmojiIcon
+                value="🍽️"
+                className="w-8 h-8 inline mr-2"
+                label="menu"
+              />
+              {translations.menu.title}
+            </h2>
+
+            <div
+              class="bg-black border border-white/10 rounded-2xl p-6 md:p-8 shadow-lg"
+            >
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <!-- Drinks -->
+                <div class="drinks-card">
+                  <h3
+                    class="font-display text-2xl md:text-3xl font-bold text-brand-primary mb-6"
+                  >
+                    {translations.menu.drinks.title}
+                  </h3>
+                  <ul
+                    class="space-y-3 text-text-secondary text-base md:text-lg"
+                  >
+                    {
+                      translations.menu.drinks.items.map((drink, index) => {
+                        const drinkEmojis = ["🍷", "🌸", "🍸", "🥃", "🥃"]
+                        const drinkLabels = [
+                          "wine",
+                          "rose",
+                          "cocktail",
+                          "whiskey",
+                          "whiskey",
+                        ]
+                        return (
+                          <li class="flex items-center gap-3">
+                            <EmojiIcon
+                              value={drinkEmojis[index]}
+                              className="w-6 h-6 text-2xl"
+                              label={drinkLabels[index]}
+                            />
+                            <span>{drink}</span>
+                          </li>
+                        )
+                      })
+                    }
+                  </ul>
+                </div>
+
+                <!-- Food -->
+                <div class="food-card">
+                  <h3
+                    class="font-display text-2xl md:text-3xl font-bold text-brand-accent mb-6"
+                  >
+                    {translations.menu.food.title}
+                  </h3>
+                  <ul
+                    class="space-y-3 text-text-secondary text-base md:text-lg"
+                  >
+                    {
+                      translations.menu.food.items.map((food) => (
+                        <li class="flex items-center gap-3">
+                          <EmojiIcon
+                            value="🍕"
+                            className="w-6 h-6 text-2xl"
+                            label="pizza"
+                          />
+                          <span>{food}</span>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- NEW SECTIONS END -->
 
         <div class="teaser-content">
           <div
@@ -77,10 +256,15 @@ if (!import.meta.env.PUBLIC_PARTY_DATE && import.meta.env.DEV) {
             <h3
               class="font-display text-3xl text-center font-bold text-text-primary mb-8 md:mb-12"
             >
+              <EmojiIcon
+                value="🎉"
+                className="w-8 h-8 inline mr-2"
+                label="food"
+              />
               {translations.sections.partyDetails.title}
             </h3>
             <div
-              class="party-details-container bg-black border rounded-2xl p-6 md:p-10 max-w-4xl mx-auto shadow-xl card-hover animate-pulse-glow"
+              class="party-details-container bg-black border rounded-2xl p-6 md:p-10 max-w-4xl mx-auto shadow-xl animate-pulse-glow"
             >
               <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {
@@ -97,18 +281,8 @@ if (!import.meta.env.PUBLIC_PARTY_DATE && import.meta.env.DEV) {
 
                       // Parse special formatting for specific items
                       let valueContent
-                      if (item.label === "Time:") {
-                        // Special formatting for "sharp"
-                        const parts = item.value.split("(sharp)")
-                        valueContent = (
-                          <>
-                            {parts[0]}
-                            <span class="text-brand-accent font-semibold">
-                              (sharp)
-                            </span>
-                            {parts[1] || ""}
-                          </>
-                        )
+                      if (item.label === "Time") {
+                        valueContent = <>{item.value}</>
                       } else if (item.label === "Gifts:") {
                         // Wishlist enumeration
                         valueContent = (

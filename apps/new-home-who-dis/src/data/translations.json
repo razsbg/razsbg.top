@@ -17,12 +17,47 @@
     },
     "completed": "The party has started!"
   },
+  "timeChangeAnnouncement": {
+    "text": "Time Changed: Party starts at 4PM"
+  },
   "wishlists": {
+    "title": "Wishlists",
     "prefix": "Three wishlists:",
+    "externalLinkLabel": "(external link)",
     "names": {
       "traditional": "Traditional",
       "receipt": "Receipt",
       "bandcamp": "Bandcamp"
+    },
+    "traditional": {
+      "url": "https://docs.google.com/spreadsheets/d/1LtMperz7DUAZwo4feNjfS67cOcKdZb7IIks3tlA_EKs/edit?usp=sharing",
+      "description": "Browse the Google Spreadsheet, pick something you'd like to gift, mark it as 'Rezervat' in the sheet, then order and arrange delivery yourself. No payment details shared—just claim your gift and handle the rest!"
+    },
+    "bandcamp": {
+      "url": "https://bandcamp.com/razsbg/wishlist",
+      "description": "Support music directly! Use Bandcamp's 'Buy as Gift' feature to send albums/tracks. Digital gifts delivered instantly to my account."
+    }
+  },
+  "slippersNotice": {
+    "text": "Bring your own slippers!<br />I only have 2 pairs"
+  },
+  "menu": {
+    "title": "Menu",
+    "drinks": {
+      "title": "Drinks",
+      "items": [
+        "Medium-dry white wine",
+        "Rosé",
+        "Gin",
+        "Rum",
+        "Whiskey"
+      ]
+    },
+    "food": {
+      "title": "Food",
+      "items": [
+        "Pizza"
+      ]
     }
   },
   "sections": {
@@ -37,32 +72,32 @@
       "items": [
         {
           "emoji": "📅",
-          "label": "Date:",
+          "label": "Date",
           "value": "November 8, 2025"
         },
         {
           "emoji": "🕐",
-          "label": "Time:",
-          "value": "3:00 PM (sharp)"
+          "label": "Time",
+          "value": "4:00 PM"
         },
         {
           "emoji": "📍",
-          "label": "Location:",
+          "label": "Location",
           "value": "Iași, Romania"
         },
         {
           "emoji": "🎁",
-          "label": "Gifts:",
+          "label": "Gifts",
           "value": "Three wishlists (Traditional, Receipt, Bandcamp)"
         },
         {
           "emoji": "🏆",
-          "label": "Leaderboard:",
+          "label": "Leaderboard",
           "value": "Anonymous competitive gifting"
         },
         {
           "emoji": "💨",
-          "label": "Features:",
+          "label": "Features",
           "value": "Real-time updates, tier-based perks"
         }
       ]
