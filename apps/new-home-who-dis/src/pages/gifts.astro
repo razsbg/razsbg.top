@@ -35,9 +35,9 @@ const stats = {
   <body class="bg-bg-dark">
     <Header />
 
-    <div class="min-h-screen bg-surface-primary">
+    <div class="min-h-screen bg-bg-dark">
       <!-- Page Header -->
-      <div class="border-b border-gray-200 p-12">
+      <div class="border-b border-gray-800 py-12">
         <div class="container-custom">
           <h1
             class="font-display text-4xl md:text-5xl font-bold mb-4 text-text-primary"
@@ -75,11 +75,11 @@ const stats = {
 
       <!-- Tabs -->
       <div class="container-custom py-8">
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="bg-surface-primary rounded-xl shadow-lg overflow-hidden border border-gray-700">
           <!-- Tab buttons -->
-          <div class="flex border-b border-gray-200 bg-gray-50">
+          <div class="flex border-b border-gray-700 bg-gray-800">
             <button
-              class="tab-btn active flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-gray-100"
+              class="tab-btn active flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-gray-700"
               data-tab="traditional"
             >
               <div class="flex items-center justify-center gap-2">
@@ -98,7 +98,7 @@ const stats = {
             </button>
 
             <button
-              class="tab-btn flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-gray-100"
+              class="tab-btn flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-gray-700"
               data-tab="receipt"
             >
               <div class="flex items-center justify-center gap-2">
@@ -113,7 +113,7 @@ const stats = {
             </button>
 
             <button
-              class="tab-btn flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-gray-100"
+              class="tab-btn flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-gray-700"
               data-tab="bandcamp"
             >
               <div class="flex items-center justify-center gap-2">
@@ -246,16 +246,16 @@ const stats = {
 <style>
   .tab-btn {
     position: relative;
-    color: #6b7280; /* gray-500 for inactive tabs */
+    color: #9ca3af; /* gray-400 for inactive tabs on dark */
   }
 
   .tab-btn.active {
-    background-color: white;
-    color: #1f2937; /* gray-800 for active tab text */
+    background-color: var(--surface-primary);
+    color: var(--text-primary); /* white text on active tab */
     border-bottom: 3px solid var(--brand-primary);
   }
 
   .tab-btn:not(.active):hover {
-    color: #374151; /* gray-700 on hover */
+    color: #d1d5db; /* gray-300 on hover */
   }
 </style>
