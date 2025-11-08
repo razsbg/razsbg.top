@@ -345,9 +345,9 @@ for i in "${!prompt_files[@]}"; do
     # Execute droid in headless mode with --auto flag
     log INFO "Executing: droid exec --auto ${AUTONOMY_LEVEL} --file ${filename}"
 
-    # Capture output and exit code - redirect stdin from /dev/null to prevent hanging
-    # Use Perl one-liner for line buffering (works on macOS + Linux)
-    droid exec --auto "${AUTONOMY_LEVEL}" --file "${EXEC_FILE}" < /dev/null 2>&1 | perl -pe 'STDOUT->autoflush(1)' | tee -a "${LOG_FILE}"
+    # macOS-compatible real-time output using script command
+    # script -q forces a PTY which prevents buffering
+    script -q /dev/null droid exec --auto "${AUTONOMY_LEVEL}" --file "${EXEC_FILE}" < /dev/null 2>&1 | tee -a "${LOG_FILE}"
     exit_code=${PIPESTATUS[0]}
 
     if [[ ${exit_code} -eq 0 ]]; then
@@ -368,6 +368,7 @@ for i in "${!prompt_files[@]}"; do
             exit 1
         fi
     fi
+
 
 
     # Cleanup temp file if it exists
