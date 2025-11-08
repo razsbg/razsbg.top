@@ -2,7 +2,7 @@
 
 ## Overview
 
-This app will be deployed as a Railway service within your existing monorepo, accessible via a subdomain of razsbg.top.
+This app is deployed as a Railway service within your existing monorepo, accessible via a subdomain of razsbg.top.
 
 ## Subdomain Architecture
 
@@ -54,6 +54,8 @@ NODE_ENV=production
 REVOLUT_USERNAME=razsbg
 PARTY_DATE=2025-11-08
 ```
+
+**Note:** Railway uses `DATABASE_URL` (not `POSTGRES_URL`). This is automatically set when you add PostgreSQL to your project.
 
 ### 4. Database Setup
 
@@ -177,6 +179,8 @@ party.razsbg.top  →  CNAME  →  <your-app>.up.railway.app
 ```
 
 Replace `<your-app>` with the Railway-provided domain from your project dashboard.
+
+**Note:** Only one subdomain is needed. The TV display is accessed via the `/tv-display` route on the same domain.
 
 ### Verification
 

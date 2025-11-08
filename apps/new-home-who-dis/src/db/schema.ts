@@ -46,7 +46,7 @@ export const gifts = pgTable(
     // Receipt-specific fields
     receiptId: varchar("receipt_id", { length: 50 }),
     alreadyPurchased: boolean("already_purchased").default(false),
-    reimbursementMethod: varchar("reimbursement_method", { length: 20 }), // 'revolut' | 'ropay'
+    reimbursementMethod: varchar("reimbursement_method", { length: 20 }), // 'revolut'
 
     // Bandcamp-specific fields
     bandcampUrl: text("bandcamp_url"),

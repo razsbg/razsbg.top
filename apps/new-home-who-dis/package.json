@@ -11,9 +11,18 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
+    "db:reset:local": "./scripts/db-reset-local.sh",
+    "db:reset:local:force": "./scripts/db-reset-local.sh --force",
+    "db:reset:production": "./scripts/db-reset-production.sh",
+    "db:reset:production:dry-run": "./scripts/db-reset-production.sh --dry-run",
+    "db:seed:local": "tsx scripts/seed-local.ts",
+    "db:seed:production": "tsx scripts/seed-production.ts",
+    "test:validation": "tsx scripts/test-validation.ts",
     "lint": "eslint . --ext .js,.ts,.astro",
     "lint:fix": "eslint . --ext .js,.ts,.astro --fix",
-    "type-check": "astro check"
+    "type-check": "astro check",
+    "start-db:local": "docker-compose up -d",
+    "stop-db:local": "docker-compose down"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -26,6 +35,7 @@
     "drizzle-kit": "^0.28.1",
     "drizzle-orm": "^0.36.3",
     "nanostores": "^0.11.3",
+    "postgres": "^3.4.7",
     "solid-js": "^1.9.10",
     "tailwindcss": "^3.4.14",
     "typescript": "^5.6.3"
@@ -35,6 +45,7 @@
     "@typescript-eslint/eslint-plugin": "^8.11.0",
     "@typescript-eslint/parser": "^8.11.0",
     "eslint": "^9.13.0",
-    "eslint-plugin-astro": "^1.2.4"
+    "eslint-plugin-astro": "^1.2.4",
+    "tsx": "^4.20.6"
   }
 }
