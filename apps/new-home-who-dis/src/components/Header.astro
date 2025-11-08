@@ -9,15 +9,17 @@ import { sql } from "drizzle-orm"
 // Check if user has a pseudonym
 let hasPseudonym = false
 try {
-  const sessionId = getSessionIdFromCookie(Astro.request.headers.get("cookie") || "")
-  
+  const sessionId = getSessionIdFromCookie(
+    Astro.request.headers.get("cookie") || "",
+  )
+
   if (sessionId) {
     const userResult = await db
       .select()
       .from(users)
       .where(sql`${users.sessionId} = ${sessionId}`)
       .limit(1)
-    
+
     if (userResult.length > 0 && userResult[0]) {
       hasPseudonym = true
     }
@@ -30,15 +32,15 @@ try {
 const currentPath = Astro.url.pathname
 ---
 
-<header class="bg-brand-primary text-white shadow-lg sticky top-0 z-50">
+<header class="px-8 bg-fuchsia-900 text-white shadow-lg sticky top-0 z-50">
   <div class="container-custom">
     <div class="flex items-center justify-between py-4">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+      <a
+        href="/"
+        class="flex items-center gap-3 hover:opacity-80 transition-opacity"
+      >
         <Logo size="sm" />
-        <span class="font-display text-xl font-bold">
-          new-home-who-dis™️
-        </span>
       </a>
 
       <!-- Navigation -->
@@ -59,15 +61,17 @@ const currentPath = Astro.url.pathname
           Identity
         </a>
 
-        {hasPseudonym && (
-          <a
-            href="/gifts"
-            class={`nav-link ${currentPath === "/gifts" ? "active" : ""}`}
-            aria-current={currentPath === "/gifts" ? "page" : undefined}
-          >
-            Gifts
-          </a>
-        )}
+        {
+          hasPseudonym && (
+            <a
+              href="/gifts"
+              class={`nav-link ${currentPath === "/gifts" ? "active" : ""}`}
+              aria-current={currentPath === "/gifts" ? "page" : undefined}
+            >
+              Gifts
+            </a>
+          )
+        }
       </nav>
     </div>
   </div>

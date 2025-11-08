@@ -23,192 +23,221 @@ const stats = {
 ---
 
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width" />
-  <title>Gift Catalog | What a Dazzling Adventure</title>
-  <meta name="description" content="Browse and commit to gifts for the ultimate housewarming experience" />
-</head>
-<body class="bg-bg-dark">
-  <Header />
-  
-  <div class="min-h-screen bg-surface-primary">
-    <!-- Page Header -->
-    <div class="bg-white border-b border-gray-200 py-12">
-      <div class="container-custom">
-        <h1 class="font-display text-4xl md:text-5xl font-bold mb-4 text-text-primary">
-          Gift Catalog 🎁
-        </h1>
-        <p class="text-xl mb-6 text-text-secondary">
-          Browse and commit to gifts for the ultimate housewarming experience
-        </p>
-        
-        <!-- Stats -->
-        <div class="flex gap-6 text-sm">
-          <div class="flex items-center gap-2 text-text-secondary">
-            <span class="text-2xl">📊</span>
-            <span><strong class="text-brand-primary">{stats.total}</strong> total gifts</span>
-          </div>
-          <div class="flex items-center gap-2 text-text-secondary">
-            <span class="text-2xl">✅</span>
-            <span><strong class="text-brand-primary">{stats.committed}</strong> committed</span>
-          </div>
-          <div class="flex items-center gap-2 text-text-secondary">
-            <span class="text-2xl">🎯</span>
-            <span><strong class="text-brand-primary">{stats.available}</strong> available</span>
-          </div>
-        </div>
-      </div>
-    </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Gift Catalog | What a Dazzling Adventure</title>
+    <meta
+      name="description"
+      content="Browse and commit to gifts for the ultimate housewarming experience"
+    />
+  </head>
+  <body class="bg-bg-dark">
+    <Header />
 
-    <!-- Tabs -->
-    <div class="container-custom py-8">
-      <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-        <!-- Tab buttons -->
-        <div class="flex border-b border-surface-secondary">
-          <button
-            class="tab-btn active flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-brand-primary/5"
-            data-tab="traditional"
+    <div class="min-h-screen bg-surface-primary">
+      <!-- Page Header -->
+      <div class="border-b border-gray-200 p-12">
+        <div class="container-custom">
+          <h1
+            class="font-display text-4xl md:text-5xl font-bold mb-4 text-text-primary"
           >
-            <div class="flex items-center justify-center gap-2">
-              <EmojiIcon value="🎁" className="text-2xl" label="traditional" />
-              <span>Traditional</span>
-              <span class="ml-2 px-2 py-1 bg-brand-primary/10 text-brand-primary rounded-full text-xs">
-                {traditionalGifts.length}
-              </span>
-            </div>
-          </button>
-          
-          <button
-            class="tab-btn flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-brand-primary/5"
-            data-tab="receipt"
-          >
-            <div class="flex items-center justify-center gap-2">
-              <EmojiIcon value="🧾" className="text-2xl" label="receipt" />
-              <span>Receipts</span>
-              <span class="ml-2 px-2 py-1 bg-brand-primary/10 text-brand-primary rounded-full text-xs">
-                {receiptGifts.length}
-              </span>
-            </div>
-          </button>
-          
-          <button
-            class="tab-btn flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-brand-primary/5"
-            data-tab="bandcamp"
-          >
-            <div class="flex items-center justify-center gap-2">
-              <EmojiIcon value="🎵" className="text-2xl" label="bandcamp" />
-              <span>Bandcamp</span>
-              <span class="ml-2 px-2 py-1 bg-brand-primary/10 text-brand-primary rounded-full text-xs">
-                {bandcampGifts.length}
-              </span>
-            </div>
-          </button>
-        </div>
+            Gift Catalog 🎁
+          </h1>
+          <p class="text-xl mb-6 text-text-secondary">
+            Browse and commit to gifts for the ultimate housewarming experience
+          </p>
 
-        <!-- Tab content -->
-        <div class="p-8">
-          <!-- Traditional tab -->
-          <div class="tab-content" data-tab-content="traditional">
-            <div class="mb-6">
-              <h2 class="font-display text-2xl font-bold text-text-primary mb-2">
-                Traditional Gifts
-              </h2>
-              <p class="text-text-secondary">
-                Classic housewarming items - from essentials to luxury pieces
-              </p>
+          <!-- Stats -->
+          <div class="flex gap-6 text-sm">
+            <div class="flex items-center gap-2 text-text-secondary">
+              <span class="text-2xl">📊</span>
+              <span
+                ><strong class="text-brand-primary">{stats.total}</strong> total
+                gifts</span
+              >
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {traditionalGifts.map(gift => (
-                <GiftCard gift={gift} />
-              ))}
+            <div class="flex items-center gap-2 text-text-secondary">
+              <span class="text-2xl">✅</span>
+              <span
+                ><strong class="text-brand-primary">{stats.committed}</strong> committed</span
+              >
             </div>
-            
-            {traditionalGifts.length === 0 && (
-              <div class="text-center py-12 text-text-secondary">
-                <p class="text-xl">No traditional gifts available yet</p>
-              </div>
-            )}
-          </div>
-
-          <!-- Receipt tab -->
-          <div class="tab-content hidden" data-tab-content="receipt">
-            <div class="mb-6">
-              <h2 class="font-display text-2xl font-bold text-text-primary mb-2">
-                Receipt Reimbursements
-              </h2>
-              <p class="text-text-secondary">
-                Already purchased items - reimburse via Revolut
-              </p>
+            <div class="flex items-center gap-2 text-text-secondary">
+              <span class="text-2xl">🎯</span>
+              <span
+                ><strong class="text-brand-primary">{stats.available}</strong> available</span
+              >
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {receiptGifts.map(gift => (
-                <GiftCard gift={gift} />
-              ))}
-            </div>
-            
-            {receiptGifts.length === 0 && (
-              <div class="text-center py-12 text-text-secondary">
-                <p class="text-xl">No receipts available yet</p>
-              </div>
-            )}
-          </div>
-
-          <!-- Bandcamp tab -->
-          <div class="tab-content hidden" data-tab-content="bandcamp">
-            <div class="mb-6">
-              <h2 class="font-display text-2xl font-bold text-text-primary mb-2">
-                Bandcamp Wishlist
-              </h2>
-              <p class="text-text-secondary">
-                Digital music purchases - albums, EPs, and tracks
-              </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {bandcampGifts.map(gift => (
-                <GiftCard gift={gift} />
-              ))}
-            </div>
-            
-            {bandcampGifts.length === 0 && (
-              <div class="text-center py-12 text-text-secondary">
-                <p class="text-xl">No Bandcamp items available yet</p>
-              </div>
-            )}
           </div>
         </div>
       </div>
 
+      <!-- Tabs -->
+      <div class="container-custom py-8">
+        <div class="rounded-xl shadow-lg overflow-hidden">
+          <!-- Tab buttons -->
+          <div class="flex border-b border-surface-secondary">
+            <button
+              class="tab-btn active flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-brand-primary/5"
+              data-tab="traditional"
+            >
+              <div class="flex items-center justify-center gap-2">
+                <EmojiIcon
+                  value="🎁"
+                  className="text-2xl"
+                  label="traditional"
+                />
+                <span>Traditional</span>
+                <span
+                  class="ml-2 px-2 py-1 bg-brand-primary/10 text-brand-primary rounded-full text-xs"
+                >
+                  {traditionalGifts.length}
+                </span>
+              </div>
+            </button>
+
+            <button
+              class="tab-btn flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-brand-primary/5"
+              data-tab="receipt"
+            >
+              <div class="flex items-center justify-center gap-2">
+                <EmojiIcon value="🧾" className="text-2xl" label="receipt" />
+                <span>Receipts</span>
+                <span
+                  class="ml-2 px-2 py-1 bg-brand-primary/10 text-brand-primary rounded-full text-xs"
+                >
+                  {receiptGifts.length}
+                </span>
+              </div>
+            </button>
+
+            <button
+              class="tab-btn flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-brand-primary/5"
+              data-tab="bandcamp"
+            >
+              <div class="flex items-center justify-center gap-2">
+                <EmojiIcon value="🎵" className="text-2xl" label="bandcamp" />
+                <span>Bandcamp</span>
+                <span
+                  class="ml-2 px-2 py-1 bg-brand-primary/10 text-brand-primary rounded-full text-xs"
+                >
+                  {bandcampGifts.length}
+                </span>
+              </div>
+            </button>
+          </div>
+
+          <!-- Tab content -->
+          <div class="p-8">
+            <!-- Traditional tab -->
+            <div class="tab-content" data-tab-content="traditional">
+              <div class="mb-6">
+                <h2
+                  class="font-display text-2xl font-bold text-text-primary mb-2"
+                >
+                  Traditional Gifts
+                </h2>
+                <p class="text-text-secondary">
+                  Classic housewarming items - from essentials to luxury pieces
+                </p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {traditionalGifts.map(gift => <GiftCard gift={gift} />)}
+              </div>
+
+              {
+                traditionalGifts.length === 0 && (
+                  <div class="text-center py-12 text-text-secondary">
+                    <p class="text-xl">No traditional gifts available yet</p>
+                  </div>
+                )
+              }
+            </div>
+
+            <!-- Receipt tab -->
+            <div class="tab-content hidden" data-tab-content="receipt">
+              <div class="mb-6">
+                <h2
+                  class="font-display text-2xl font-bold text-text-primary mb-2"
+                >
+                  Receipt Reimbursements
+                </h2>
+                <p class="text-text-secondary">
+                  Already purchased items - reimburse via Revolut
+                </p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {receiptGifts.map(gift => <GiftCard gift={gift} />)}
+              </div>
+
+              {
+                receiptGifts.length === 0 && (
+                  <div class="text-center py-12 text-text-secondary">
+                    <p class="text-xl">No receipts available yet</p>
+                  </div>
+                )
+              }
+            </div>
+
+            <!-- Bandcamp tab -->
+            <div class="tab-content hidden" data-tab-content="bandcamp">
+              <div class="mb-6">
+                <h2
+                  class="font-display text-2xl font-bold text-text-primary mb-2"
+                >
+                  Bandcamp Wishlist
+                </h2>
+                <p class="text-text-secondary">
+                  Digital music purchases - albums, EPs, and tracks
+                </p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {bandcampGifts.map(gift => <GiftCard gift={gift} />)}
+              </div>
+
+              {
+                bandcampGifts.length === 0 && (
+                  <div class="text-center py-12 text-text-secondary">
+                    <p class="text-xl">No Bandcamp items available yet</p>
+                  </div>
+                )
+              }
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
 
 <script>
   // Tab switching logic
-  const tabButtons = document.querySelectorAll('.tab-btn')
-  const tabContents = document.querySelectorAll('.tab-content')
+  const tabButtons = document.querySelectorAll(".tab-btn")
+  const tabContents = document.querySelectorAll(".tab-content")
 
   tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const tabName = button.getAttribute('data-tab')
-      
+    button.addEventListener("click", () => {
+      const tabName = button.getAttribute("data-tab")
+
       // Remove active class from all buttons
-      tabButtons.forEach(btn => btn.classList.remove('active'))
-      
+      tabButtons.forEach(btn => btn.classList.remove("active"))
+
       // Hide all tab contents
-      tabContents.forEach(content => content.classList.add('hidden'))
-      
+      tabContents.forEach(content => content.classList.add("hidden"))
+
       // Add active class to clicked button
-      button.classList.add('active')
-      
+      button.classList.add("active")
+
       // Show corresponding tab content
-      const targetContent = document.querySelector(`[data-tab-content="${tabName}"]`)
+      const targetContent = document.querySelector(
+        `[data-tab-content="${tabName}"]`,
+      )
       if (targetContent) {
-        targetContent.classList.remove('hidden')
+        targetContent.classList.remove("hidden")
       }
     })
   })
@@ -218,13 +247,13 @@ const stats = {
   .tab-btn {
     position: relative;
   }
-  
+
   .tab-btn.active {
     background-color: rgba(var(--brand-primary-rgb), 0.05);
     color: var(--brand-primary);
     border-bottom: 3px solid var(--brand-primary);
   }
-  
+
   .tab-btn:not(.active) {
     color: var(--text-secondary);
   }
