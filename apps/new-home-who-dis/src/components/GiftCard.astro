@@ -158,8 +158,9 @@ const wishlistIcons = {
           </div>
         ) : (
           <button
-            class="commit-btn bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300 hover:scale-105"
+            class="commit-btn bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             data-gift-id={gift.id}
+            data-gift-name={gift.name}
           >
             Commit
           </button>
@@ -177,6 +178,11 @@ const wishlistIcons = {
         </div>
       )
     }
+    
+    <!-- Success/Error messages -->
+    <div class="mt-4 hidden" data-message-container>
+      <div class="p-3 rounded-lg text-sm font-medium"></div>
+    </div>
   </div>
 </div>
 
@@ -188,3 +194,88 @@ const wishlistIcons = {
     overflow: hidden;
   }
 </style>
+
+<script>
+  // Handle commit button clicks
+  document.addEventListener('DOMContentLoaded', () => {
+    const commitButtons = document.querySelectorAll('.commit-btn')
+    
+    commitButtons.forEach(button => {
+      button.addEventListener('click', async (e) => {
+        const btn = e.target as HTMLButtonElement
+        const giftId = btn.getAttribute('data-gift-id')
+        const giftName = btn.getAttribute('data-gift-name')
+        
+        if (!giftId) return
+        
+        // Confirm commitment
+        if (!confirm(`Commit to purchasing "${giftName}"?\n\nThis will mark the gift as taken and add it to your commitments.`)) {
+          return
+        }
+        
+        // Disable button and show loading
+        btn.disabled = true
+        btn.textContent = '⏳ Committing...'
+        
+        try {
+          const response = await fetch(`/api/gifts/${giftId}/commit`, {
+            method: 'POST',
+          })
+          
+          const data = await response.json()
+          
+          if (data.success) {
+            // Show success message
+            showMessage(btn, 'success', data.message || 'Successfully committed!')
+            
+            // Reload page to show updated state
+            setTimeout(() => {
+              window.location.reload()
+            }, 1500)
+          } else {
+            // Handle different error cases
+            if (data.requiresIdentity) {
+              if (confirm(data.error + '\n\nGo to Identity page now?')) {
+                window.location.href = '/identity'
+              }
+            } else if (data.alreadyCommitted) {
+              showMessage(btn, 'error', data.error)
+              setTimeout(() => {
+                window.location.reload()
+              }, 2000)
+            } else {
+              showMessage(btn, 'error', data.error || 'Failed to commit')
+            }
+            
+            btn.disabled = false
+            btn.textContent = 'Commit'
+          }
+        } catch (error) {
+          console.error('Error committing to gift:', error)
+          showMessage(btn, 'error', 'Network error. Please try again.')
+          btn.disabled = false
+          btn.textContent = 'Commit'
+        }
+      })
+    })
+  })
+  
+  function showMessage(button: HTMLButtonElement, type: 'success' | 'error', message: string) {
+    const card = button.closest('.gift-card')
+    if (!card) return
+    
+    const container = card.querySelector('[data-message-container]') as HTMLElement
+    const messageDiv = container?.querySelector('div')
+    
+    if (container && messageDiv) {
+      container.classList.remove('hidden')
+      messageDiv.textContent = message
+      
+      if (type === 'success') {
+        messageDiv.className = 'p-3 rounded-lg text-sm font-medium bg-green-50 text-green-800 border border-green-200'
+      } else {
+        messageDiv.className = 'p-3 rounded-lg text-sm font-medium bg-red-50 text-red-800 border border-red-200'
+      }
+    }
+  }
+</script>
