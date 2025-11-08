@@ -1,0 +1,275 @@
+---
+// @ts-nocheck
+import Header from "../components/Header.astro"
+import { EmojiIcon } from "@repo/ui"
+import { db } from "../db/index.js"
+import { users, commitments } from "../db/schema.js"
+import { sql } from "drizzle-orm"
+import { getSessionIdFromCookie } from "../lib/session.js"
+
+// Get current user's session
+const sessionId = getSessionIdFromCookie(Astro.request)
+let currentUserId: string | null = null
+
+if (sessionId) {
+  const userResult = await db
+    .select()
+    .from(users)
+    .where(sql`${users.sessionId} = ${sessionId}`)
+    .limit(1)
+
+  if (userResult.length > 0) {
+    currentUserId = userResult[0]?.id || null
+  }
+}
+
+// Fetch leaderboard data
+const leaderboardData = await db
+  .select({
+    userId: commitments.userId,
+    totalCommitted: sql<number>`CAST(SUM(${commitments.amount}) AS INTEGER)`,
+    giftCount: sql<number>`CAST(COUNT(${commitments.id}) AS INTEGER)`,
+  })
+  .from(commitments)
+  .where(sql`${commitments.status} = 'active'`)
+  .groupBy(commitments.userId)
+  .orderBy(sql`SUM(${commitments.amount}) DESC`)
+  .limit(100)
+
+// Get user details
+const userIds = leaderboardData.map((entry) => entry.userId)
+let userDetails = []
+if (userIds.length > 0) {
+  userDetails = await db
+    .select({
+      id: users.id,
+      pseudonym: users.pseudonym,
+    })
+    .from(users)
+    .where(sql`${users.id} IN (${sql.join(userIds.map(id => sql`${id}`), sql`, `)})`)
+}
+
+const userDetailsMap = new Map(userDetails.map((user) => [user.id, user]))
+
+// Build leaderboard with ranks
+const leaderboard = leaderboardData.map((entry, index) => {
+  const user = userDetailsMap.get(entry.userId)
+  const totalInLei = entry.totalCommitted / 100
+  
+  // Determine tier
+  let tier = "🥉 Bronze"
+  let tierClass = "tier-bronze"
+  if (totalInLei >= 1000) {
+    tier = "💎 Ultra"
+    tierClass = "tier-ultra"
+  } else if (totalInLei >= 750) {
+    tier = "🥇 Gold"
+    tierClass = "tier-gold"
+  } else if (totalInLei >= 500) {
+    tier = "🥈 Silver"
+    tierClass = "tier-silver"
+  }
+  
+  return {
+    rank: index + 1,
+    userId: entry.userId,
+    pseudonym: user?.pseudonym || "Unknown",
+    totalCommitted: entry.totalCommitted,
+    totalInLei,
+    giftCount: entry.giftCount,
+    isCurrentUser: entry.userId === currentUserId,
+    tier,
+    tierClass,
+  }
+})
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Leaderboard | What a Dazzling Adventure</title>
+    <meta
+      name="description"
+      content="See who's leading the gift commitment race!"
+    />
+  </head>
+  <body class="bg-bg-dark">
+    <Header />
+
+    <div class="min-h-screen bg-bg-dark">
+      <!-- Page Header -->
+      <div class="border-b border-gray-800 py-12">
+        <div class="container-custom">
+          <h1
+            class="font-display text-4xl md:text-5xl font-bold mb-4 text-text-primary"
+          >
+            <EmojiIcon value="🏆" className="inline text-5xl mr-3" label="trophy" />
+            Leaderboard
+          </h1>
+          <p class="text-xl text-text-secondary">
+            See who's leading the gift commitment race!
+          </p>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="container-custom py-8">
+        {leaderboard.length === 0 ? (
+          <!-- Empty state -->
+          <div class="bg-surface-primary rounded-xl p-12 text-center border border-gray-700">
+            <div class="text-6xl mb-4">🎁</div>
+            <h2 class="font-display text-2xl font-bold mb-4 text-text-primary">
+              No Commitments Yet
+            </h2>
+            <p class="text-text-secondary mb-6 max-w-md mx-auto">
+              Be the first to commit to a gift and claim the top spot on the leaderboard!
+            </p>
+            <a
+              href="/gifts"
+              class="inline-block bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300"
+            >
+              Browse Gifts
+            </a>
+          </div>
+        ) : (
+          <!-- Leaderboard table -->
+          <div class="bg-surface-primary rounded-xl shadow-lg overflow-hidden border border-gray-700">
+            <!-- Tier Legend -->
+            <div class="bg-gray-800 px-6 py-4 border-b border-gray-700">
+              <div class="flex flex-wrap gap-4 items-center justify-center text-sm">
+                <span class="text-text-secondary">Tiers:</span>
+                <span class="tier-bronze px-3 py-1 rounded-full font-semibold">🥉 Bronze (250+ Lei)</span>
+                <span class="tier-silver px-3 py-1 rounded-full font-semibold">🥈 Silver (500+ Lei)</span>
+                <span class="tier-gold px-3 py-1 rounded-full font-semibold">🥇 Gold (750+ Lei)</span>
+                <span class="tier-ultra px-3 py-1 rounded-full font-semibold">💎 Ultra (1000+ Lei)</span>
+              </div>
+            </div>
+
+            <!-- Desktop table -->
+            <div class="hidden md:block overflow-x-auto">
+              <table class="w-full">
+                <thead class="bg-gray-800 text-text-secondary text-sm">
+                  <tr>
+                    <th class="px-6 py-4 text-left">Rank</th>
+                    <th class="px-6 py-4 text-left">Tier</th>
+                    <th class="px-6 py-4 text-left">Pseudonym</th>
+                    <th class="px-6 py-4 text-right">Gifts</th>
+                    <th class="px-6 py-4 text-right">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {leaderboard.map((entry) => (
+                    <tr
+                      class={`border-b border-gray-700 hover:bg-gray-800/50 transition-colors ${entry.isCurrentUser ? 'current-user-row' : ''}`}
+                    >
+                      <td class="px-6 py-4">
+                        <div class="flex items-center gap-2">
+                          {entry.rank <= 3 && (
+                            <span class="text-2xl">
+                              {entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : '🥉'}
+                            </span>
+                          )}
+                          <span class="font-bold text-lg text-text-primary">
+                            #{entry.rank}
+                          </span>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4">
+                        <span class={`${entry.tierClass} px-3 py-1 rounded-full text-sm font-semibold`}>
+                          {entry.tier}
+                        </span>
+                      </td>
+                      <td class="px-6 py-4">
+                        <span class="font-semibold text-text-primary">
+                          {entry.pseudonym}
+                          {entry.isCurrentUser && (
+                            <span class="ml-2 text-brand-primary text-sm">(You)</span>
+                          )}
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 text-right text-text-secondary">
+                        {entry.giftCount} {entry.giftCount === 1 ? 'gift' : 'gifts'}
+                      </td>
+                      <td class="px-6 py-4 text-right">
+                        <span class="font-bold text-xl text-brand-primary">
+                          {entry.totalInLei.toFixed(2)} Lei
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Mobile cards -->
+            <div class="md:hidden divide-y divide-gray-700">
+              {leaderboard.map((entry) => (
+                <div class={`p-6 ${entry.isCurrentUser ? 'current-user-row' : ''}`}>
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3">
+                      {entry.rank <= 3 && (
+                        <span class="text-3xl">
+                          {entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : '🥉'}
+                        </span>
+                      )}
+                      <div>
+                        <div class="font-bold text-2xl text-text-primary">
+                          #{entry.rank}
+                        </div>
+                        <span class={`${entry.tierClass} px-2 py-1 rounded-full text-xs font-semibold`}>
+                          {entry.tier}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="text-right">
+                      <div class="font-bold text-2xl text-brand-primary">
+                        {entry.totalInLei.toFixed(2)} Lei
+                      </div>
+                      <div class="text-sm text-text-secondary">
+                        {entry.giftCount} {entry.giftCount === 1 ? 'gift' : 'gifts'}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="font-semibold text-lg text-text-primary">
+                    {entry.pseudonym}
+                    {entry.isCurrentUser && (
+                      <span class="ml-2 text-brand-primary text-sm">(You)</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  .current-user-row {
+    background: rgba(244, 114, 182, 0.1);
+    border-left: 4px solid #f472b6;
+  }
+
+  .tier-bronze {
+    background: rgba(205, 127, 50, 0.2);
+    color: #cd7f32;
+  }
+
+  .tier-silver {
+    background: rgba(192, 192, 192, 0.2);
+    color: #c0c0c0;
+  }
+
+  .tier-gold {
+    background: rgba(255, 215, 0, 0.2);
+    color: #ffd700;
+  }
+
+  .tier-ultra {
+    background: rgba(147, 112, 219, 0.2);
+    color: #9370db;
+  }
+</style>

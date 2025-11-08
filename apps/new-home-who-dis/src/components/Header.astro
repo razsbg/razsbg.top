@@ -88,6 +88,14 @@ const currentPath = Astro.url.pathname
               >
                 My Commitments
               </a>
+
+              <a
+                href="/leaderboard"
+                class={`nav-link ${currentPath === "/leaderboard" ? "active" : ""}`}
+                aria-current={currentPath === "/leaderboard" ? "page" : undefined}
+              >
+                Leaderboard
+              </a>
             </>
           )
         }
@@ -142,6 +150,14 @@ const currentPath = Astro.url.pathname
           >
             <span class="text-2xl mr-3">📋</span>
             My Commitments
+          </a>
+
+          <a
+            href="/leaderboard"
+            class={`mobile-nav-link ${currentPath === "/leaderboard" ? "active" : ""}`}
+          >
+            <span class="text-2xl mr-3">🏆</span>
+            Leaderboard
           </a>
         </>
       )

@@ -371,13 +371,12 @@
       "id": "trad-034",
       "name": "What Do I Really Want To Achieve",
       "description": "Self-help book or journal",
-      "estimatedPrice": 45747,
+      "estimatedPrice": 11187,
       "category": "Books & Games",
       "priority": "nice-to-have",
       "wishlistType": "traditional",
       "isCommitted": false,
-      "imageUrl": null,
-      "notes": "Cheaper option, might sell soon - 399RON"
+      "imageUrl": null
     },
     {
       "id": "trad-035",
@@ -394,12 +393,13 @@
       "id": "trad-036",
       "name": "Soundcore Motion Plus",
       "description": "Portable Bluetooth speaker with Hi-Res audio",
-      "estimatedPrice": 11187,
+      "estimatedPrice": 45747,
       "category": "Tech & Audio",
       "priority": "nice-to-have",
       "wishlistType": "traditional",
       "isCommitted": false,
-      "imageUrl": null
+      "imageUrl": null,
+      "notes": "Cheaper option, might sell soon - 399RON"
     },
     {
       "id": "trad-037",
