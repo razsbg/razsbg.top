@@ -9,9 +9,7 @@ import { sql } from "drizzle-orm"
 // Check if user has a pseudonym
 let hasPseudonym = false
 try {
-  const sessionId = getSessionIdFromCookie(
-    Astro.request.headers.get("cookie") || "",
-  )
+  const sessionId = getSessionIdFromCookie(Astro.request)
 
   if (sessionId) {
     const userResult = await db
