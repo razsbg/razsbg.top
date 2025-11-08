@@ -111,6 +111,10 @@
 1. **Gift catalog with three wishlists** - Essential for basic functionality
 2. **Anonymous identity system** - Required for tracking commitments
 3. **Gift commitment flow** - Core business logic
+   a. color contrast
+   b. commit to purchase - save in db
+   c. user committed gifts list
+   d. cancel/undo commit
 4. **Basic leaderboard** - Primary gamification element
 5. **Payment links** - Revenue/reimbursement mechanism
 

@@ -1,0 +1,333 @@
+---
+// @ts-nocheck
+import Header from "../components/Header.astro"
+import { EmojiIcon } from "@repo/ui"
+import { db } from "../db/index.js"
+import { users, gifts, commitments } from "../db/schema.js"
+import { eq, sql } from "drizzle-orm"
+import { getSessionIdFromCookie } from "../lib/session.js"
+
+// Server-side: Get user's commitments
+const sessionId = getSessionIdFromCookie(Astro.request)
+let user = null
+let userCommitments = []
+let totalAmount = 0
+let grouped = { traditional: [], receipt: [], bandcamp: [] }
+
+if (sessionId) {
+  const userResult = await db
+    .select()
+    .from(users)
+    .where(sql`${users.sessionId} = ${sessionId}`)
+    .limit(1)
+
+  user = userResult[0]
+
+  if (user) {
+    // Get commitments with gift details
+    userCommitments = await db
+      .select({
+        commitmentId: commitments.id,
+        commitmentAmount: commitments.amount,
+        commitmentStatus: commitments.status,
+        committedAt: commitments.committedAt,
+        giftId: gifts.id,
+        giftName: gifts.name,
+        giftDescription: gifts.description,
+        giftPrice: gifts.estimatedPrice,
+        giftCategory: gifts.category,
+        giftPriority: gifts.priority,
+        giftWishlistType: gifts.wishlistType,
+        giftImageUrl: gifts.imageUrl,
+      })
+      .from(commitments)
+      .innerJoin(gifts, eq(commitments.giftId, gifts.id))
+      .where(sql`${commitments.userId} = ${user.id} AND ${commitments.status} = 'active'`)
+
+    totalAmount = userCommitments.reduce((sum, c) => sum + c.commitmentAmount, 0)
+
+    grouped = {
+      traditional: userCommitments.filter(c => c.giftWishlistType === "traditional"),
+      receipt: userCommitments.filter(c => c.giftWishlistType === "receipt"),
+      bandcamp: userCommitments.filter(c => c.giftWishlistType === "bandcamp"),
+    }
+  }
+}
+
+const totalInLei = (totalAmount / 100).toFixed(2)
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My Commitments | What a Dazzling Adventure</title>
+    <meta
+      name="description"
+      content="View your committed gifts and total contribution"
+    />
+  </head>
+  <body class="bg-bg-dark">
+    <Header />
+
+    <div class="min-h-screen bg-bg-dark">
+      <!-- Page Header -->
+      <div class="border-b border-gray-800 py-12">
+        <div class="container-custom">
+          <h1
+            class="font-display text-4xl md:text-5xl font-bold mb-4 text-text-primary"
+          >
+            My Commitments 📋
+          </h1>
+          
+          {user ? (
+            <div>
+              <p class="text-xl mb-4 text-text-secondary">
+                Committed by <strong class="text-brand-primary">{user.pseudonym}</strong>
+              </p>
+              
+              <!-- Stats -->
+              <div class="flex gap-6 text-sm">
+                <div class="flex items-center gap-2 text-text-secondary">
+                  <span class="text-2xl">🎁</span>
+                  <span>
+                    <strong class="text-brand-primary">{userCommitments.length}</strong> {userCommitments.length === 1 ? 'gift' : 'gifts'}
+                  </span>
+                </div>
+                <div class="flex items-center gap-2 text-text-secondary">
+                  <span class="text-2xl">💰</span>
+                  <span>
+                    <strong class="text-brand-primary">{totalInLei} Lei</strong> total
+                  </span>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <p class="text-xl text-text-secondary">
+              Please create your identity first to see your commitments.
+            </p>
+          )}
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="container-custom py-8">
+        {!user ? (
+          <!-- No identity -->
+          <div class="bg-surface-primary rounded-xl p-12 text-center border border-gray-700">
+            <div class="text-6xl mb-4">🎭</div>
+            <h2 class="font-display text-2xl font-bold mb-4 text-text-primary">
+              No Identity Found
+            </h2>
+            <p class="text-text-secondary mb-6 max-w-md mx-auto">
+              You need to create your anonymous identity before you can commit to gifts.
+            </p>
+            <a
+              href="/identity"
+              class="inline-block bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300"
+            >
+              Create Identity
+            </a>
+          </div>
+        ) : userCommitments.length === 0 ? (
+          <!-- No commitments -->
+          <div class="bg-surface-primary rounded-xl p-12 text-center border border-gray-700">
+            <div class="text-6xl mb-4">🎁</div>
+            <h2 class="font-display text-2xl font-bold mb-4 text-text-primary">
+              No Commitments Yet
+            </h2>
+            <p class="text-text-secondary mb-6 max-w-md mx-auto">
+              You haven't committed to any gifts yet. Browse the catalog and commit to your favorites!
+            </p>
+            <a
+              href="/gifts"
+              class="inline-block bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300"
+            >
+              Browse Gifts
+            </a>
+          </div>
+        ) : (
+          <!-- Commitments list -->
+          <div class="space-y-6">
+            {userCommitments.map(commitment => {
+              const priceInLei = (commitment.commitmentAmount / 100).toFixed(2)
+              const committedDate = new Date(commitment.committedAt).toLocaleDateString()
+              
+              return (
+                <div class="bg-surface-primary rounded-xl p-6 border border-gray-700 hover:border-brand-primary transition-all duration-300">
+                  <div class="flex gap-6">
+                    <!-- Gift image/icon -->
+                    <div class="w-24 h-24 flex-shrink-0 bg-gray-800 rounded-lg flex items-center justify-center">
+                      {commitment.giftImageUrl ? (
+                        <img
+                          src={commitment.giftImageUrl}
+                          alt={commitment.giftName}
+                          class="w-full h-full object-cover rounded-lg"
+                        />
+                      ) : (
+                        <EmojiIcon
+                          value={commitment.giftWishlistType === "traditional" ? "🎁" : commitment.giftWishlistType === "receipt" ? "🧾" : "🎵"}
+                          className="text-4xl"
+                          label={commitment.giftWishlistType}
+                        />
+                      )}
+                    </div>
+                    
+                    <!-- Gift details -->
+                    <div class="flex-1">
+                      <div class="flex items-start justify-between mb-2">
+                        <h3 class="font-display text-xl font-bold text-text-primary">
+                          {commitment.giftName}
+                        </h3>
+                        <div class="text-2xl font-bold text-brand-primary ml-4">
+                          {priceInLei} Lei
+                        </div>
+                      </div>
+                      
+                      {commitment.giftDescription && (
+                        <p class="text-text-secondary text-sm mb-3 line-clamp-2">
+                          {commitment.giftDescription}
+                        </p>
+                      )}
+                      
+                      <div class="flex items-center gap-4 text-xs text-text-secondary">
+                        <span class="px-2 py-1 bg-gray-800 rounded">
+                          {commitment.giftCategory}
+                        </span>
+                        <span class="px-2 py-1 bg-gray-800 rounded">
+                          {commitment.giftWishlistType}
+                        </span>
+                        <span class="px-2 py-1 bg-gray-800 rounded">
+                          Committed {committedDate}
+                        </span>
+                      </div>
+                      
+                      <!-- Cancel button -->
+                      <button
+                        class="cancel-btn mt-4"
+                        data-gift-id={commitment.giftId}
+                        data-gift-name={commitment.giftName}
+                      >
+                        Cancel Commitment
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Message container for feedback -->
+    <div id="message-container" class="fixed bottom-8 right-8 z-50" style="display: none;">
+      <div id="message-content" class="px-6 py-4 rounded-lg shadow-lg font-semibold"></div>
+    </div>
+  </body>
+</html>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .cancel-btn {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .cancel-btn:hover:not(:disabled) {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.5);
+  }
+
+  .cancel-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+</style>
+
+<script>
+  // Handle cancel commitment clicks
+  document.addEventListener('DOMContentLoaded', () => {
+    const cancelButtons = document.querySelectorAll('.cancel-btn')
+    const messageContainer = document.getElementById('message-container')
+    const messageContent = document.getElementById('message-content')
+
+    function showMessage(text: string, isError = false) {
+      if (!messageContainer || !messageContent) return
+      
+      messageContent.textContent = text
+      messageContent.className = `px-6 py-4 rounded-lg shadow-lg font-semibold ${
+        isError 
+          ? 'bg-red-600 text-white' 
+          : 'bg-green-600 text-white'
+      }`
+      
+      messageContainer.style.display = 'block'
+      
+      setTimeout(() => {
+        messageContainer.style.display = 'none'
+      }, 3000)
+    }
+
+    cancelButtons.forEach(button => {
+      button.addEventListener('click', async (e) => {
+        const target = e.currentTarget as HTMLButtonElement
+        const giftId = target.dataset.giftId
+        const giftName = target.dataset.giftName
+
+        if (!giftId) return
+
+        // Confirmation dialog
+        const confirmed = confirm(
+          `Are you sure you want to cancel your commitment to "${giftName}"?\n\nThis will make the gift available for others to commit to.`
+        )
+
+        if (!confirmed) return
+
+        // Disable button and show loading
+        target.disabled = true
+        const originalText = target.textContent
+        target.textContent = '⏳ Cancelling...'
+
+        try {
+          const response = await fetch(`/api/gifts/${giftId}/commit`, {
+            method: 'DELETE',
+          })
+
+          const data = await response.json()
+
+          if (response.ok && data.success) {
+            showMessage(`✓ ${data.message}`)
+            
+            // Reload page after a short delay
+            setTimeout(() => {
+              window.location.reload()
+            }, 1500)
+          } else {
+            showMessage(data.error || 'Failed to cancel commitment', true)
+            target.disabled = false
+            target.textContent = originalText
+          }
+        } catch (error) {
+          console.error('Error cancelling commitment:', error)
+          showMessage('Network error. Please try again.', true)
+          target.disabled = false
+          target.textContent = originalText
+        }
+      })
+    })
+  })
+</script>

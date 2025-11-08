@@ -1,0 +1,118 @@
+---
+// @ts-nocheck
+import Logo from "./Logo.astro"
+import { getSessionIdFromCookie } from "../lib/session.js"
+import { db } from "../db/index.js"
+import { users } from "../db/schema.js"
+import { sql } from "drizzle-orm"
+
+// Check if user has a pseudonym
+let hasPseudonym = false
+try {
+  const sessionId = getSessionIdFromCookie(Astro.request)
+
+  if (sessionId) {
+    const userResult = await db
+      .select()
+      .from(users)
+      .where(sql`${users.sessionId} = ${sessionId}`)
+      .limit(1)
+
+    if (userResult.length > 0 && userResult[0]) {
+      hasPseudonym = true
+    }
+  }
+} catch (error) {
+  console.error("Error checking user session:", error)
+}
+
+// Get current path for active link styling
+const currentPath = Astro.url.pathname
+---
+
+<header class="px-8 bg-fuchsia-900 text-white shadow-lg sticky top-0 z-50">
+  <div class="container-custom">
+    <div class="flex items-center justify-between py-4">
+      <!-- Logo -->
+      <a
+        href="/"
+        class="flex items-center gap-3 hover:opacity-80 transition-opacity"
+      >
+        <Logo size="sm" />
+      </a>
+
+      <!-- Navigation -->
+      <nav class="flex items-center gap-2 md:gap-4">
+        <a
+          href="/"
+          class={`nav-link ${currentPath === "/" ? "active" : ""}`}
+          aria-current={currentPath === "/" ? "page" : undefined}
+        >
+          Home
+        </a>
+
+        <a
+          href="/identity"
+          class={`nav-link ${currentPath === "/identity" ? "active" : ""}`}
+          aria-current={currentPath === "/identity" ? "page" : undefined}
+        >
+          Identity
+        </a>
+
+        {
+          hasPseudonym && (
+            <>
+              <a
+                href="/gifts"
+                class={`nav-link ${currentPath === "/gifts" ? "active" : ""}`}
+                aria-current={currentPath === "/gifts" ? "page" : undefined}
+              >
+                Gifts
+              </a>
+              
+              <a
+                href="/commitments"
+                class={`nav-link ${currentPath === "/commitments" ? "active" : ""}`}
+                aria-current={currentPath === "/commitments" ? "page" : undefined}
+              >
+                My Commitments
+              </a>
+            </>
+          )
+        }
+      </nav>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    background: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+  }
+
+  .nav-link:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+  }
+
+  .nav-link.active {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    cursor: default;
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    .nav-link {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+    }
+  }
+</style>

@@ -1,0 +1,281 @@
+---
+import { EmojiIcon } from "@repo/ui"
+
+interface Props {
+  gift: {
+    id: string
+    name: string
+    description: string | null
+    estimatedPrice: number
+    category: string
+    priority: string
+    wishlistType: string
+    isCommitted: boolean
+    committedBy: string | null
+    imageUrl: string | null
+    notes: string | null
+    // Receipt fields
+    receiptId: string | null
+    alreadyPurchased: boolean | null
+    reimbursementMethod: string | null
+    // Bandcamp fields
+    bandcampUrl: string | null
+    artist: string | null
+    albumTitle: string | null
+    releaseType: string | null
+    digitalDelivery: boolean | null
+  }
+}
+
+const { gift } = Astro.props
+
+// Format price from bani to Lei
+const priceInLei = (gift.estimatedPrice / 100).toFixed(2)
+
+// Priority colors
+const priorityColors = {
+  essential: "bg-red-100 text-red-800 border-red-300",
+  "nice-to-have": "bg-blue-100 text-blue-800 border-blue-300",
+  luxury: "bg-purple-100 text-purple-800 border-purple-300",
+  digital: "bg-green-100 text-green-800 border-green-300",
+}
+
+// Wishlist type icons
+const wishlistIcons = {
+  traditional: "🎁",
+  receipt: "🧾",
+  bandcamp: "🎵",
+}
+---
+
+<div
+  class="gift-card rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200 hover:border-brand-primary {gift.isCommitted ? 'opacity-60' : ''}"
+>
+  <!-- Image or placeholder -->
+  <div class="relative h-48 flex items-center justify-center">
+    {
+      gift.imageUrl ? (
+        <img
+          src={gift.imageUrl}
+          alt={gift.name}
+          class="w-full h-full object-cover"
+        />
+      ) : (
+        <EmojiIcon
+          value={wishlistIcons[gift.wishlistType as keyof typeof wishlistIcons]}
+          className="text-6xl"
+          label={gift.wishlistType}
+        />
+      )
+    }
+
+    <!-- Committed badge -->
+    {
+      gift.isCommitted && (
+        <div class="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg flex items-center gap-1">
+          <span>✓</span>
+          <span>Committed</span>
+        </div>
+      )
+    }
+
+    <!-- Priority badge -->
+    <div
+      class={`absolute top-2 left-2 px-3 py-1 rounded-full text-xs font-semibold border ${priorityColors[gift.priority as keyof typeof priorityColors]}`}
+    >
+      {gift.priority}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-6">
+    <h3 class="font-display text-xl font-bold text-text-primary mb-2">
+      {gift.name}
+    </h3>
+
+    {
+      gift.description && (
+        <p class="text-text-secondary text-sm mb-4 line-clamp-2">
+          {gift.description}
+        </p>
+      )
+    }
+
+    <!-- Bandcamp specific info -->
+    {
+      gift.wishlistType === "bandcamp" && gift.artist && (
+        <div class="mb-4 text-sm">
+          <p class="text-text-secondary">
+            <strong>Artist:</strong> {gift.artist}
+          </p>
+          {gift.albumTitle && (
+            <p class="text-text-secondary">
+              <strong>Album:</strong> {gift.albumTitle}
+            </p>
+          )}
+          {gift.releaseType && (
+            <span class="inline-block mt-1 px-2 py-1 bg-brand-secondary/10 text-brand-secondary rounded text-xs">
+              {gift.releaseType}
+            </span>
+          )}
+        </div>
+      )
+    }
+
+    <!-- Receipt specific info -->
+    {
+      gift.wishlistType === "receipt" && gift.alreadyPurchased && (
+        <div class="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+          <p class="text-xs text-blue-800 font-semibold">
+            📦 Already purchased - need reimbursement via{" "}
+            {gift.reimbursementMethod || "Revolut"}
+          </p>
+        </div>
+      )
+    }
+
+    <!-- Category -->
+    <div class="mb-4">
+      <span
+        class="inline-block px-3 py-1 bg-surface-secondary text-text-secondary rounded-full text-xs font-medium"
+      >
+        {gift.category}
+      </span>
+    </div>
+
+    <!-- Price and action -->
+    <div
+      class="flex items-center justify-between pt-4 border-t border-surface-secondary"
+    >
+      <div class="text-2xl font-bold text-brand-primary">
+        {priceInLei} Lei
+      </div>
+
+      {
+        gift.isCommitted ? (
+          <div class="text-sm text-text-secondary">
+            by <strong class="text-brand-primary">{gift.committedBy}</strong>
+          </div>
+        ) : (
+          <button
+            class="commit-btn bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            data-gift-id={gift.id}
+            data-gift-name={gift.name}
+          >
+            Commit
+          </button>
+        )
+      }
+    </div>
+
+    <!-- Notes -->
+    {
+      gift.notes && (
+        <div class="mt-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+          <p class="text-xs text-yellow-800">
+            <strong>Note:</strong> {gift.notes}
+          </p>
+        </div>
+      )
+    }
+    
+    <!-- Success/Error messages -->
+    <div class="mt-4 hidden" data-message-container>
+      <div class="p-3 rounded-lg text-sm font-medium"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  // Handle commit button clicks
+  document.addEventListener('DOMContentLoaded', () => {
+    const commitButtons = document.querySelectorAll('.commit-btn')
+    
+    commitButtons.forEach(button => {
+      button.addEventListener('click', async (e) => {
+        const btn = e.target as HTMLButtonElement
+        const giftId = btn.getAttribute('data-gift-id')
+        const giftName = btn.getAttribute('data-gift-name')
+        
+        if (!giftId) return
+        
+        // Confirm commitment
+        if (!confirm(`Commit to purchasing "${giftName}"?\n\nThis will mark the gift as taken and add it to your commitments.`)) {
+          return
+        }
+        
+        // Disable button and show loading
+        btn.disabled = true
+        btn.textContent = '⏳ Committing...'
+        
+        try {
+          const response = await fetch(`/api/gifts/${giftId}/commit`, {
+            method: 'POST',
+          })
+          
+          const data = await response.json()
+          
+          if (data.success) {
+            // Show success message
+            showMessage(btn, 'success', data.message || 'Successfully committed!')
+            
+            // Reload page to show updated state
+            setTimeout(() => {
+              window.location.reload()
+            }, 1500)
+          } else {
+            // Handle different error cases
+            if (data.requiresIdentity) {
+              if (confirm(data.error + '\n\nGo to Identity page now?')) {
+                window.location.href = '/identity'
+              }
+            } else if (data.alreadyCommitted) {
+              showMessage(btn, 'error', data.error)
+              setTimeout(() => {
+                window.location.reload()
+              }, 2000)
+            } else {
+              showMessage(btn, 'error', data.error || 'Failed to commit')
+            }
+            
+            btn.disabled = false
+            btn.textContent = 'Commit'
+          }
+        } catch (error) {
+          console.error('Error committing to gift:', error)
+          showMessage(btn, 'error', 'Network error. Please try again.')
+          btn.disabled = false
+          btn.textContent = 'Commit'
+        }
+      })
+    })
+  })
+  
+  function showMessage(button: HTMLButtonElement, type: 'success' | 'error', message: string) {
+    const card = button.closest('.gift-card')
+    if (!card) return
+    
+    const container = card.querySelector('[data-message-container]') as HTMLElement
+    const messageDiv = container?.querySelector('div')
+    
+    if (container && messageDiv) {
+      container.classList.remove('hidden')
+      messageDiv.textContent = message
+      
+      if (type === 'success') {
+        messageDiv.className = 'p-3 rounded-lg text-sm font-medium bg-green-50 text-green-800 border border-green-200'
+      } else {
+        messageDiv.className = 'p-3 rounded-lg text-sm font-medium bg-red-50 text-red-800 border border-red-200'
+      }
+    }
+  }
+</script>
