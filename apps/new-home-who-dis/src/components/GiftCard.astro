@@ -1,0 +1,165 @@
+---
+import { EmojiIcon } from "@repo/ui"
+
+interface Props {
+  gift: {
+    id: string
+    name: string
+    description: string | null
+    estimatedPrice: number
+    category: string
+    priority: string
+    wishlistType: string
+    isCommitted: boolean
+    committedBy: string | null
+    imageUrl: string | null
+    notes: string | null
+    // Receipt fields
+    receiptId: string | null
+    alreadyPurchased: boolean | null
+    reimbursementMethod: string | null
+    // Bandcamp fields
+    bandcampUrl: string | null
+    artist: string | null
+    albumTitle: string | null
+    releaseType: string | null
+    digitalDelivery: boolean | null
+  }
+}
+
+const { gift } = Astro.props
+
+// Format price from bani to Lei
+const priceInLei = (gift.estimatedPrice / 100).toFixed(2)
+
+// Priority colors
+const priorityColors = {
+  essential: "bg-red-100 text-red-800 border-red-300",
+  "nice-to-have": "bg-blue-100 text-blue-800 border-blue-300",
+  luxury: "bg-purple-100 text-purple-800 border-purple-300",
+  digital: "bg-green-100 text-green-800 border-green-300",
+}
+
+// Wishlist type icons
+const wishlistIcons = {
+  traditional: "🎁",
+  receipt: "🧾",
+  bandcamp: "🎵",
+}
+---
+
+<div
+  class="gift-card bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-transparent hover:border-brand-primary {gift.isCommitted ? 'opacity-60' : ''}"
+>
+  <!-- Image or placeholder -->
+  <div class="relative h-48 bg-gradient-to-br from-brand-primary/10 to-brand-secondary/10 flex items-center justify-center">
+    {gift.imageUrl ? (
+      <img src={gift.imageUrl} alt={gift.name} class="w-full h-full object-cover" />
+    ) : (
+      <EmojiIcon
+        value={wishlistIcons[gift.wishlistType as keyof typeof wishlistIcons]}
+        className="text-6xl"
+        label={gift.wishlistType}
+      />
+    )}
+    
+    <!-- Committed badge -->
+    {gift.isCommitted && (
+      <div class="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg flex items-center gap-1">
+        <span>✓</span>
+        <span>Committed</span>
+      </div>
+    )}
+    
+    <!-- Priority badge -->
+    <div class={`absolute top-2 left-2 px-3 py-1 rounded-full text-xs font-semibold border ${priorityColors[gift.priority as keyof typeof priorityColors]}`}>
+      {gift.priority}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-6">
+    <h3 class="font-display text-xl font-bold text-text-primary mb-2">
+      {gift.name}
+    </h3>
+    
+    {gift.description && (
+      <p class="text-text-secondary text-sm mb-4 line-clamp-2">
+        {gift.description}
+      </p>
+    )}
+
+    <!-- Bandcamp specific info -->
+    {gift.wishlistType === "bandcamp" && gift.artist && (
+      <div class="mb-4 text-sm">
+        <p class="text-text-secondary">
+          <strong>Artist:</strong> {gift.artist}
+        </p>
+        {gift.albumTitle && (
+          <p class="text-text-secondary">
+            <strong>Album:</strong> {gift.albumTitle}
+          </p>
+        )}
+        {gift.releaseType && (
+          <span class="inline-block mt-1 px-2 py-1 bg-brand-secondary/10 text-brand-secondary rounded text-xs">
+            {gift.releaseType}
+          </span>
+        )}
+      </div>
+    )}
+
+    <!-- Receipt specific info -->
+    {gift.wishlistType === "receipt" && gift.alreadyPurchased && (
+      <div class="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+        <p class="text-xs text-blue-800 font-semibold">
+          📦 Already purchased - need reimbursement via {gift.reimbursementMethod || "Revolut"}
+        </p>
+      </div>
+    )}
+
+    <!-- Category -->
+    <div class="mb-4">
+      <span class="inline-block px-3 py-1 bg-surface-secondary text-text-secondary rounded-full text-xs font-medium">
+        {gift.category}
+      </span>
+    </div>
+
+    <!-- Price and action -->
+    <div class="flex items-center justify-between pt-4 border-t border-surface-secondary">
+      <div class="text-2xl font-bold text-brand-primary">
+        {priceInLei} Lei
+      </div>
+      
+      {gift.isCommitted ? (
+        <div class="text-sm text-text-secondary">
+          by <strong class="text-brand-primary">{gift.committedBy}</strong>
+        </div>
+      ) : (
+        <button
+          class="commit-btn bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300 hover:scale-105"
+          data-gift-id={gift.id}
+        >
+          Commit
+        </button>
+      )}
+    </div>
+
+    <!-- Notes -->
+    {gift.notes && (
+      <div class="mt-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+        <p class="text-xs text-yellow-800">
+          <strong>Note:</strong> {gift.notes}
+        </p>
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
