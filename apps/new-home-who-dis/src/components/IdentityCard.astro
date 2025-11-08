@@ -163,6 +163,9 @@ if (sessionId) {
 </style>
 
 <script>
+  // localStorage key for pseudonym persistence
+  const STORAGE_KEY = 'party_pseudonym'
+  
   // Client-side interactivity
   const initializeIdentity = async () => {
     const card = document.getElementById('identity-card')
@@ -177,11 +180,30 @@ if (sessionId) {
         const data = await response.json()
         
         if (data.success && data.user) {
+          // Save to localStorage for faster future loads
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            pseudonym: data.user.pseudonym,
+            sessionId: data.user.sessionId,
+            createdAt: data.user.createdAt,
+          }))
+          
           // Reload page to show the new user
           window.location.reload()
         }
       } catch (error) {
         console.error('Error creating session:', error)
+      }
+    } else {
+      // User exists from server - sync to localStorage
+      try {
+        const user = JSON.parse(userData)
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          pseudonym: user.pseudonym,
+          sessionId: user.sessionId,
+          createdAt: user.createdAt,
+        }))
+      } catch (error) {
+        console.error('Error syncing to localStorage:', error)
       }
     }
     
@@ -203,6 +225,13 @@ if (sessionId) {
           const data = await response.json()
           
           if (data.success && data.user) {
+            // Update localStorage with new pseudonym
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({
+              pseudonym: data.user.pseudonym,
+              sessionId: data.user.sessionId,
+              createdAt: data.user.createdAt,
+            }))
+            
             // Update pseudonym in DOM
             const pseudonymText = document.getElementById('pseudonym-text')
             if (pseudonymText) {
