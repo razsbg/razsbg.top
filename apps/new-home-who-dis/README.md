@@ -55,9 +55,9 @@ This project is designed for hands-on development with factory.ai CLI + Zed edit
 
 - **Framework**: Astro 5 with TypeScript
 - **Styling**: Tailwind CSS with custom tier colors
-- **Database**: Vercel Postgres with Drizzle ORM
+- **Database**: Railway PostgreSQL with Drizzle ORM
 - **Real-time**: Server-Sent Events (SSE)
-- **Deployment**: Vercel (razsbg.top subdomain)
+- **Deployment**: Railway (razsbg.top subdomain)
 
 ## Payment Integration
 

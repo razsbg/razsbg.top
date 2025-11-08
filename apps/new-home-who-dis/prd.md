@@ -364,16 +364,15 @@ interface TierPerks {
 **Backend Services:**
 
 - **API:** Astro API routes for REST endpoints
-- **Real-time:** Node.js WebSocket server (separate service or integrated)
+- **Real-time:** Server-Sent Events (SSE) for live updates
 - **Database:** SQLite for development, PostgreSQL for production
 - **Caching:** Redis for session management and real-time state
 
 **Infrastructure:**
 
-- **Hosting:** Vercel for primary deployment
+- **Hosting:** Railway for primary deployment
 - **Domain:** razsbg.top subdomain
-- **CDN:** Vercel Edge Network
-- **Monitoring:** Built-in Vercel analytics
+- **Monitoring:** Railway dashboard metrics
 
 ### Data Models
 
@@ -431,7 +430,7 @@ interface WebSocketEvent {
 - **Input Validation:** Sanitize all user inputs
 - **CORS:** Proper configuration for multi-origin access
 - **No Personal Data:** Anonymous system reduces privacy concerns
-- **DDoS Protection:** Vercel built-in protection
+- **DDoS Protection:** Railway infrastructure protection
 
 ---
 
@@ -605,7 +604,7 @@ interface WebSocketEvent {
 
 **Afternoon (2-3 hours):**
 
-- 🔄 Production deployment to Vercel
+- 🔄 Production deployment to Railway
 - 🔄 QR code printing and physical materials
 - 🔄 Final testing with multiple devices
 - 🔄 Monitoring setup and health checks
@@ -664,7 +663,7 @@ interface WebSocketEvent {
 - **Mitigation:** Connection pooling, query optimization
 - **Testing:** Stress testing with concurrent writes
 
-**Risk:** Vercel deployment issues or downtime
+**Risk:** Railway deployment issues or downtime
 
 - **Impact:** App completely inaccessible
 - **Mitigation:** Multiple deployment checks, backup hosting plan

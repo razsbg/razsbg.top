@@ -17,7 +17,7 @@
 - [ ] **Project Initialization**
 
   - [ ] `pnpm install` - Install dependencies
-  - [ ] Set up Vercel Postgres database
+  - [ ] Set up Railway PostgreSQL database
   - [ ] Run `pnpm db:generate && pnpm db:migrate`
   - [ ] Configure environment variables
 
@@ -92,7 +92,7 @@
 #### Afternoon (2-3 hours)
 
 - [ ] **Production Deployment**
-  - [ ] Vercel deployment configuration
+  - [ ] Railway deployment configuration
   - [ ] Environment variables setup
   - [ ] Domain configuration (razsbg.top subdomain)
   - [ ] QR code generation for party access
@@ -135,7 +135,7 @@
 
 ```bash
 # Generate database utilities and seed data
-"Create Drizzle database connection utilities for Vercel Postgres"
+"Create Drizzle database connection utilities for Railway PostgreSQL"
 "Generate gift data seeding script from JSON structure"
 "Build API endpoints for gift CRUD operations with TypeScript"
 ```
@@ -198,23 +198,23 @@
 
 ```bash
 # Production
-POSTGRES_URL=vercel_postgres_connection_string
+DATABASE_URL=railway_postgres_connection_string
 NODE_ENV=production
 REVOLUT_USERNAME=razsbg
 PARTY_DATE=2025-11-08
 
 # Development
-POSTGRES_URL=postgresql://localhost:5432/new_home_who_dis
+DATABASE_URL=postgresql://localhost:5432/new_home_who_dis
 NODE_ENV=development
 ```
 
-### Vercel Project Settings
+### Railway Project Settings
 
 - [ ] Connect to razsbg.top domain
 - [ ] Configure subdomain routing
-- [ ] Set up Postgres database
-- [ ] Configure function timeouts for SSE
-- [ ] Enable analytics and monitoring
+- [ ] Set up PostgreSQL database (via `railway add`)
+- [ ] Configure environment variables
+- [ ] Enable service monitoring
 
 ## 💡 Factory.ai CLI Tips for This Project
 
