@@ -13,7 +13,9 @@
     "db:studio": "drizzle-kit studio",
     "lint": "eslint . --ext .js,.ts,.astro",
     "lint:fix": "eslint . --ext .js,.ts,.astro --fix",
-    "type-check": "astro check"
+    "type-check": "astro check",
+    "start-db:local": "docker-compose up -d",
+    "stop-db:local": "docker-compose down"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
