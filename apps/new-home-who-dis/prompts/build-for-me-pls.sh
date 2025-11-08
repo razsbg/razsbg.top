@@ -342,13 +342,19 @@ for i in "${!prompt_files[@]}"; do
         EXEC_FILE="${prompt_file}"
     fi
 
-    # Execute droid in headless mode with --auto flag
+    # Execute droid - SIMPLE: just run it directly, no pipes or tricks
     log INFO "Executing: droid exec --auto ${AUTONOMY_LEVEL} --file ${filename}"
+    echo ""
 
-    # macOS-compatible real-time output using script command
-    # script -q forces a PTY which prevents buffering
-    script -q /dev/null droid exec --auto "${AUTONOMY_LEVEL}" --file "${EXEC_FILE}" < /dev/null 2>&1 | tee -a "${LOG_FILE}"
-    exit_code=${PIPESTATUS[0]}
+    # Run droid and capture exit code
+    droid exec --auto "${AUTONOMY_LEVEL}" --file "${EXEC_FILE}"
+    exit_code=$?
+
+    echo ""
+
+    # Log to file
+    echo "[$(date +"%Y-%m-%d %H:%M:%S")] Executed: droid exec --auto ${AUTONOMY_LEVEL} --file ${filename}" >> "${LOG_FILE}"
+    echo "[$(date +"%Y-%m-%d %H:%M:%S")] Exit code: ${exit_code}" >> "${LOG_FILE}"
 
     if [[ ${exit_code} -eq 0 ]]; then
         successful_prompts=$((successful_prompts + 1))
@@ -356,29 +362,18 @@ for i in "${!prompt_files[@]}"; do
     else
         failed_prompts=$((failed_prompts + 1))
         log ERROR "Step ${step_num} failed with exit code ${exit_code}"
-
-        # Prompt to continue
-        echo ""
-        read -p "$(echo -e ${YELLOW}Continue with remaining prompts? [y/N]:${NC} )" -n 1 -r
-        echo ""
-        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-            log INFO "Build aborted by user at step ${step_num}"
-            log INFO "To resume, fix the issue and re-run:"
-            log INFO "  $0 ${PROMPT_FOLDER_NAME}"
-            exit 1
-        fi
     fi
-
-
 
     # Cleanup temp file if it exists
     [[ -n "${TEMP_PROMPT}" ]] && rm -f "${TEMP_PROMPT}"
 
-    echo "" | tee -a "${LOG_FILE}"
-
-    # Delay between prompts
+    # Pause before continuing to next prompt
     if [[ ${step_num} -lt ${total_prompts} ]]; then
-        sleep 3
+        echo ""
+        echo -e "${YELLOW}════════════════════════════════════════════════════════${NC}"
+        read -n 1 -s -r -p "$(echo -e ${GREEN}Press any key to continue to next prompt...${NC})"
+        echo ""
+        echo ""
     fi
 done
 
