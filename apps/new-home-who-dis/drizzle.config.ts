@@ -7,6 +7,7 @@ export default defineConfig({
   dbCredentials: {
     url:
       process.env.POSTGRES_URL ||
-      "postgresql://localhost:5432/new_home_who_dis",
+      process.env.DATABASE_URL ||
+      "postgresql://postgres:devpass@localhost:5432/new_home_who_dis",
   },
 })
