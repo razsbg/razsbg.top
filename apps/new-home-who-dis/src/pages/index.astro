@@ -4,7 +4,8 @@ import Logo from "../components/Logo.astro"
 import { EmojiIcon } from "@repo/ui"
 import translations from "../data/translations.json"
 
-const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (GMT+2)
+const partyDate = import.meta.env.PUBLIC_PARTY_DATE
+// import.meta.env.PUBLIC_PARTY_DATE ?? "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (GMT+2)
 ---
 
 <html lang="en">
