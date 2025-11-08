@@ -75,11 +75,11 @@ const stats = {
 
       <!-- Tabs -->
       <div class="container-custom py-8">
-        <div class="rounded-xl shadow-lg overflow-hidden">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
           <!-- Tab buttons -->
-          <div class="flex border-b border-surface-secondary">
+          <div class="flex border-b border-gray-200 bg-gray-50">
             <button
-              class="tab-btn active flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-brand-primary/5"
+              class="tab-btn active flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-gray-100"
               data-tab="traditional"
             >
               <div class="flex items-center justify-center gap-2">
@@ -98,7 +98,7 @@ const stats = {
             </button>
 
             <button
-              class="tab-btn flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-brand-primary/5"
+              class="tab-btn flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-gray-100"
               data-tab="receipt"
             >
               <div class="flex items-center justify-center gap-2">
@@ -113,7 +113,7 @@ const stats = {
             </button>
 
             <button
-              class="tab-btn flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-brand-primary/5"
+              class="tab-btn flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-gray-100"
               data-tab="bandcamp"
             >
               <div class="flex items-center justify-center gap-2">
@@ -246,15 +246,16 @@ const stats = {
 <style>
   .tab-btn {
     position: relative;
+    color: #6b7280; /* gray-500 for inactive tabs */
   }
 
   .tab-btn.active {
-    background-color: rgba(var(--brand-primary-rgb), 0.05);
-    color: var(--brand-primary);
+    background-color: white;
+    color: #1f2937; /* gray-800 for active tab text */
     border-bottom: 3px solid var(--brand-primary);
   }
 
-  .tab-btn:not(.active) {
-    color: var(--text-secondary);
+  .tab-btn:not(.active):hover {
+    color: #374151; /* gray-700 on hover */
   }
 </style>
