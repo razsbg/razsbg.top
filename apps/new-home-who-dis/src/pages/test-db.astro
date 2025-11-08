@@ -1,7 +1,14 @@
 ---
 // Test page to verify database connection
+// Protected with HTTP Basic Auth
 import { db } from "../db/index"
 import { gifts } from "../db/schema"
+import { checkBasicAuth, createUnauthorizedResponse } from "../lib/auth"
+
+// Check authentication
+if (!checkBasicAuth(Astro.request)) {
+  return createUnauthorizedResponse('Database Test Area')
+}
 
 // Fetch gifts server-side
 let giftCount = 0
