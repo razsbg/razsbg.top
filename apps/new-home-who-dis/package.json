@@ -29,7 +29,6 @@
     "@astrojs/node": "^8.3.4",
     "@astrojs/solid-js": "^5.1.2",
     "@astrojs/tailwind": "^5.1.2",
-    "@nanostores/persistent": "^0.10.2",
     "@repo/ui": "workspace:*",
     "astro": "^4.16.12",
     "drizzle-kit": "^0.28.1",
