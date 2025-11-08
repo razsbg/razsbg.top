@@ -30,13 +30,13 @@ try {
 const currentPath = Astro.url.pathname
 ---
 
-<header class="bg-gradient-to-r from-brand-primary to-brand-secondary text-white shadow-lg sticky top-0 z-50">
+<header class="bg-brand-primary text-white shadow-lg sticky top-0 z-50">
   <div class="container-custom">
     <div class="flex items-center justify-between py-4">
       <!-- Logo -->
       <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
         <Logo size="sm" />
-        <span class="font-display text-xl font-bold hidden sm:inline">
+        <span class="font-display text-xl font-bold">
           new-home-who-dis™️
         </span>
       </a>
@@ -46,26 +46,26 @@ const currentPath = Astro.url.pathname
         <a
           href="/"
           class={`nav-link ${currentPath === "/" ? "active" : ""}`}
+          aria-current={currentPath === "/" ? "page" : undefined}
         >
-          <span class="text-xl mr-1">🏠</span>
-          <span class="hidden sm:inline">Home</span>
+          Home
         </a>
 
         <a
           href="/identity"
           class={`nav-link ${currentPath === "/identity" ? "active" : ""}`}
+          aria-current={currentPath === "/identity" ? "page" : undefined}
         >
-          <span class="text-xl mr-1">🎭</span>
-          <span class="hidden sm:inline">Identity</span>
+          Identity
         </a>
 
         {hasPseudonym && (
           <a
             href="/gifts"
             class={`nav-link ${currentPath === "/gifts" ? "active" : ""}`}
+            aria-current={currentPath === "/gifts" ? "page" : undefined}
           >
-            <span class="text-xl mr-1">🎁</span>
-            <span class="hidden sm:inline">Gifts</span>
+            Gifts
           </a>
         )}
       </nav>
@@ -82,9 +82,10 @@ const currentPath = Astro.url.pathname
     font-weight: 600;
     transition: all 0.2s;
     background: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
   }
 
-  .nav-link:hover {
+  .nav-link:hover:not(.active) {
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-1px);
   }
@@ -92,6 +93,8 @@ const currentPath = Astro.url.pathname
   .nav-link.active {
     background: rgba(255, 255, 255, 0.3);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    cursor: default;
+    pointer-events: none;
   }
 
   @media (max-width: 640px) {
