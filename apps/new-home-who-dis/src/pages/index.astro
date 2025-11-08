@@ -4,7 +4,16 @@ import Logo from "../components/Logo.astro"
 import { EmojiIcon } from "@repo/ui"
 import translations from "../data/translations.json"
 
-const partyDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (GMT+2)
+const fallbackDate = "2025-11-08T15:00:00+02:00" // November 8, 3 PM, Iași time (GMT+2)
+const partyDate = import.meta.env.PUBLIC_PARTY_DATE ?? fallbackDate
+
+// Warning: Environment variable not set
+if (!import.meta.env.PUBLIC_PARTY_DATE && import.meta.env.DEV) {
+  console.warn(
+    "⚠️ PUBLIC_PARTY_DATE environment variable is not set. Using fallback date:",
+    fallbackDate,
+  )
+}
 ---
 
 <html lang="en">
