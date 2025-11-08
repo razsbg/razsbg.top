@@ -1,0 +1,227 @@
+---
+import IdentityCard from "../components/IdentityCard.astro"
+import Logo from "../components/Logo.astro"
+import { EmojiIcon } from "@repo/ui"
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Your Party Identity | What a Dazzling Adventure</title>
+    <meta
+      name="description"
+      content="Get your unique anonymous identity for the party gift registry"
+    />
+  </head>
+  <body class="bg-bg-dark min-h-screen">
+    <main class="max-w-4xl mx-auto px-4 md:px-6 py-12 md:py-16">
+      <!-- Header -->
+      <header class="text-center mb-12">
+        <a href="/" class="inline-block mb-6 hover:scale-105 transition-transform">
+          <Logo size="md" />
+        </a>
+        <h1 class="font-display text-4xl md:text-5xl font-bold text-text-primary mb-4">
+          <EmojiIcon
+            value="🎭"
+            className="w-10 h-10 inline mr-2"
+            label="mask"
+          />
+          Your Party Identity
+        </h1>
+        <p class="text-text-secondary text-lg md:text-xl max-w-2xl mx-auto">
+          Every guest gets a unique pseudonym. No login required, just pure anonymous fun!
+        </p>
+      </header>
+
+      <!-- Identity Card Component -->
+      <div class="mb-12 animate-fade-in-up">
+        <IdentityCard />
+      </div>
+
+      <!-- Explanation Section -->
+      <div class="explanation-section bg-black border border-white/10 rounded-2xl p-6 md:p-8 mb-12 animate-fade-in-up" style="animation-delay: 100ms;">
+        <h2 class="font-display text-2xl md:text-3xl font-bold text-brand-primary mb-6 text-center">
+          <EmojiIcon
+            value="💡"
+            className="w-8 h-8 inline mr-2"
+            label="idea"
+          />
+          How It Works
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="step-card bg-gradient-to-br from-brand-primary/10 to-brand-primary/5 border border-brand-primary/20 rounded-xl p-6 text-center">
+            <div class="text-4xl mb-3">
+              <EmojiIcon value="🎲" className="w-12 h-12" label="dice" />
+            </div>
+            <h3 class="font-display text-xl font-bold text-brand-primary mb-2">1. Get Assigned</h3>
+            <p class="text-text-secondary text-sm">
+              When you first visit, you automatically get a unique pseudonym like "Skeptical-Platypus-742"
+            </p>
+          </div>
+
+          <div class="step-card bg-gradient-to-br from-brand-accent/10 to-brand-accent/5 border border-brand-accent/20 rounded-xl p-6 text-center">
+            <div class="text-4xl mb-3">
+              <EmojiIcon value="💾" className="w-12 h-12" label="save" />
+            </div>
+            <h3 class="font-display text-xl font-bold text-brand-accent mb-2">2. Stay Anonymous</h3>
+            <p class="text-text-secondary text-sm">
+              Your identity persists across visits using cookies. No account, no password, no tracking.
+            </p>
+          </div>
+
+          <div class="step-card bg-gradient-to-br from-brand-secondary/10 to-brand-secondary/5 border border-brand-secondary/20 rounded-xl p-6 text-center">
+            <div class="text-4xl mb-3">
+              <EmojiIcon value="🎁" className="w-12 h-12" label="gift" />
+            </div>
+            <h3 class="font-display text-xl font-bold text-brand-secondary mb-2">3. Commit Gifts</h3>
+            <p class="text-text-secondary text-sm">
+              Use your pseudonym to commit to gifts and climb the leaderboard at the party!
+            </p>
+          </div>
+        </div>
+
+        <div class="fun-facts bg-brand-primary/5 border border-brand-primary/20 rounded-xl p-6">
+          <h3 class="font-display text-lg font-bold text-brand-primary mb-3 flex items-center gap-2">
+            <EmojiIcon value="✨" className="w-6 h-6" label="sparkles" />
+            Fun Facts
+          </h3>
+          <ul class="space-y-2 text-text-secondary text-sm">
+            <li class="flex items-start gap-2">
+              <span class="text-brand-primary">•</span>
+              <span>There are <strong class="text-brand-primary">625,000</strong> possible pseudonym combinations</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-brand-primary">•</span>
+              <span>Your pseudonym is stored in your browser and a cookie for 7 days</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-brand-primary">•</span>
+              <span>Don't like your name? Click "🔄 Change Identity" above!</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-brand-primary">•</span>
+              <span>Your identity is used for the leaderboard and party perks</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-brand-primary">🔒</span>
+              <span><strong class="text-brand-primary">Important:</strong> Once you commit to a gift, your pseudonym becomes permanent!</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Technical Details (Collapsible) -->
+      <details class="tech-details bg-black border border-white/10 rounded-xl p-6 mb-12 cursor-pointer animate-fade-in-up" style="animation-delay: 200ms;">
+        <summary class="font-display text-xl font-bold text-brand-accent mb-4 cursor-pointer hover:text-brand-accent/80 transition-colors">
+          <EmojiIcon value="🔧" className="w-6 h-6 inline mr-2" label="wrench" />
+          Technical Details (for the nerds)
+        </summary>
+        <div class="tech-content mt-4 space-y-4 text-text-secondary text-sm">
+          <div>
+            <h4 class="font-bold text-text-primary mb-2">Pseudonym Format:</h4>
+            <code class="bg-white/5 px-3 py-1 rounded border border-white/10">Adjective-Animal-XXX</code>
+            <p class="mt-2">Example: <code class="bg-white/5 px-2 py-1 rounded">Enthusiastic-Capybara-128</code></p>
+          </div>
+          
+          <div>
+            <h4 class="font-bold text-text-primary mb-2">Storage:</h4>
+            <ul class="list-disc list-inside space-y-1">
+              <li>Cookie: <code class="bg-white/5 px-2 py-1 rounded">gift_session_id</code> (HttpOnly, SameSite=Strict, 7-day expiry)</li>
+              <li>LocalStorage: <code class="bg-white/5 px-2 py-1 rounded">gift_user</code> (JSON with id, pseudonym, sessionId, createdAt)</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-text-primary mb-2">Privacy:</h4>
+            <ul class="list-disc list-inside space-y-1">
+              <li>No personal information collected</li>
+              <li>IP addresses are hashed before storage</li>
+              <li>Session IDs are randomly generated</li>
+              <li>No third-party tracking or analytics</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-text-primary mb-2">API Endpoints:</h4>
+            <ul class="list-disc list-inside space-y-1">
+              <li><code class="bg-white/5 px-2 py-1 rounded">POST /api/users/session</code> - Create new identity</li>
+              <li><code class="bg-white/5 px-2 py-1 rounded">GET /api/users/session</code> - Retrieve current identity</li>
+              <li><code class="bg-white/5 px-2 py-1 rounded">PUT /api/users/session</code> - Regenerate pseudonym</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- Navigation -->
+      <div class="navigation text-center">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 text-brand-primary hover:text-brand-primary/80 font-display text-lg font-semibold transition-colors"
+        >
+          <EmojiIcon value="🏠" className="w-6 h-6" label="home" />
+          Back to Home
+        </a>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-bg-dark border-t border-white/10 py-8 mt-12">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <p class="text-xs text-text-secondary">
+          Part of the <strong class="text-brand-primary">What a Dazzling Adventure</strong> party experience
+        </p>
+        <p class="text-xs text-text-secondary/60 mt-2">
+          Built with Astro, Solid.js, and excessive amounts of satire
+        </p>
+      </div>
+    </footer>
+  </body>
+
+  <style is:global>
+    .animate-fade-in-up {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    details[open] summary {
+      margin-bottom: 1rem;
+    }
+
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details summary::before {
+      content: '▶';
+      display: inline-block;
+      margin-right: 0.5rem;
+      transition: transform 0.3s;
+    }
+
+    details[open] summary::before {
+      transform: rotate(90deg);
+    }
+
+    .step-card {
+      transition: all 0.3s ease;
+    }
+
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</html>
