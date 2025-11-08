@@ -86,7 +86,7 @@ async function checkAndCreateTables() {
     
     // Check gift count
     const giftCount = await sql`SELECT COUNT(*) as count FROM gifts`
-    console.log(`\n🎁 Gifts in database: ${giftCount[0].count}`)
+    console.log(`\n🎁 Gifts in database: ${giftCount[0]?.count ?? 0}`)
     
     await sql.end()
     process.exit(0)

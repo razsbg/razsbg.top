@@ -1,14 +1,12 @@
 import type { APIRoute } from "astro"
-import { db } from "../../db/index"
-import { gifts } from "../../db/schema"
+import { db } from "../../db/index.js"
+import { gifts } from "../../db/schema.js"
 import { eq } from "drizzle-orm"
-import { isValidWishlistType, ValidationError } from "../../lib/validation"
+import { isValidWishlistType, ValidationError } from "../../lib/validation.js"
 
 export const GET: APIRoute = async ({ url }) => {
   try {
     const wishlistType = url.searchParams.get("type")
-
-    let query = db.select().from(gifts)
 
     // Filter by wishlist type if provided
     if (wishlistType) {
@@ -21,10 +19,28 @@ export const GET: APIRoute = async ({ url }) => {
           ["traditional", "receipt", "bandcamp"]
         )
       }
-      query = query.where(eq(gifts.wishlistType, wishlistType))
+      const allGifts = await db
+        .select()
+        .from(gifts)
+        .where(eq(gifts.wishlistType, wishlistType))
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          count: allGifts.length,
+          gifts: allGifts,
+        }),
+        {
+          status: 200,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
     }
 
-    const allGifts = await query
+    // No filter - return all gifts
+    const allGifts = await db.select().from(gifts)
 
     return new Response(
       JSON.stringify({

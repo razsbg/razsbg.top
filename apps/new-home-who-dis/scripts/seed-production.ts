@@ -3,7 +3,7 @@ import { join, dirname } from "path"
 import { fileURLToPath } from "url"
 import postgres from "postgres"
 import { drizzle } from "drizzle-orm/postgres-js"
-import { gifts, config } from "../src/db/schema"
+import { gifts, config } from "../src/db/schema.js"
 import { sql } from "drizzle-orm"
 
 const __filename = fileURLToPath(import.meta.url)

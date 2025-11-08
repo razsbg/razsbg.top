@@ -1,8 +1,8 @@
 import { readFileSync } from "fs"
 import { join, dirname } from "path"
 import { fileURLToPath } from "url"
-import { db } from "../src/db/index"
-import { users, gifts, commitments } from "../src/db/schema"
+import { db } from "../src/db/index.js"
+import { users, gifts, commitments } from "../src/db/schema.js"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -117,7 +117,7 @@ async function seedLocalDatabase() {
 
     const insertedUsers = await db.insert(users).values(testUsers).returning()
     console.log(`   ✓ Created ${insertedUsers.length} test users`)
-    insertedUsers.forEach(user => {
+    insertedUsers.forEach((user: typeof users.$inferSelect) => {
       console.log(`      - ${user.pseudonym}`)
     })
     console.log("")

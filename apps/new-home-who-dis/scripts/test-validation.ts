@@ -15,7 +15,7 @@ import {
   validatePrice,
   validateGiftData,
   ValidationError,
-} from '../src/lib/validation'
+} from '../src/lib/validation.js'
 
 let passed = 0
 let failed = 0
@@ -206,10 +206,10 @@ test('validateGiftData: throws on invalid wishlist type', () => {
       estimatedPrice: 10000,
     })
     throw new Error('Should have thrown')
-  } catch (error) {
+  } catch (error: unknown) {
     assert(Array.isArray(error), 'Should throw array of errors')
-    assert(error.length > 0, 'Should have at least one error')
-    assert(error[0] instanceof ValidationError, 'Should be ValidationError')
+    assert((error as unknown[]).length > 0, 'Should have at least one error')
+    assert((error as unknown[])[0] instanceof ValidationError, 'Should be ValidationError')
   }
 })
 
@@ -221,9 +221,9 @@ test('validateGiftData: throws multiple errors for multiple invalid fields', () 
       estimatedPrice: -100,
     })
     throw new Error('Should have thrown')
-  } catch (error) {
+  } catch (error: unknown) {
     assert(Array.isArray(error), 'Should throw array of errors')
-    assert(error.length === 3, 'Should have three errors')
+    assert((error as unknown[]).length === 3, 'Should have three errors')
   }
 })
 

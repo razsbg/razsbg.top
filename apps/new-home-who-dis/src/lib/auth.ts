@@ -17,7 +17,7 @@ export function checkBasicAuth(request: Request): boolean {
     // Extract and decode base64 credentials
     const base64Credentials = authHeader.substring(6)
     const credentials = atob(base64Credentials)
-    const [username, password] = credentials.split(':')
+    const [_username, password] = credentials.split(':')
 
     // Check against environment variable
     const expectedPassword = import.meta.env.TEST_PASSWORD || 'super-secret-password1'
