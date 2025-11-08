@@ -17,6 +17,7 @@
     "db:reset:production:dry-run": "./scripts/db-reset-production.sh --dry-run",
     "db:seed:local": "tsx scripts/seed-local.ts",
     "db:seed:production": "tsx scripts/seed-production.ts",
+    "test:validation": "tsx scripts/test-validation.ts",
     "lint": "eslint . --ext .js,.ts,.astro",
     "lint:fix": "eslint . --ext .js,.ts,.astro --fix",
     "type-check": "astro check",

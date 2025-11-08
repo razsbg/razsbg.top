@@ -14,7 +14,9 @@ NC='\033[0m' # No Color
 
 # Configuration
 DB_NAME="new_home_who_dis"
-DB_URL="postgresql://localhost:5432/${DB_NAME}"
+DB_USER="postgres"
+DB_PASSWORD="devpass"
+DB_URL="postgresql://${DB_USER}:${DB_PASSWORD}@localhost:5432/${DB_NAME}"
 FORCE_MODE=false
 
 # Parse arguments
@@ -40,7 +42,7 @@ echo ""
 
 # Check if PostgreSQL is running
 echo -e "${YELLOW}[1/4] Checking PostgreSQL connection...${NC}"
-if ! psql -h localhost -p 5432 -U "$USER" -c '\q' 2>/dev/null; then
+if ! PGPASSWORD="${DB_PASSWORD}" psql -h localhost -p 5432 -U "${DB_USER}" -c '\q' 2>/dev/null; then
   echo -e "${RED}ERROR: Cannot connect to PostgreSQL at localhost:5432${NC}"
   echo -e "${YELLOW}Hint: Start the database with: pnpm start-db:local${NC}"
   exit 1
@@ -63,7 +65,7 @@ fi
 
 # Drop and recreate database
 echo -e "${YELLOW}[2/4] Dropping and recreating database '${DB_NAME}'...${NC}"
-psql -h localhost -p 5432 -U "$USER" -d postgres <<-EOSQL
+PGPASSWORD="${DB_PASSWORD}" psql -h localhost -p 5432 -U "${DB_USER}" -d postgres <<-EOSQL
   DROP DATABASE IF EXISTS ${DB_NAME};
   CREATE DATABASE ${DB_NAME};
 EOSQL
@@ -87,7 +89,7 @@ echo ""
 
 # Verify tables
 echo -e "${YELLOW}[4/4] Verifying database schema...${NC}"
-TABLE_COUNT=$(psql -h localhost -p 5432 -U "$USER" -d "${DB_NAME}" -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';")
+TABLE_COUNT=$(PGPASSWORD="${DB_PASSWORD}" psql -h localhost -p 5432 -U "${DB_USER}" -d "${DB_NAME}" -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';")
 TABLE_COUNT=$(echo $TABLE_COUNT | xargs)  # Trim whitespace
 
 if [ "$TABLE_COUNT" -eq 0 ]; then
