@@ -171,15 +171,14 @@ async function updateProductionGifts() {
     ]
 
     await db.transaction(async (tx) => {
-      // Get IDs of committed gifts
-      log("Fetching committed gift IDs...")
-      const committedGifts = await tx
+      // Get IDs of ALL gifts with commitments (active or cancelled)
+      log("Fetching all gift IDs with commitments...")
+      const giftsWithCommitments = await tx
         .select({ giftId: commitments.giftId })
         .from(commitments)
-        .where(sql`${commitments.status} = 'active'`)
       
-      const committedGiftIds = new Set(committedGifts.map(c => c.giftId))
-      log(`✓ Found ${committedGiftIds.size} committed gifts (will preserve)`)
+      const committedGiftIds = new Set(giftsWithCommitments.map(c => c.giftId))
+      log(`✓ Found ${committedGiftIds.size} gifts with commitments (will preserve)`)
       console.log("")
 
       // Get existing gifts to know which are committed
@@ -189,19 +188,19 @@ async function updateProductionGifts() {
       log(`✓ Found ${existingGifts.length} existing gifts`)
       console.log("")
 
-      // Delete only uncommitted gifts
-      log("Deleting uncommitted gifts...")
+      // Delete only gifts that have NO commitments (including cancelled)
+      log("Deleting gifts with no commitments...")
       const uncommittedGiftIds = existingGifts
-        .filter(g => !g.isCommitted)
+        .filter(g => !committedGiftIds.has(g.id))
         .map(g => g.id)
       
       if (uncommittedGiftIds.length > 0) {
         await tx.delete(gifts).where(
           sql`${gifts.id} IN (${sql.join(uncommittedGiftIds.map(id => sql`${id}`), sql`, `)})`
         )
-        log(`✓ Deleted ${uncommittedGiftIds.length} uncommitted gifts`)
+        log(`✓ Deleted ${uncommittedGiftIds.length} gifts with no commitments`)
       } else {
-        log("✓ No uncommitted gifts to delete")
+        log("✓ No gifts to delete (all have commitments)")
       }
       console.log("")
 
