@@ -44,7 +44,7 @@ const currentPath = Astro.url.pathname
       </a>
 
       <!-- Navigation -->
-      <nav class="flex items-center gap-2 md:gap-6">
+      <nav class="flex items-center gap-2 md:gap-4">
         <a
           href="/"
           class={`nav-link ${currentPath === "/" ? "active" : ""}`}
@@ -63,13 +63,23 @@ const currentPath = Astro.url.pathname
 
         {
           hasPseudonym && (
-            <a
-              href="/gifts"
-              class={`nav-link ${currentPath === "/gifts" ? "active" : ""}`}
-              aria-current={currentPath === "/gifts" ? "page" : undefined}
-            >
-              Gifts
-            </a>
+            <>
+              <a
+                href="/gifts"
+                class={`nav-link ${currentPath === "/gifts" ? "active" : ""}`}
+                aria-current={currentPath === "/gifts" ? "page" : undefined}
+              >
+                Gifts
+              </a>
+              
+              <a
+                href="/commitments"
+                class={`nav-link ${currentPath === "/commitments" ? "active" : ""}`}
+                aria-current={currentPath === "/commitments" ? "page" : undefined}
+              >
+                My Commitments
+              </a>
+            </>
           )
         }
       </nav>
