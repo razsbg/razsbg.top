@@ -213,11 +213,11 @@ export const PUT: APIRoute = async ({ request }) => {
       )
     }
 
-    // Check if user has any gift commitments
+    // Check if user has any active gift commitments
     const userCommitments = await db
       .select()
       .from(commitments)
-      .where(sql`${commitments.userId} = ${user.id}`)
+      .where(sql`${commitments.userId} = ${user.id} AND ${commitments.status} = 'active'`)
       .limit(1)
 
     if (userCommitments.length > 0) {
