@@ -77,9 +77,9 @@ const stats = {
       <div class="container-custom py-8">
         <div class="bg-surface-primary rounded-xl shadow-lg overflow-hidden border border-gray-700">
           <!-- Tab buttons -->
-          <div class="flex border-b border-gray-700 bg-gray-800">
+          <div class="flex border-b border-gray-700 bg-gray-800 overflow-x-auto scrollable-tabs">
             <button
-              class="tab-btn active flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-gray-700"
+              class="tab-btn active flex-1 py-4 px-6 font-bold text-center transition-all duration-300 hover:bg-gray-700 whitespace-nowrap"
               data-tab="traditional"
             >
               <div class="flex items-center justify-center gap-2">
@@ -257,5 +257,24 @@ const stats = {
 
   .tab-btn:not(.active):hover {
     color: #d1d5db; /* gray-300 on hover */
+  }
+
+  /* Scrollable tabs on mobile */
+  .scrollable-tabs {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  .scrollable-tabs::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  /* Ensure tabs don't shrink on mobile */
+  @media (max-width: 768px) {
+    .tab-btn {
+      flex-shrink: 0;
+      min-width: max-content;
+    }
   }
 </style>
