@@ -535,7 +535,7 @@
     },
     {
       "id": "trad-049",
-      "name": "Suport magnetic pentru cutite",
+      "name": "Suport magnetic, pentru cutite, marmurat, gri antracit",
       "description": "Magnetic knife holder, marbled grey anthracite",
       "estimatedPrice": 5929,
       "category": "Kitchen",
@@ -544,6 +544,83 @@
       "isCommitted": false,
       "imageUrl": null,
       "notes": "Unul saul altul, dar nu amândouă"
+    },
+    {
+      "id": "trad-050",
+      "name": "WoodWick Black Cherry smol",
+      "description": "Small scented candle",
+      "estimatedPrice": 7990,
+      "category": "Home Fragrance",
+      "priority": "nice-to-have",
+      "wishlistType": "traditional",
+      "isCommitted": false,
+      "imageUrl": null
+    },
+    {
+      "id": "trad-051",
+      "name": "WoodWick Sand & Driftwood",
+      "description": "Scented candle",
+      "estimatedPrice": 11600,
+      "category": "Home Fragrance",
+      "priority": "nice-to-have",
+      "wishlistType": "traditional",
+      "isCommitted": false,
+      "imageUrl": null
+    },
+    {
+      "id": "trad-052",
+      "name": "WoodWick Fireside",
+      "description": "Scented candle",
+      "estimatedPrice": 10500,
+      "category": "Home Fragrance",
+      "priority": "nice-to-have",
+      "wishlistType": "traditional",
+      "isCommitted": false,
+      "imageUrl": null
+    },
+    {
+      "id": "trad-053",
+      "name": "WoodWick Rosewood",
+      "description": "Scented candle",
+      "estimatedPrice": 11900,
+      "category": "Home Fragrance",
+      "priority": "nice-to-have",
+      "wishlistType": "traditional",
+      "isCommitted": false,
+      "imageUrl": null
+    },
+    {
+      "id": "trad-054",
+      "name": "WoodWick Trilogy Evening Luxe",
+      "description": "Three-layer scented candle",
+      "estimatedPrice": 11600,
+      "category": "Home Fragrance",
+      "priority": "nice-to-have",
+      "wishlistType": "traditional",
+      "isCommitted": false,
+      "imageUrl": null
+    },
+    {
+      "id": "trad-055",
+      "name": "WoodWick Seaside Mimosa",
+      "description": "Scented candle",
+      "estimatedPrice": 11600,
+      "category": "Home Fragrance",
+      "priority": "nice-to-have",
+      "wishlistType": "traditional",
+      "isCommitted": false,
+      "imageUrl": null
+    },
+    {
+      "id": "trad-056",
+      "name": "WoodWick Calming Retreat",
+      "description": "Scented candle",
+      "estimatedPrice": 11600,
+      "category": "Home Fragrance",
+      "priority": "nice-to-have",
+      "wishlistType": "traditional",
+      "isCommitted": false,
+      "imageUrl": null
     }
   ],
   "receiptWishlist": [
