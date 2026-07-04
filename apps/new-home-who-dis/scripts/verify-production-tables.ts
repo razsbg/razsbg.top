@@ -58,12 +58,13 @@ async function checkAndCreateTables() {
         try {
           await sql.unsafe(statement)
           console.log(`  ✓ Statement executed`)
-        } catch (error: any) {
+        } catch (error) {
           // Ignore "already exists" errors
-          if (error.code === '42P07') {
+          const pgError = error as { code?: string; message?: string }
+          if (pgError.code === '42P07') {
             console.log(`  ⚠️  Table/constraint already exists (skipping)`)
           } else {
-            console.error(`  ❌ Error: ${error.message}`)
+            console.error(`  ❌ Error: ${pgError.message}`)
             throw error
           }
         }

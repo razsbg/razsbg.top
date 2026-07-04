@@ -118,14 +118,14 @@ async function seedProductionDatabase() {
     try {
       giftDataRaw = readFileSync(giftDataPath, "utf-8")
     } catch (error) {
-      throw new Error(`Failed to read gift data file: ${error}`)
+      throw new Error(`Failed to read gift data file: ${error}`, { cause: error })
     }
 
     let giftData: GiftDataStructure
     try {
       giftData = JSON.parse(giftDataRaw)
     } catch (error) {
-      throw new Error(`Failed to parse gift data JSON: ${error}`)
+      throw new Error(`Failed to parse gift data JSON: ${error}`, { cause: error })
     }
 
     // Validate JSON structure

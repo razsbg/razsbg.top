@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro"
 import { db } from "../../db/index.js"
 import { users, commitments } from "../../db/schema.js"
-import { eq, sql } from "drizzle-orm"
+import { sql } from "drizzle-orm"
 import { getSessionIdFromCookie } from "../../lib/session.js"
 
 /**
