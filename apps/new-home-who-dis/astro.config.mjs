@@ -4,6 +4,9 @@ import solid from "@astrojs/solid-js"
 import node from "@astrojs/node"
 
 export default defineConfig({
+  // Astro 7 strips whitespace between inline elements by JSX rules; these
+  // text-heavy pages rely on HTML whitespace semantics, so keep the old mode
+  compressHTML: true,
   integrations: [solid()],
   adapter: node({ mode: "standalone" }),
   site:
