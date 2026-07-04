@@ -78,7 +78,7 @@ export interface WebSocketEvent {
     | "leaderboard_updated"
     | "gift_claimed"
     | "user_updated"
-  data: any
+  data: unknown
   timestamp: Date
 }
 

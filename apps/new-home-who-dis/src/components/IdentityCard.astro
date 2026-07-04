@@ -1,5 +1,4 @@
 ---
-// @ts-nocheck
 import { db } from "../db/index.js"
 import { users, commitments } from "../db/schema.js"
 import { sql } from "drizzle-orm"
@@ -11,7 +10,6 @@ let user = null
 let hasCommitments = false
 
 if (sessionId) {
-  // @ts-ignore - Drizzle type mismatch between query builder and sql template
   const foundUsers = await db
     .select()
     .from(users)
@@ -37,7 +35,6 @@ if (sessionId) {
     hasCommitments = userCommitmentsCheck.length > 0
     
     // Update last active (fire and forget, don't block rendering)
-    // @ts-ignore - Drizzle type mismatch
     db.update(users)
       .set({ lastActive: new Date() })
       .where(sql`${users.id} = ${foundUser.id}`)

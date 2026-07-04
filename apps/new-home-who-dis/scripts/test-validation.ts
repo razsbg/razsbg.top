@@ -44,7 +44,7 @@ function assertThrows(fn: () => void, expectedError: typeof ValidationError) {
     throw new Error('Expected function to throw')
   } catch (error) {
     if (!(error instanceof expectedError)) {
-      throw new Error(`Expected ${expectedError.name}, got ${error}`)
+      throw new Error(`Expected ${expectedError.name}, got ${error}`, { cause: error })
     }
   }
 }

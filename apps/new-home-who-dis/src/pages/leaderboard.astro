@@ -1,5 +1,4 @@
 ---
-// @ts-nocheck
 import "../styles/global.css"
 import Header from "../components/Header.astro"
 import { EmojiIcon } from "@repo/ui"
@@ -39,7 +38,7 @@ const leaderboardData = await db
 
 // Get user details
 const userIds = leaderboardData.map((entry) => entry.userId)
-let userDetails = []
+let userDetails: { id: string; pseudonym: string }[] = []
 if (userIds.length > 0) {
   userDetails = await db
     .select({

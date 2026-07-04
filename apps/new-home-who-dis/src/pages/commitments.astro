@@ -1,5 +1,4 @@
 ---
-// @ts-nocheck
 import "../styles/global.css"
 import Header from "../components/Header.astro"
 import { EmojiIcon } from "@repo/ui"
@@ -11,9 +10,21 @@ import { getSessionIdFromCookie } from "../lib/session.js"
 // Server-side: Get user's commitments
 const sessionId = getSessionIdFromCookie(Astro.request)
 let user = null
-let userCommitments = []
+let userCommitments: {
+  commitmentId: string
+  commitmentAmount: number
+  commitmentStatus: string
+  committedAt: Date
+  giftId: string
+  giftName: string
+  giftDescription: string | null
+  giftPrice: number
+  giftCategory: string
+  giftPriority: string
+  giftWishlistType: string
+  giftImageUrl: string | null
+}[] = []
 let totalAmount = 0
-let grouped = { traditional: [], receipt: [], bandcamp: [] }
 
 if (sessionId) {
   const userResult = await db
@@ -46,12 +57,6 @@ if (sessionId) {
       .where(sql`${commitments.userId} = ${user.id} AND ${commitments.status} = 'active'`)
 
     totalAmount = userCommitments.reduce((sum, c) => sum + c.commitmentAmount, 0)
-
-    grouped = {
-      traditional: userCommitments.filter(c => c.giftWishlistType === "traditional"),
-      receipt: userCommitments.filter(c => c.giftWishlistType === "receipt"),
-      bandcamp: userCommitments.filter(c => c.giftWishlistType === "bandcamp"),
-    }
   }
 }
 
