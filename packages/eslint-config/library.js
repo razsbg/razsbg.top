@@ -1,9 +1,8 @@
-const js = require("@eslint/js")
-const globals = require("globals")
-// The CJS build wraps the config array in a `default` property
-const turboConfig = require("eslint-config-turbo/flat").default
-const prettierConfig = require("eslint-config-prettier")
-const onlyWarn = require("eslint-plugin-only-warn")
+import js from "@eslint/js"
+import globals from "globals"
+import turboConfig from "eslint-config-turbo/flat"
+import prettierConfig from "eslint-config-prettier"
+import onlyWarn from "eslint-plugin-only-warn"
 
 /**
  * Shared flat config: eslint recommended + turbo env-var checks, with
@@ -11,7 +10,7 @@ const onlyWarn = require("eslint-plugin-only-warn")
  *
  * @type {import("eslint").Linter.Config[]}
  */
-module.exports = [
+export default [
   {
     ignores: ["**/dist/**", "**/.astro/**", "**/node_modules/**"],
   },
