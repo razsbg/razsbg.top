@@ -2,6 +2,27 @@
 
 A satirical gift registry web application for a housewarming party in Iași, Romania (November 8, 2025).
 
+> **Status**: the party happened, the Railway deployment is gone (July 2026).
+> This app is kept runnable locally for posterity — see below to relive it.
+
+## Running the Party Archive Locally
+
+The final production database was exported to `data/production-export.json`
+before the Railway project was destroyed (60 guests, 119 gifts,
+23 commitments — sanitized for the public repo). To run the app exactly as
+the party ended:
+
+```bash
+pnpm start-db:local          # start the docker postgres
+pnpm db:migrate              # apply schema migrations
+pnpm db:seed:from-export     # restore the production export
+pnpm build && pnpm start     # serve on http://localhost:4321
+```
+
+Requires Docker and a `.env` with the local database URL (see
+`.env.example`). Stop the database with `pnpm stop-db:local` when done —
+the data persists in the docker volume.
+
 ## Quick Start
 
 1. **Install dependencies:**
@@ -53,11 +74,11 @@ This project is designed for hands-on development with factory.ai CLI + Zed edit
 
 ## Tech Stack
 
-- **Framework**: Astro 5 with TypeScript
+- **Framework**: Astro 7 with TypeScript
 - **Styling**: Tailwind CSS with custom tier colors
-- **Database**: Railway PostgreSQL with Drizzle ORM
+- **Database**: PostgreSQL (local docker) with Drizzle ORM
 - **Real-time**: Server-Sent Events (SSE)
-- **Deployment**: Railway (razsbg.top subdomain)
+- **Deployment**: retired — formerly Railway at party.razsbg.top
 
 ## Payment Integration
 

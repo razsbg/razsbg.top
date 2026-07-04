@@ -16,6 +16,7 @@
     "db:reset:production": "./scripts/db-reset-production.sh",
     "db:reset:production:dry-run": "./scripts/db-reset-production.sh --dry-run",
     "db:seed:local": "tsx scripts/seed-local.ts",
+    "db:seed:from-export": "tsx scripts/seed-from-export.ts",
     "db:seed:production": "tsx scripts/seed-production.ts",
     "test:validation": "tsx scripts/test-validation.ts",
     "lint": "eslint .",
