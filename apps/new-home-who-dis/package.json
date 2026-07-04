@@ -25,26 +25,26 @@
     "stop-db:local": "docker-compose down"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/node": "^8.3.4",
-    "@astrojs/solid-js": "^5.1.2",
-    "@astrojs/tailwind": "^5.1.2",
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/node": "^11.0.2",
+    "@astrojs/solid-js": "^7.0.1",
     "@repo/ui": "workspace:*",
-    "astro": "^4.16.12",
-    "drizzle-kit": "^0.28.1",
-    "drizzle-orm": "^0.36.3",
-    "nanostores": "^0.11.3",
-    "postgres": "^3.4.7",
-    "solid-js": "^1.9.10",
-    "tailwindcss": "^3.4.14",
-    "typescript": "^5.6.3"
+    "@tailwindcss/vite": "^4.3.2",
+    "astro": "^7.0.6",
+    "drizzle-kit": "^0.31.10",
+    "drizzle-orm": "^0.45.2",
+    "nanostores": "^1.4.0",
+    "postgres": "^3.4.9",
+    "solid-js": "^1.9.14",
+    "tailwindcss": "^4.3.2",
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "@types/node": "^22.8.6",
-    "@typescript-eslint/eslint-plugin": "^8.11.0",
-    "@typescript-eslint/parser": "^8.11.0",
-    "eslint": "^9.13.0",
-    "eslint-plugin-astro": "^1.2.4",
-    "tsx": "^4.20.6"
+    "@types/node": "^26.1.0",
+    "@typescript-eslint/eslint-plugin": "^8.62.1",
+    "@typescript-eslint/parser": "^8.62.1",
+    "eslint": "^10.6.0",
+    "eslint-plugin-astro": "^2.1.1",
+    "tsx": "^4.23.0"
   }
 }

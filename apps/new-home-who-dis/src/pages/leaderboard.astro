@@ -1,5 +1,6 @@
 ---
 // @ts-nocheck
+import "../styles/global.css"
 import Header from "../components/Header.astro"
 import { EmojiIcon } from "@repo/ui"
 import { db } from "../db/index.js"
@@ -116,7 +117,6 @@ const leaderboard = leaderboardData.map((entry, index) => {
       <!-- Content -->
       <div class="container-custom py-8">
         {leaderboard.length === 0 ? (
-          <!-- Empty state -->
           <div class="bg-surface-primary rounded-xl p-12 text-center border border-gray-700">
             <div class="text-6xl mb-4">🎁</div>
             <h2 class="font-display text-2xl font-bold mb-4 text-text-primary">
@@ -133,9 +133,8 @@ const leaderboard = leaderboardData.map((entry, index) => {
             </a>
           </div>
         ) : (
-          <!-- Leaderboard table -->
           <div class="bg-surface-primary rounded-xl shadow-lg overflow-hidden border border-gray-700">
-            <!-- Tier Legend -->
+            {/* Tier Legend */}
             <div class="bg-gray-800 px-6 py-4 border-b border-gray-700">
               <div class="flex flex-wrap gap-4 items-center justify-center text-sm">
                 <span class="text-text-secondary">Tiers:</span>
@@ -146,7 +145,7 @@ const leaderboard = leaderboardData.map((entry, index) => {
               </div>
             </div>
 
-            <!-- Desktop table -->
+            {/* Desktop table */}
             <div class="hidden md:block overflow-x-auto">
               <table class="w-full">
                 <thead class="bg-gray-800 text-text-secondary text-sm">
@@ -202,7 +201,7 @@ const leaderboard = leaderboardData.map((entry, index) => {
               </table>
             </div>
 
-            <!-- Mobile cards -->
+            {/* Mobile cards */}
             <div class="md:hidden divide-y divide-gray-700">
               {leaderboard.map((entry) => (
                 <div class={`p-6 ${entry.isCurrentUser ? 'current-user-row' : ''}`}>

@@ -1,4 +1,5 @@
 ---
+import "../styles/global.css"
 import CountdownTimer from "../components/CountdownTimer.astro"
 import Logo from "../components/Logo.astro"
 import { EmojiIcon } from "@repo/ui"
@@ -502,6 +503,8 @@ if (!import.meta.env.PUBLIC_PARTY_DATE && import.meta.env.DEV) {
   </body>
 
   <style is:global>
+    @reference "../styles/global.css";
+
     :root {
       --brand-red: #ff6b6b;
       --brand-teal: #4ecdc4;

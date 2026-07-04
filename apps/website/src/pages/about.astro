@@ -1,6 +1,7 @@
 ---
 import { EmojiIcon } from "@repo/ui"
 
+import "../styles.css"
 import typography from "../styles/typography"
 ---
 
@@ -21,8 +22,6 @@ import typography from "../styles/typography"
     <title>razsbg.top - about</title>
 
     <style>
-      @import url("../styles.css");
-
       body {
         grid-template-rows: 1fr auto;
       }
@@ -49,7 +48,7 @@ import typography from "../styles/typography"
       <p class={`${typography["copyright"]}`}>
         <!-- copyright html code -->
         &#169;{" "}
-        {new Date().getFullYear().toString()}
+        {new Date().getFullYear().toString()}{" "}
         <span class="text-sm sm:text-base tracking-wide font-bold">razsbg</span>
       </p>
     </footer>

@@ -1,6 +1,7 @@
 ---
 import TopTenList from "../../components/top-ten-list.astro"
 
+import "../../styles.css"
 import typography from "../../styles/typography"
 
 import { lust } from "../../data/playlists.json"
@@ -23,8 +24,6 @@ import { lust } from "../../data/playlists.json"
     <title>razsbg.top - lust</title>
 
     <style>
-      @import url("../../styles.css");
-
       body {
         grid-template-rows: auto 1fr auto;
         position: relative;
@@ -116,9 +115,7 @@ import { lust } from "../../data/playlists.json"
           rel="noopener noreferer"
           class="text-teal-500 lg:text-inherit lg:hover:text-teal-500 underline"
           >Almaz Nourzhanov</a
-        >
-        on
-        <a
+        >{" "}on{" "}<a
           href="https://unsplash.com/photos/a-woman-sitting-in-a-chair-with-her-shadow-on-the-wall-u5kUeWINb_8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
           target="_blank"
           rel="noopener noreferer"
@@ -143,7 +140,7 @@ import { lust } from "../../data/playlists.json"
       <p class={`${typography["copyright"]} text-zinc-400`}>
         <!-- copyright html code -->
         &#169;{" "}
-        {new Date().getFullYear().toString()}
+        {new Date().getFullYear().toString()}{" "}
         <span class="text-sm sm:text-base tracking-wide font-bold">razsbg</span>
       </p>
     </footer>

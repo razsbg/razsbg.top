@@ -30,6 +30,10 @@ const { songs } = Astro.props
     color: hsl(168.39deg 83.78% 78.24%);
     font-size: 1.15em;
     font-weight: 500;
+    /* Tailwind 4 text-* utilities set unitless line-heights, which this
+       1.15em counter inherits and grows the row; cap it below the parent's
+       line box so each li stays one line-height tall */
+    line-height: 1;
   }
 
   @media only screen and (min-width: 1024px) {
