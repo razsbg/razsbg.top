@@ -1,34 +1,31 @@
-const { resolve } = require("node:path");
+const js = require("@eslint/js")
+const globals = require("globals")
+// The CJS build wraps the config array in a `default` property
+const turboConfig = require("eslint-config-turbo/flat").default
+const prettierConfig = require("eslint-config-prettier")
+const onlyWarn = require("eslint-plugin-only-warn")
 
-const project = resolve(process.cwd(), "tsconfig.json");
-
-/** @type {import("eslint").Linter.Config} */
-module.exports = {
-  extends: ["eslint:recommended", "prettier", "eslint-config-turbo"],
-  plugins: ["only-warn"],
-  globals: {
-    React: true,
-    JSX: true,
+/**
+ * Shared flat config: eslint recommended + turbo env-var checks, with
+ * prettier-conflicting rules off and everything demoted to warnings.
+ *
+ * @type {import("eslint").Linter.Config[]}
+ */
+module.exports = [
+  {
+    ignores: ["**/dist/**", "**/.astro/**", "**/node_modules/**"],
   },
-  env: {
-    node: true,
-  },
-  settings: {
-    "import/resolver": {
-      typescript: {
-        project,
+  js.configs.recommended,
+  ...turboConfig,
+  prettierConfig,
+  {
+    languageOptions: {
+      globals: {
+        ...globals.node,
       },
     },
-  },
-  ignorePatterns: [
-    // Ignore dotfiles
-    ".*.js",
-    "node_modules/",
-    "dist/",
-  ],
-  overrides: [
-    {
-      files: ["*.js?(x)", "*.ts?(x)"],
+    plugins: {
+      "only-warn": onlyWarn,
     },
-  ],
-};
+  },
+]

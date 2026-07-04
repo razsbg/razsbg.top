@@ -18,8 +18,8 @@
     "db:seed:local": "tsx scripts/seed-local.ts",
     "db:seed:production": "tsx scripts/seed-production.ts",
     "test:validation": "tsx scripts/test-validation.ts",
-    "lint": "eslint . --ext .js,.ts,.astro",
-    "lint:fix": "eslint . --ext .js,.ts,.astro --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "type-check": "astro check",
     "start-db:local": "docker-compose up -d",
     "stop-db:local": "docker-compose down"
@@ -40,11 +40,11 @@
     "typescript": "^6.0.3"
   },
   "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
     "@types/node": "^26.1.0",
-    "@typescript-eslint/eslint-plugin": "^8.62.1",
-    "@typescript-eslint/parser": "^8.62.1",
     "eslint": "^10.6.0",
     "eslint-plugin-astro": "^2.1.1",
-    "tsx": "^4.23.0"
+    "tsx": "^4.23.0",
+    "typescript-eslint": "^8.62.1"
   }
 }
