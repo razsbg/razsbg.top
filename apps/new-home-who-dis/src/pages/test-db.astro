@@ -1,6 +1,7 @@
 ---
 // Test page to verify database connection
 // Protected with HTTP Basic Auth
+import "../styles/global.css"
 import { db } from "../db/index.js"
 import { gifts } from "../db/schema.js"
 import { checkBasicAuth, createUnauthorizedResponse } from "../lib/auth.js"

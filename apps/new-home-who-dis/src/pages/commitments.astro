@@ -1,5 +1,6 @@
 ---
 // @ts-nocheck
+import "../styles/global.css"
 import Header from "../components/Header.astro"
 import { EmojiIcon } from "@repo/ui"
 import { db } from "../db/index.js"
@@ -113,7 +114,6 @@ const totalInLei = (totalAmount / 100).toFixed(2)
       <!-- Content -->
       <div class="container-custom py-8">
         {!user ? (
-          <!-- No identity -->
           <div class="bg-surface-primary rounded-xl p-12 text-center border border-gray-700">
             <div class="text-6xl mb-4">🎭</div>
             <h2 class="font-display text-2xl font-bold mb-4 text-text-primary">
@@ -130,7 +130,6 @@ const totalInLei = (totalAmount / 100).toFixed(2)
             </a>
           </div>
         ) : userCommitments.length === 0 ? (
-          <!-- No commitments -->
           <div class="bg-surface-primary rounded-xl p-12 text-center border border-gray-700">
             <div class="text-6xl mb-4">🎁</div>
             <h2 class="font-display text-2xl font-bold mb-4 text-text-primary">
@@ -147,7 +146,6 @@ const totalInLei = (totalAmount / 100).toFixed(2)
             </a>
           </div>
         ) : (
-          <!-- Commitments list -->
           <div class="space-y-6">
             {userCommitments.map(commitment => {
               const priceInLei = (commitment.commitmentAmount / 100).toFixed(2)
@@ -156,7 +154,7 @@ const totalInLei = (totalAmount / 100).toFixed(2)
               return (
                 <div class="bg-surface-primary rounded-xl p-6 border border-gray-700 hover:border-brand-primary transition-all duration-300">
                   <div class="flex gap-6">
-                    <!-- Gift image/icon -->
+                    {/* Gift image/icon */}
                     <div class="w-24 h-24 flex-shrink-0 bg-gray-800 rounded-lg flex items-center justify-center">
                       {commitment.giftImageUrl ? (
                         <img
@@ -173,7 +171,7 @@ const totalInLei = (totalAmount / 100).toFixed(2)
                       )}
                     </div>
                     
-                    <!-- Gift details -->
+                    {/* Gift details */}
                     <div class="flex-1">
                       <div class="flex items-start justify-between mb-2">
                         <h3 class="font-display text-xl font-bold text-text-primary">
@@ -202,7 +200,7 @@ const totalInLei = (totalAmount / 100).toFixed(2)
                         </span>
                       </div>
                       
-                      <!-- Cancel button -->
+                      {/* Cancel button */}
                       <button
                         class="cancel-btn mt-4"
                         data-gift-id={commitment.giftId}

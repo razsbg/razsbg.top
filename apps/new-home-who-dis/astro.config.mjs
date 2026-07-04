@@ -1,10 +1,10 @@
 import { defineConfig } from "astro/config"
-import tailwind from "@astrojs/tailwind"
+import tailwindcss from "@tailwindcss/vite"
 import solid from "@astrojs/solid-js"
 import node from "@astrojs/node"
 
 export default defineConfig({
-  integrations: [tailwind(), solid()],
+  integrations: [solid()],
   adapter: node({ mode: "standalone" }),
   site:
     process.env.NODE_ENV === "production"
@@ -14,5 +14,8 @@ export default defineConfig({
   server: {
     port: parseInt(process.env.PORT || "4321"),
     host: "0.0.0.0",
+  },
+  vite: {
+    plugins: [tailwindcss()],
   },
 })
