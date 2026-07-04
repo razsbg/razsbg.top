@@ -49,7 +49,7 @@ const wishlistIcons = {
 ---
 
 <div
-  class="gift-card rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200 hover:border-brand-primary {gift.isCommitted ? 'opacity-60' : ''}"
+  class={`gift-card rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200 hover:border-brand-primary ${gift.isCommitted ? "opacity-60" : ""}`}
 >
   <!-- Image or placeholder -->
   <div class="relative h-48 flex items-center justify-center">
