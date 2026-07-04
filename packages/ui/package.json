@@ -7,11 +7,15 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "lint": "eslint ."
+  },
   "peerDependencies": {
     "astro": ">=7.0.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "eslint": "^10.6.0"
   }
 }
